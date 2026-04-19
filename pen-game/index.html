@@ -11,14 +11,14 @@
   --gold:#B8892A;--gold-light:#D4A84B;--gold-dim:rgba(184,137,42,0.1);--gold-border:rgba(184,137,42,0.25);
   --cream:#FDFAF5;--cream2:#F7F2E8;--cream3:#EFE8D8;
   --ink:#1A1612;--ink2:#3D3530;--ink3:#6B5F55;--ink4:#9A8E84;
-  --paper:#FFFFFF;
-  --red:#C0392B;
+  --paper:#FFFFFF;--red:#C0392B;
   --shadow:rgba(90,60,30,0.08);--shadow2:rgba(90,60,30,0.15);
+  --navy:#2C3E6B;--navy-dark:#1a2847;
 }
 html,body{height:100%;-webkit-font-smoothing:antialiased}
 body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden}
 body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 100% 50% at 50% 0%,rgba(184,137,42,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 100% 100%,rgba(184,137,42,0.04) 0%,transparent 60%);pointer-events:none;z-index:0}
-#app{position:relative;z-index:1;max-width:680px;margin:0 auto;padding:2rem 1.25rem 5rem;display:flex;flex-direction:column;min-height:100vh}
+#app{position:relative;z-index:1;max-width:680px;margin:0 auto;padding:2rem 1.25rem 5rem}
 
 .site-header{text-align:center;margin-bottom:2rem}
 .header-eyebrow{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:5px;color:var(--gold);text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;justify-content:center;gap:10px}
@@ -27,26 +27,87 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .site-header h1 span{color:var(--gold)}
 .header-sub{font-size:14px;color:var(--ink3);margin-top:8px;font-weight:300;letter-spacing:0.3px}
 
-.buyer-card{background:var(--paper);border:0.5px solid var(--cream3);border-radius:20px;padding:1.25rem 1.5rem;margin-bottom:1.25rem;display:flex;gap:14px;align-items:center;box-shadow:0 2px 16px var(--shadow),0 0 0 0.5px var(--cream3)}
+/* ── INTRO ── */
+#intro-screen{display:flex;flex-direction:column;align-items:center}
+.intro-card{background:var(--paper);border:0.5px solid var(--cream3);border-radius:24px;padding:2rem;box-shadow:0 4px 30px var(--shadow2);width:100%}
+.pen-illustration{text-align:center;margin-bottom:1.75rem}
+.intro-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--ink);margin-bottom:6px;text-align:center}
+.intro-desc{font-size:14px;color:var(--ink3);line-height:1.7;text-align:center;margin-bottom:1.75rem}
+.steps{display:flex;flex-direction:column;gap:12px;margin-bottom:1.75rem}
+.step{display:flex;gap:14px;align-items:flex-start}
+.step-num{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--navy-dark));color:#fff;font-family:'DM Mono',monospace;font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-body .step-title{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:2px}
+.step-body .step-desc{font-size:13px;color:var(--ink3);line-height:1.5}
+.intro-divider{height:0.5px;background:var(--cream3);margin:0 0 1.5rem}
+.tips-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.75rem}
+.tip{background:var(--cream2);border:0.5px solid var(--cream3);border-radius:12px;padding:12px 14px}
+.tip-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:4px}
+.tip-text{font-size:12px;color:var(--ink3);line-height:1.5}
+.btn-primary{width:100%;background:linear-gradient(135deg,var(--navy),var(--navy-dark));color:#fff;border:none;border-radius:14px;padding:16px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:500;cursor:pointer;transition:all 0.2s;letter-spacing:0.3px}
+.btn-primary:hover{filter:brightness(1.15);transform:translateY(-1px)}
+.btn-primary:active{transform:translateY(0)}
+
+/* ── LEVEL SELECT ── */
+#level-screen{display:none;flex-direction:column;align-items:center}
+.level-grid{display:flex;flex-direction:column;gap:12px;width:100%;margin-bottom:1.5rem}
+
+.level-card{background:var(--paper);border:0.5px solid var(--cream3);border-radius:18px;padding:1.25rem 1.5rem;cursor:pointer;transition:all 0.2s;box-shadow:0 2px 10px var(--shadow);display:flex;align-items:center;gap:16px;position:relative;overflow:hidden}
+.level-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px var(--shadow2)}
+.level-card.locked{opacity:0.5;cursor:not-allowed}
+.level-card.locked:hover{transform:none;box-shadow:0 2px 10px var(--shadow)}
+
+.level-badge{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;font-family:'DM Mono',monospace;font-weight:700;font-size:14px;color:#fff}
+.level-badge.l1{background:linear-gradient(135deg,#4CAF50,#2E7D4F)}
+.level-badge.l2{background:linear-gradient(135deg,#2196F3,#1565C0)}
+.level-badge.l3{background:linear-gradient(135deg,var(--gold),var(--gold-light))}
+.level-badge.l4{background:linear-gradient(135deg,#FF5722,#BF360C)}
+.level-badge.l5{background:linear-gradient(135deg,#37474F,#1a1a1a)}
+
+.level-info{flex:1;min-width:0}
+.level-name{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--ink)}
+.level-role{font-size:11px;color:var(--ink4);font-family:'DM Mono',monospace;margin-top:2px}
+.level-desc{font-size:12px;color:var(--ink3);margin-top:5px;line-height:1.4}
+
+.level-right{text-align:right;flex-shrink:0}
+.difficulty-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--ink4);margin-bottom:4px}
+.difficulty-dots{display:flex;gap:3px;justify-content:flex-end}
+.diff-dot{width:8px;height:8px;border-radius:50%;background:var(--cream3)}
+.diff-dot.filled.l1{background:#4CAF50}
+.diff-dot.filled.l2{background:#2196F3}
+.diff-dot.filled.l3{background:var(--gold)}
+.diff-dot.filled.l4{background:#FF5722}
+.diff-dot.filled.l5{background:#37474F}
+
+.best-score{font-family:'DM Mono',monospace;font-size:10px;color:var(--ink4);margin-top:6px}
+.best-score span{color:var(--gold);font-weight:500}
+
+.lock-icon{position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:16px;opacity:0.4}
+
+.back-link{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink4);cursor:pointer;text-align:center;letter-spacing:1px;text-transform:uppercase;padding:8px;transition:color 0.2s}
+.back-link:hover{color:var(--gold)}
+
+/* ── GAME SCREEN ── */
+#game-screen{display:none}
+.buyer-card{background:var(--paper);border:0.5px solid var(--cream3);border-radius:20px;padding:1.25rem 1.5rem;margin-bottom:1.25rem;display:flex;gap:14px;align-items:center;box-shadow:0 2px 16px var(--shadow)}
 .buyer-avatar-wrap{position:relative;flex-shrink:0}
-.buyer-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--cream2),var(--cream3));border:1.5px solid var(--gold-border);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--gold)}
+.buyer-avatar{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#fff}
 .speaking-ring{position:absolute;inset:-4px;border-radius:50%;border:2px solid var(--gold);opacity:0;transition:opacity 0.3s}
 .speaking-ring.active{opacity:1;animation:speakPulse 1.2s ease-in-out infinite}
 @keyframes speakPulse{0%,100%{transform:scale(1);opacity:0.7}50%{transform:scale(1.07);opacity:0.2}}
 .buyer-info{flex:1;min-width:0}
 .buyer-name{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--ink)}
-.buyer-role{font-size:11px;color:var(--ink4);font-family:'DM Mono',monospace;margin-top:2px;letter-spacing:0.2px}
-.buyer-mood-tag{display:inline-block;font-size:10px;font-family:'DM Mono',monospace;letter-spacing:1px;color:var(--gold);background:var(--gold-dim);border:0.5px solid var(--gold-border);padding:3px 10px;border-radius:20px;margin-top:7px;text-transform:uppercase}
+.buyer-role{font-size:11px;color:var(--ink4);font-family:'DM Mono',monospace;margin-top:2px}
+.buyer-mood-tag{display:inline-block;font-size:10px;font-family:'DM Mono',monospace;letter-spacing:1px;padding:3px 10px;border-radius:20px;margin-top:7px;text-transform:uppercase}
 .round-pill{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--gold);background:var(--gold-dim);border:0.5px solid var(--gold-border);padding:5px 12px;border-radius:20px;white-space:nowrap;flex-shrink:0}
 
-.chat-window{flex:1;display:flex;flex-direction:column;gap:14px;margin-bottom:1.25rem}
+.chat-window{display:flex;flex-direction:column;gap:14px;margin-bottom:1.25rem}
 .bubble{max-width:84%;animation:riseIn 0.4s cubic-bezier(0.22,1,0.36,1)}
 @keyframes riseIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .bubble.buyer{align-self:flex-start}
 .bubble.player{align-self:flex-end}
-.bubble-inner{padding:13px 16px;border-radius:18px;font-size:14px;line-height:1.8;position:relative}
+.bubble-inner{padding:13px 16px;border-radius:18px;font-size:14px;line-height:1.8}
 .bubble.buyer .bubble-inner{background:var(--paper);border:0.5px solid var(--cream3);border-bottom-left-radius:5px;color:var(--ink);box-shadow:0 2px 10px var(--shadow)}
-.bubble.player .bubble-inner{background:linear-gradient(135deg,#2C3E6B,#1a2847);border:none;border-bottom-right-radius:5px;color:#fff;box-shadow:0 2px 12px rgba(44,62,107,0.25)}
+.bubble.player .bubble-inner{background:linear-gradient(135deg,var(--navy),var(--navy-dark));border:none;border-bottom-right-radius:5px;color:#fff;box-shadow:0 2px 12px rgba(44,62,107,0.25)}
 .bubble-meta{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;opacity:0.6}
 .bubble.buyer .bubble-meta{color:var(--gold)}
 .bubble.player .bubble-meta{color:rgba(255,255,255,0.6);text-align:right}
@@ -66,14 +127,14 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 
 .input-wrap{background:var(--paper);border:0.5px solid var(--cream3);border-radius:18px;padding:1rem 1.25rem;box-shadow:0 2px 16px var(--shadow)}
 .input-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-.input-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2.5px;color:var(--ink4);text-transform:uppercase}
+.input-label-sm{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2.5px;color:var(--ink4);text-transform:uppercase}
 .input-right{display:flex;align-items:center;gap:10px}
 .edit-tag{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--gold);background:var(--gold-dim);border:0.5px solid var(--gold-border);padding:2px 8px;border-radius:10px;opacity:0;transition:opacity 0.3s;text-transform:uppercase}
 .edit-tag.show{opacity:1}
 .tts-toggle{display:flex;align-items:center;gap:6px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--ink4);cursor:pointer;user-select:none;text-transform:uppercase}
-.toggle-track{width:26px;height:14px;background:var(--cream3);border:0.5px solid var(--cream3);border-radius:7px;position:relative;transition:background 0.2s;flex-shrink:0}
+.toggle-track{width:26px;height:14px;background:var(--cream3);border-radius:7px;position:relative;transition:background 0.2s;flex-shrink:0}
 .toggle-thumb{position:absolute;top:2px;left:2px;width:8px;height:8px;border-radius:50%;background:var(--ink4);transition:all 0.2s}
-.tts-toggle.on .toggle-track{background:var(--gold-dim);border-color:var(--gold-border)}
+.tts-toggle.on .toggle-track{background:var(--gold-dim);border:0.5px solid var(--gold-border)}
 .tts-toggle.on .toggle-thumb{left:14px;background:var(--gold)}
 textarea#pitch-input{width:100%;background:var(--cream);border:0.5px solid var(--cream3);border-radius:12px;padding:11px 13px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:14px;resize:none;min-height:72px;line-height:1.7;outline:none;transition:border-color 0.25s,box-shadow 0.25s}
 textarea#pitch-input:focus{border-color:var(--gold-border);box-shadow:0 0 0 3px var(--gold-dim)}
@@ -86,14 +147,14 @@ textarea#pitch-input::placeholder{color:var(--ink4)}
 .btn-record.unavailable{opacity:0.3;cursor:not-allowed}
 .rec-dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex-shrink:0}
 .btn-record.recording .rec-dot{animation:blink 0.8s infinite}
-.btn-send{flex:1;background:linear-gradient(135deg,#2C3E6B,#1a2847);color:#fff;border:none;border-radius:50px;padding:10px 22px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.2s;letter-spacing:0.3px}
+.btn-send{flex:1;background:linear-gradient(135deg,var(--navy),var(--navy-dark));color:#fff;border:none;border-radius:50px;padding:10px 22px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.2s}
 .btn-send:hover:not(:disabled){filter:brightness(1.15);transform:translateY(-1px)}
-.btn-send:active:not(:disabled){transform:translateY(0)}
 .btn-send:disabled{opacity:0.3;cursor:not-allowed}
 .status-line{font-family:'DM Mono',monospace;font-size:10px;color:var(--ink4);text-align:center;min-height:14px;margin:6px 0 2px}
 .error-line{font-size:11px;color:var(--red);text-align:center;min-height:14px;font-family:'DM Mono',monospace}
-.cmd-hint{font-family:'DM Mono',monospace;font-size:9px;color:var(--ink4);text-align:center;margin-top:6px;letter-spacing:0.5px;opacity:0.6}
+.cmd-hint{font-family:'DM Mono',monospace;font-size:9px;color:var(--ink4);text-align:center;margin-top:6px;opacity:0.6}
 
+/* ── SCORE SCREEN ── */
 #score-screen{display:none}
 .score-card{background:var(--paper);border:0.5px solid var(--cream3);border-radius:24px;padding:2rem 2rem 1.75rem;box-shadow:0 4px 30px var(--shadow2);overflow:hidden;position:relative}
 .score-card::before{content:'';position:absolute;top:-80px;right:-80px;width:260px;height:260px;background:radial-gradient(circle,var(--gold-dim),transparent 70%);pointer-events:none}
@@ -105,6 +166,9 @@ textarea#pitch-input::placeholder{color:var(--ink4)}
 .score-number.poor{color:var(--red)}
 .score-denom{font-family:'DM Mono',monospace;font-size:10px;color:var(--ink4);letter-spacing:3px;margin-top:10px}
 .score-verdict{font-family:'Playfair Display',serif;font-style:italic;font-size:18px;color:var(--ink2);margin-top:14px;line-height:1.5;max-width:480px;margin-left:auto;margin-right:auto}
+.level-cleared{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:6px 16px;border-radius:20px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase}
+.level-cleared.win{background:rgba(76,175,80,0.12);color:#2E7D4F;border:0.5px solid rgba(76,175,80,0.3)}
+.level-cleared.try{background:var(--gold-dim);color:var(--gold);border:0.5px solid var(--gold-border)}
 .score-bars{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem}
 .sbi{background:var(--cream2);border:0.5px solid var(--cream3);border-radius:14px;padding:14px}
 .sbi-label{font-size:9px;color:var(--ink4);font-family:'DM Mono',monospace;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
@@ -115,39 +179,88 @@ textarea#pitch-input::placeholder{color:var(--ink4)}
 .verdict-box::before{content:'\201C';position:absolute;top:-4px;left:14px;font-family:'Playfair Display',serif;font-size:52px;color:var(--gold);opacity:0.15;line-height:1}
 .verdict-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:10px}
 .verdict-text{font-size:14px;color:var(--ink2);line-height:1.9}
-.btn-again{width:100%;background:linear-gradient(135deg,#2C3E6B,#1a2847);color:#fff;border:none;border-radius:14px;padding:15px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;cursor:pointer;transition:all 0.2s;letter-spacing:0.3px}
+.score-btns{display:flex;flex-direction:column;gap:10px}
+.btn-next-level{width:100%;background:linear-gradient(135deg,#2E7D4F,#1B5E20);color:#fff;border:none;border-radius:14px;padding:15px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;cursor:pointer;transition:all 0.2s;display:none}
+.btn-next-level:hover{filter:brightness(1.15);transform:translateY(-1px)}
+.btn-again{width:100%;background:linear-gradient(135deg,var(--navy),var(--navy-dark));color:#fff;border:none;border-radius:14px;padding:15px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;cursor:pointer;transition:all 0.2s}
 .btn-again:hover{filter:brightness(1.15);transform:translateY(-1px)}
+.btn-levels{width:100%;background:transparent;color:var(--ink3);border:0.5px solid var(--cream3);border-radius:14px;padding:12px;font-family:'DM Sans',sans-serif;font-size:14px;cursor:pointer;transition:all 0.2s}
+.btn-levels:hover{border-color:var(--gold-border);color:var(--gold)}
 </style>
 </head>
 <body>
 <div id="app">
 
+  <!-- ── INTRO ── -->
+  <div id="intro-screen">
+    <div class="site-header">
+      <div class="header-eyebrow">Wall Street</div>
+      <h1>Sell Me This <span>Pen</span></h1>
+      <div class="header-sub">The ultimate sales challenge</div>
+    </div>
+    <div class="intro-card">
+      <div class="pen-illustration">
+        <svg viewBox="0 0 200 60" width="180" height="54" fill="none">
+          <rect x="4" y="18" width="140" height="24" rx="12" fill="#B8892A" opacity="0.9"/>
+          <rect x="6" y="20" width="5" height="20" rx="2.5" fill="#8B6914"/>
+          <rect x="8" y="22" width="1.5" height="16" rx="0.75" fill="#E8C96A" opacity="0.5"/>
+          <rect x="12" y="20" width="128" height="4" rx="2" fill="#D4A84B" opacity="0.3"/>
+          <polygon points="144,18 172,30 144,42" fill="#8B6914"/>
+          <line x1="172" y1="30" x2="188" y2="30" stroke="#B8892A" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="intro-title">How it works</div>
+      <div class="intro-desc">Face off against 5 Wall Street executives, each tougher than the last. 3 rounds each. Pitch, handle objections, and close the deal.</div>
+      <div class="steps">
+        <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Choose your level</div><div class="step-desc">Start easy and work your way up to the boardroom's toughest buyers.</div></div></div>
+        <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Speak or type your pitch</div><div class="step-desc">Hit Record and speak naturally, or type. You can edit before sending.</div></div></div>
+        <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Handle the pushback</div><div class="step-desc">The buyer reacts — stay confident, handle objections, and close.</div></div></div>
+        <div class="step"><div class="step-num">4</div><div class="step-body"><div class="step-title">Score as high as you can on each level</div><div class="step-desc">Hit 70 or above to unlock the next level and face a tougher buyer.</div></div></div>
+      </div>
+      <div class="intro-divider"></div>
+      <div class="tips-row">
+        <div class="tip"><div class="tip-label">Pro tip</div><div class="tip-text">Create the need first — don't describe the pen, make them feel they need it.</div></div>
+        <div class="tip"><div class="tip-label">Remember</div><div class="tip-text">Always close. Most people forget to actually ask for the sale.</div></div>
+      </div>
+      <button class="btn-primary" onclick="showLevels()">Choose Your Level &rarr;</button>
+    </div>
+  </div>
+
+  <!-- ── LEVEL SELECT ── -->
+  <div id="level-screen">
+    <div class="site-header">
+      <div class="header-eyebrow">Choose Level</div>
+      <h1>Your <span>Opponent</span></h1>
+      <div class="header-sub">Pick any level and start pitching</div>
+    </div>
+    <div class="level-grid" id="level-grid"></div>
+    <div class="back-link" onclick="showIntro()">&larr; Back to instructions</div>
+  </div>
+
+  <!-- ── GAME ── -->
   <div id="game-screen">
     <div class="site-header">
       <div class="header-eyebrow">Wall Street</div>
       <h1>Sell Me This <span>Pen</span></h1>
-      <div class="header-sub">Can you close the deal?</div>
+      <div class="header-sub" id="level-label">Level 1 &mdash; Warm Up</div>
     </div>
-
     <div class="buyer-card">
       <div class="buyer-avatar-wrap">
-        <div class="buyer-avatar" id="b-initials">GB</div>
+        <div class="buyer-avatar" id="b-avatar">JB</div>
         <div class="speaking-ring" id="speaking-ring"></div>
       </div>
       <div class="buyer-info">
-        <div class="buyer-name" id="b-name">Gordon Blake</div>
-        <div class="buyer-role" id="b-title">Managing Director · Stratton Capital</div>
-        <div class="buyer-mood-tag" id="b-mood">Skeptical &amp; Unimpressed</div>
+        <div class="buyer-name" id="b-name">James Butler</div>
+        <div class="buyer-role" id="b-title">Sales Manager · Butler & Co</div>
+        <div class="buyer-mood-tag" id="b-mood">Friendly but unconvinced</div>
       </div>
       <div class="round-pill" id="round-pill">Round 1 of 3</div>
     </div>
-
     <div class="chat-window" id="chat-window"></div>
     <div class="status-line" id="status-line"></div>
-
     <div class="input-wrap">
       <div class="input-header">
-        <span class="input-label">Your Pitch</span>
+        <span class="input-label-sm">Your Pitch</span>
         <div class="input-right">
           <label class="tts-toggle on" id="tts-toggle" onclick="toggleTTS()">
             <div class="toggle-track"><div class="toggle-thumb"></div></div>
@@ -158,10 +271,7 @@ textarea#pitch-input::placeholder{color:var(--ink4)}
       </div>
       <textarea id="pitch-input" placeholder="Speak or type your pitch..." oninput="onInput()" rows="3"></textarea>
       <div class="controls-row">
-        <button class="btn-record" id="record-btn" onclick="toggleRecording()">
-          <span class="rec-dot"></span>
-          <span id="rec-label">Record</span>
-        </button>
+        <button class="btn-record" id="record-btn" onclick="toggleRecording()"><span class="rec-dot"></span><span id="rec-label">Record</span></button>
         <button class="btn-send" id="send-btn" onclick="sendMessage()" disabled>Send &rarr;</button>
       </div>
     </div>
@@ -169,6 +279,7 @@ textarea#pitch-input::placeholder{color:var(--ink4)}
     <div class="error-line" id="error-line"></div>
   </div>
 
+  <!-- ── SCORE ── -->
   <div id="score-screen">
     <div class="site-header" style="margin-bottom:1.5rem">
       <div class="header-eyebrow">Final Result</div>
@@ -179,51 +290,178 @@ textarea#pitch-input::placeholder{color:var(--ink4)}
         <div class="score-number" id="score-number">72</div>
         <div class="score-denom">out of 100</div>
         <div class="score-verdict" id="score-verdict"></div>
+        <div class="level-cleared" id="level-cleared"></div>
       </div>
       <div class="score-bars">
         <div class="sbi"><div class="sbi-label">Hook</div><div class="sbi-track"><div class="sbi-fill" id="sf-hook"></div></div><div class="sbi-val" id="sv-hook">—</div></div>
         <div class="sbi"><div class="sbi-label">Persuasion</div><div class="sbi-track"><div class="sbi-fill" id="sf-persuasion"></div></div><div class="sbi-val" id="sv-persuasion">—</div></div>
-        <div class="sbi"><div class="sbi-label">Objection Handling</div><div class="sbi-track"><div class="sbi-fill" id="sf-objection"></div></div><div class="sbi-val" id="sv-persuasion">—</div></div>
+        <div class="sbi"><div class="sbi-label">Objection Handling</div><div class="sbi-track"><div class="sbi-fill" id="sf-objection"></div></div><div class="sbi-val" id="sv-objection">—</div></div>
         <div class="sbi"><div class="sbi-label">Close</div><div class="sbi-track"><div class="sbi-fill" id="sf-close"></div></div><div class="sbi-val" id="sv-close">—</div></div>
       </div>
       <div class="verdict-box">
         <div class="verdict-label" id="verdict-label">Verdict</div>
         <div class="verdict-text" id="verdict-text"></div>
       </div>
-      <button class="btn-again" onclick="resetGame()">Try Again &rarr;</button>
+      <div class="score-btns">
+        <button class="btn-next-level" id="btn-next-level" onclick="goNextLevel()">Next Level &rarr;</button>
+        <button class="btn-again" onclick="replayLevel()">Try Again</button>
+        <button class="btn-levels" onclick="showLevels()">Choose a Different Level</button>
+      </div>
     </div>
   </div>
 
 </div>
 <script>
-const buyers=[
-  {initials:'GB',name:'Gordon Blake',title:'Managing Director · Stratton Capital',mood:'Skeptical & Unimpressed',voice:{pitch:0.85,rate:0.92},opener:"I've got a meeting in two minutes. You want to sell me a pen? Fine. Go ahead — impress me. And make it quick."},
-  {initials:'VM',name:'Victoria Morse',title:'VP Acquisitions · Meridian Group',mood:'Cold & Dismissive',voice:{pitch:1.1,rate:0.88},opener:"I have seventeen pens on my desk and a calendar full of meetings. Tell me why I should care about yours."},
-  {initials:'ML',name:'Marcus Levin',title:'Hedge Fund Manager · Apex Capital',mood:'Impatient & Testing You',voice:{pitch:0.9,rate:1.05},opener:"My time costs more than your car. You've got one shot at this. Sell me the pen."},
-  {initials:'DC',name:'Diana Cole',title:'Partner · BlackStone Advisory',mood:'Analytical & Suspicious',voice:{pitch:1.05,rate:0.9},opener:"I don't buy things on impulse. If you want my money, you better have facts, not fluff. What've you got?"},
-  {initials:'RH',name:'Richard Holt',title:'CEO · Pinnacle Ventures',mood:'Arrogant & Combative',voice:{pitch:0.8,rate:0.95},opener:"I've sat through a thousand pitches. Most of them were terrible. Convince me yours won't be. Go."},
+const LEVELS=[
+  {
+    id:1, name:'James Butler', initials:'JB', title:'Sales Manager · Butler & Co',
+    mood:'Friendly but unconvinced', moodColor:'#2196F3', moodBg:'rgba(33,150,243,0.1)',
+    avatarBg:'linear-gradient(135deg,#4CAF50,#2E7D4F)',
+    label:'Level 1 — Warm Up', diffLabel:'Beginner', diff:1,
+    desc:'Friendly and open-minded. A good first pitch and he\'ll come around.',
+    voice:{pitch:1.0,rate:0.95},
+    unlocked:true,
+    personality:'You are James Butler, a friendly 38-year-old Sales Manager. You are genuinely open to hearing a good pitch. You ask reasonable questions and you are encouraging if someone makes a good point. You are the easiest person to sell to — you just need a clear reason to buy. You are not a pushover but you are receptive and warm.',
+    opener:"Hey, good to meet you. Look — I\'m always happy to hear a pitch. Tell me about this pen. What makes it worth my time?"
+  },
+  {
+    id:2, name:'Sandra Webb', initials:'SW', title:'Regional Director · Webb Consulting',
+    mood:'Busy & Mildly Skeptical', moodColor:'#1565C0', moodBg:'rgba(21,101,192,0.1)',
+    avatarBg:'linear-gradient(135deg,#2196F3,#1565C0)',
+    label:'Level 2 — Getting Serious', diffLabel:'Easy', diff:2,
+    desc:'Busy professional. She\'ll listen but needs a clear value proposition.',
+    voice:{pitch:1.05,rate:0.95},
+    unlocked:false,
+    personality:'You are Sandra Webb, a busy 44-year-old Regional Director. You have a lot on your plate and limited patience for vague pitches. You ask practical questions — what does this do for me, how much, why now? You are fair and will acknowledge a good point but you push back on anything that sounds like fluff. You are moderately tough.',
+    opener:"I\'ve got about five minutes between calls. You want to sell me a pen — fine, but get to the point. What\'s the value here?"
+  },
+  {
+    id:3, name:'Marcus Levin', initials:'ML', title:'Hedge Fund Manager · Apex Capital',
+    mood:'Impatient & Testing You', moodColor:'#B8892A', moodBg:'rgba(184,137,42,0.1)',
+    avatarBg:'linear-gradient(135deg,#B8892A,#D4A84B)',
+    label:'Level 3 — Wall Street', diffLabel:'Medium', diff:3,
+    desc:'Fast-thinking and impatient. Impress him quickly or lose him.',
+    voice:{pitch:0.9,rate:1.05},
+    unlocked:false,
+    personality:'You are Marcus Levin, a sharp 38-year-old hedge fund manager. You think fast and talk fast. You are impatient with vagueness and you challenge claims immediately. You are tough but you do respect someone who can keep up with you. If they say something sharp you might give a quick "okay, fair" before pushing further. You are genuinely hard to impress.',
+    opener:"My time costs more than your car. One shot. Sell me the pen. Go."
+  },
+  {
+    id:4, name:'Gordon Blake', initials:'GB', title:'Managing Director · Stratton Capital',
+    mood:'Skeptical & Unimpressed', moodColor:'#FF5722', moodBg:'rgba(255,87,34,0.1)',
+    avatarBg:'linear-gradient(135deg,#FF5722,#BF360C)',
+    label:'Level 4 — The Boardroom', diffLabel:'Hard', diff:4,
+    desc:'Wall Street veteran. He\'s heard every pitch. You\'ll need to be exceptional.',
+    voice:{pitch:0.85,rate:0.92},
+    unlocked:false,
+    personality:'You are Gordon Blake, a 52-year-old Managing Director with 25 years on Wall Street. You have heard every sales pitch imaginable. You are tough, direct, and hard to impress. You call out clichés immediately. You give nothing away easily. You might give the tiniest acknowledgement if someone says something genuinely original — but you immediately push harder. You are not cruel but you are formidable.',
+    opener:"I\'ve got a meeting in two minutes. You want to sell me a pen? Fine. Go ahead — and make it good. I\'ve heard them all."
+  },
+  {
+    id:5, name:'Victoria Cross', initials:'VC', title:'CEO · Cross Capital Group',
+    mood:'Ruthless & Demanding', moodColor:'#37474F', moodBg:'rgba(55,71,79,0.1)',
+    avatarBg:'linear-gradient(135deg,#37474F,#1a1a1a)',
+    label:'Level 5 — The Final Boss', diffLabel:'Expert', diff:5,
+    desc:'The CEO. Ruthless, brilliant, and nearly impossible to close. The ultimate challenge.',
+    voice:{pitch:1.1,rate:0.88},
+    unlocked:false,
+    personality:'You are Victoria Cross, CEO of Cross Capital Group. You are brilliant, ruthless, and have zero patience for anything less than exceptional. You have built a billion-dollar company from nothing and you can smell a weak pitch instantly. You immediately dissect every claim, challenge every assumption, and probe every weakness. You are not impressed by enthusiasm — only by substance. You will only concede a point if the argument is airtight. You are the hardest buyer there is.',
+    opener:"I run a billion-dollar firm. I don\'t use pens — I have assistants for that. So you have thirty seconds to give me one compelling reason why I should care. Start now."
+  }
 ];
 
 const MAX_ROUNDS=3;
-let buyer,history=[],round=0,waiting=false;
+let currentLevel=null,history=[],round=0,waiting=false;
 let isRecording=false,recognition=null,speechSupported=false;
 let ttsEnabled=true,ttsAvailable=false;
+let bestScores=JSON.parse(localStorage.getItem('bestScores')||'{}');
 
-function init(){
-  buyer=buyers[Math.floor(Math.random()*buyers.length)];
+function saveProgress(){
+  localStorage.setItem('bestScores',JSON.stringify(bestScores));
+}
+
+function isUnlocked(id){ return true; }
+
+function showIntro(){
+  hideAll();
+  document.getElementById('intro-screen').style.display='flex';
+  window.scrollTo(0,0);
+}
+
+function showLevels(){
+  hideAll();
+  document.getElementById('level-screen').style.display='flex';
+  renderLevels();
+  window.scrollTo(0,0);
+}
+
+function renderLevels(){
+  const grid=document.getElementById('level-grid');
+  grid.innerHTML='';
+  LEVELS.forEach(l=>{
+    const unlocked=isUnlocked(l.id);
+    const best=bestScores[l.id];
+    const dots=Array.from({length:5},(_,i)=>`<div class="diff-dot${i<l.diff?' filled l'+l.id:''}"></div>`).join('');
+    const card=document.createElement('div');
+    card.className='level-card';
+    card.innerHTML=`
+      <div class="level-badge l${l.id}">${l.id}</div>
+      <div class="level-info">
+        <div class="level-name">${l.name}</div>
+        <div class="level-role">${l.title}</div>
+        <div class="level-desc">${l.desc}</div>
+      </div>
+      <div class="level-right">
+        <div class="difficulty-label">${l.diffLabel}</div>
+        <div class="difficulty-dots">${dots}</div>
+        ${best?`<div class="best-score">Best: <span>${best}</span></div>`:''}
+      </div>`;
+    card.onclick=()=>startLevel(l.id);
+    grid.appendChild(card);
+  });
+}
+
+function startLevel(id){
+  currentLevel=LEVELS.find(l=>l.id===id);
+  hideAll();
+  document.getElementById('game-screen').style.display='block';
+  document.getElementById('level-label').textContent=currentLevel.label;
+  document.getElementById('b-avatar').textContent=currentLevel.initials;
+  document.getElementById('b-avatar').style.background=currentLevel.avatarBg;
+  document.getElementById('b-name').textContent=currentLevel.name;
+  document.getElementById('b-title').textContent=currentLevel.title;
+  document.getElementById('b-mood').textContent=currentLevel.mood;
+  document.getElementById('b-mood').style.background=currentLevel.moodBg;
+  document.getElementById('b-mood').style.color=currentLevel.moodColor;
+  document.getElementById('b-mood').style.border='0.5px solid '+currentLevel.moodColor+'44';
   history=[];round=0;waiting=false;
-  document.getElementById('b-initials').textContent=buyer.initials;
-  document.getElementById('b-name').textContent=buyer.name;
-  document.getElementById('b-title').textContent=buyer.title;
-  document.getElementById('b-mood').textContent=buyer.mood;
-  document.getElementById('chat-window').innerHTML='';
-  document.getElementById('pitch-input').value='';
+  clearInput();
   document.getElementById('error-line').textContent='';
   document.getElementById('status-line').textContent='';
-  document.getElementById('send-btn').disabled=true;
+  updateRound();
+  checkTTS();initSpeech();
+  window.scrollTo(0,0);
+  setTimeout(()=>addBuyerBubble(currentLevel.opener,true),500);
+}
+
+function replayLevel(){ startLevel(currentLevel.id); }
+
+function goNextLevel(){
+  const nextId=currentLevel.id+1;
+  if(nextId<=5) startLevel(nextId);
+  else showLevels();
+}
+
+function hideAll(){
+  ['intro-screen','level-screen','game-screen','score-screen'].forEach(id=>{
+    document.getElementById(id).style.display='none';
+  });
+}
+
+function clearInput(){
+  document.getElementById('pitch-input').value='';
   document.getElementById('edit-tag').classList.remove('show');
-  updateRound();checkTTS();initSpeech();
-  setTimeout(()=>addBuyerBubble(buyer.opener,true),500);
+  document.getElementById('send-btn').disabled=true;
 }
 
 function updateRound(){document.getElementById('round-pill').textContent='Round '+(round+1)+' of '+MAX_ROUNDS;}
@@ -242,7 +480,7 @@ function speak(text,onEnd){
   if(!ttsAvailable||!ttsEnabled)return;
   stopSpeaking();
   const utt=new SpeechSynthesisUtterance(text);
-  utt.pitch=buyer.voice.pitch;utt.rate=buyer.voice.rate;utt.volume=1;
+  utt.pitch=currentLevel.voice.pitch;utt.rate=currentLevel.voice.rate;utt.volume=1;
   const voices=window.speechSynthesis.getVoices();
   const preferred=['Daniel','Google UK English Male','Microsoft David','Alex','Karen','Moira'];
   let chosen=null;
@@ -263,7 +501,7 @@ function stopSpeaking(){
 function addBuyerBubble(text,autoSpeak){
   const w=document.getElementById('chat-window');
   const b=document.createElement('div');b.className='bubble buyer';
-  const fn=buyer.name.split(' ')[0];
+  const fn=currentLevel.name.split(' ')[0];
   b.innerHTML=`<div class="bubble-inner"><div class="bubble-meta">${fn}</div><div>${text}</div><button class="replay-btn" onclick="replayLine(this,'${esc(text)}')"><span class="replay-dot"></span>Replay</button></div>`;
   w.appendChild(b);w.scrollTop=w.scrollHeight;
   if(autoSpeak&&ttsEnabled)speak(text);
@@ -295,11 +533,10 @@ async function sendMessage(){
   waiting=true;
   document.getElementById('send-btn').disabled=true;
   document.getElementById('error-line').textContent='';
-  document.getElementById('edit-tag').classList.remove('show');
   stopSpeaking();if(isRecording)stopRecording();
   addPlayerBubble(text);
   history.push({role:'user',text});
-  document.getElementById('pitch-input').value='';
+  clearInput();
   round++;
   if(round>=MAX_ROUNDS){showThinking();await getFinalScore();}
   else{updateRound();showThinking();await getReply();}
@@ -308,13 +545,14 @@ async function sendMessage(){
 
 async function getReply(){
   const convo=history.map(h=>(h.role==='user'?'Salesperson: ':'Buyer: ')+h.text).join('\n');
-  const prompt=`You are ${buyer.name}, a ${buyer.mood.toLowerCase()} Wall Street executive being pitched a pen.
+  const prompt=`${currentLevel.personality}
+
+This is round ${round} of ${MAX_ROUNDS} of a pen sales conversation.
 
 Conversation so far:
 ${convo}
 
-Stay in character. You are tough, impatient, and hard to impress. React to exactly what they just said — if they were vague or used clichés, call it out. If they said something genuinely interesting, you might give the tiniest acknowledgement before pushing harder. Ask ONE sharp follow-up question or raise ONE specific objection. Keep it to 2-3 sentences. You are a real busy executive — not a cartoon villain but definitely not easy. Vary your reactions — sometimes skeptical, sometimes probing, occasionally briefly intrigued if they earned it.`;
-
+React naturally to exactly what they just said. Stay true to your personality and difficulty level. Ask ONE follow-up question or raise ONE objection. 2-3 sentences max.`;
   try{
     const res=await fetch('/api/score',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt,mode:'convo'})});
     const data=await res.json();
@@ -327,26 +565,20 @@ Stay in character. You are tough, impatient, and hard to impress. React to exact
 
 async function getFinalScore(){
   const convo=history.map(h=>(h.role==='user'?'Salesperson: ':'Buyer: ')+h.text).join('\n');
-  const prompt=`You are ${buyer.name}, a ${buyer.mood.toLowerCase()} Wall Street executive. Review this full pen sales conversation.
+  const prompt=`${currentLevel.personality}
+
+Review this full pen sales conversation and score the salesperson.
 
 Conversation:
 ${convo}
 
-Score the salesperson honestly (0-100 each):
-- hook: Did they grab your attention and create genuine curiosity early?
-- persuasion: Were their benefits specific and compelling for a busy executive?
-- objection: Did they handle your pushback confidently and naturally?
-- close: Did they create urgency and actually go for the sale?
+Score 0-100 each: hook, persuasion, objection, close. overall = average.
+verdict: One in-character sentence — did they earn the sale?
+feedback: 3-4 sentences of honest coaching referencing specific things they said or missed.
+finalreply: Your 2-sentence closing reaction ending the meeting.
 
-overall = average of 4.
-
-verdict: One punchy in-character sentence — did they earn the sale or not?
-feedback: 3-4 sentences of direct honest coaching. Reference specific things they said or missed. Be tough but fair — like a mentor who tells the truth.
-finalreply: Your closing 2-sentence reaction ending the meeting. Match the tone to how they did — earned respect if great, politely firm if not.
-
-Respond ONLY with valid JSON, no backticks:
+Respond ONLY valid JSON, no backticks:
 {"hook":N,"persuasion":N,"objection":N,"close":N,"overall":N,"verdict":"...","feedback":"...","finalreply":"..."}`;
-
   try{
     const res=await fetch('/api/score',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt,mode:'score'})});
     const data=await res.json();
@@ -362,29 +594,58 @@ Respond ONLY with valid JSON, no backticks:
 
 function showScore(r){
   stopSpeaking();
-  document.getElementById('game-screen').style.display='none';
+  const o=Math.round(r.overall);
+
+  // Save best score
+  if(!bestScores[currentLevel.id]||o>bestScores[currentLevel.id]){
+    bestScores[currentLevel.id]=o;
+  }
+
+
+  const passed=o>=70;
+  const nextId=currentLevel.id+1;
+
+
+  }
+  saveProgress();
+
+  hideAll();
   document.getElementById('score-screen').style.display='block';
   window.scrollTo(0,0);
-  const o=Math.round(r.overall);
+
   const el=document.getElementById('score-number');
   el.textContent=o;
   el.className='score-number '+(o>=80?'great':o>=65?'good':o>=45?'ok':'poor');
   document.getElementById('score-verdict').textContent=r.verdict;
-  document.getElementById('verdict-label').textContent=buyer.name.split(' ')[0]+"'s Verdict";
+  document.getElementById('verdict-label').textContent=currentLevel.name.split(' ')[0]+"'s Verdict";
   document.getElementById('verdict-text').textContent=r.feedback;
+
+  // Level cleared badge
+  const badge=document.getElementById('level-cleared');
+  if(passed&&nextId<=5){
+    badge.className='level-cleared win';
+    badge.textContent='Level cleared — Level '+nextId+' unlocked!';
+    badge.style.display='inline-flex';
+  } else if(passed&&currentLevel.id===5){
+    badge.className='level-cleared win';
+    badge.textContent='You conquered all 5 levels!';
+    badge.style.display='inline-flex';
+  } else {
+    badge.className='level-cleared try';
+    badge.textContent='Pick any level and start pitching';
+    badge.style.display='inline-flex';
+  }
+
+  // Next level button
+  const nextBtn=document.getElementById('btn-next-level');
+  if(passed&&nextId<=5){ nextBtn.style.display='block'; nextBtn.textContent='Play Level '+nextId+' →'; }
+  else nextBtn.style.display='none';
+
   ['hook','persuasion','objection','close'].forEach(k=>{
     const v=Math.round(r[k]);
     document.getElementById('sv-'+k).textContent=v;
     setTimeout(()=>{document.getElementById('sf-'+k).style.width=v+'%';},300);
   });
-}
-
-function resetGame(){
-  stopSpeaking();
-  document.getElementById('score-screen').style.display='none';
-  document.getElementById('game-screen').style.display='block';
-  ['hook','persuasion','objection','close'].forEach(k=>{document.getElementById('sf-'+k).style.width='0%';document.getElementById('sv-'+k).textContent='—';});
-  init();
 }
 
 function initSpeech(){
@@ -412,7 +673,8 @@ function stopRecording(){isRecording=false;try{recognition.stop();}catch(e){}doc
 document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key==='Enter'){e.preventDefault();if(!document.getElementById('send-btn').disabled)sendMessage();}});
 if('speechSynthesis' in window){window.speechSynthesis.onvoiceschanged=()=>{};window.speechSynthesis.getVoices();}
 
-init();
+// Start on intro
+showIntro();
 </script>
 </body>
 </html>
