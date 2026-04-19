@@ -17,18 +17,21 @@
 }
 html,body{height:100%;-webkit-font-smoothing:antialiased}
 body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden}
-body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 100% 50% at 50% 0%,rgba(184,137,42,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 100% 100%,rgba(184,137,42,0.04) 0%,transparent 60%);pointer-events:none;z-index:0}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 100% 50% at 50% 0%,rgba(184,137,42,0.06) 0%,transparent 60%);pointer-events:none;z-index:0}
 #app{position:relative;z-index:1;max-width:680px;margin:0 auto;padding:2rem 1.25rem 5rem}
+
+/* all screens hidden by default — JS shows the right one */
+#intro-screen,#level-screen,#game-screen,#score-screen{display:none}
 
 .site-header{text-align:center;margin-bottom:2rem}
 .header-eyebrow{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:5px;color:var(--gold);text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;justify-content:center;gap:10px}
 .header-eyebrow::before,.header-eyebrow::after{content:'';width:30px;height:0.5px;background:var(--gold);opacity:0.5}
 .site-header h1{font-family:'Playfair Display',serif;font-size:clamp(32px,6vw,50px);font-weight:900;color:var(--ink);letter-spacing:-1.5px;line-height:1}
 .site-header h1 span{color:var(--gold)}
-.header-sub{font-size:14px;color:var(--ink3);margin-top:8px;font-weight:300;letter-spacing:0.3px}
+.header-sub{font-size:14px;color:var(--ink3);margin-top:8px;font-weight:300}
 
-/* ── INTRO ── */
-#intro-screen{display:none;flex-direction:column;align-items:center}
+/* INTRO */
+#intro-screen{flex-direction:column;align-items:center}
 .intro-card{background:var(--paper);border:0.5px solid var(--cream3);border-radius:24px;padding:2rem;box-shadow:0 4px 30px var(--shadow2);width:100%}
 .pen-illustration{text-align:center;margin-bottom:1.75rem}
 .intro-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--ink);margin-bottom:6px;text-align:center}
@@ -36,58 +39,44 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .steps{display:flex;flex-direction:column;gap:12px;margin-bottom:1.75rem}
 .step{display:flex;gap:14px;align-items:flex-start}
 .step-num{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--navy-dark));color:#fff;font-family:'DM Mono',monospace;font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
-.step-body .step-title{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:2px}
-.step-body .step-desc{font-size:13px;color:var(--ink3);line-height:1.5}
+.step-title{font-size:14px;font-weight:500;color:var(--ink);margin-bottom:2px}
+.step-desc{font-size:13px;color:var(--ink3);line-height:1.5}
 .intro-divider{height:0.5px;background:var(--cream3);margin:0 0 1.5rem}
 .tips-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.75rem}
 .tip{background:var(--cream2);border:0.5px solid var(--cream3);border-radius:12px;padding:12px 14px}
 .tip-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--gold);text-transform:uppercase;margin-bottom:4px}
 .tip-text{font-size:12px;color:var(--ink3);line-height:1.5}
-.btn-primary{width:100%;background:linear-gradient(135deg,var(--navy),var(--navy-dark));color:#fff;border:none;border-radius:14px;padding:16px;font-family:'DM Sans',sans-serif;font-size:16px;font-weight:500;cursor:pointer;transition:all 0.2s;letter-spacing:0.3px}
-.btn-primary:hover{filter:brightness(1.15);transform:translateY(-1px)}
-.btn-primary:active{transform:translateY(0)}
 
-/* ── LEVEL SELECT ── */
-#level-screen{display:none;flex-direction:column;align-items:center}
+/* LEVEL SELECT */
+#level-screen{flex-direction:column;align-items:center}
 .level-grid{display:flex;flex-direction:column;gap:12px;width:100%;margin-bottom:1.5rem}
-
-.level-card{background:var(--paper);border:0.5px solid var(--cream3);border-radius:18px;padding:1.25rem 1.5rem;cursor:pointer;transition:all 0.2s;box-shadow:0 2px 10px var(--shadow);display:flex;align-items:center;gap:16px;position:relative;overflow:hidden}
+.level-card{background:var(--paper);border:0.5px solid var(--cream3);border-radius:18px;padding:1.25rem 1.5rem;cursor:pointer;transition:all 0.2s;box-shadow:0 2px 10px var(--shadow);display:flex;align-items:center;gap:16px}
 .level-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px var(--shadow2)}
-.level-card.locked{opacity:0.5;cursor:not-allowed}
-.level-card.locked:hover{transform:none;box-shadow:0 2px 10px var(--shadow)}
-
-.level-badge{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;font-family:'DM Mono',monospace;font-weight:700;font-size:14px;color:#fff}
-.level-badge.l1{background:linear-gradient(135deg,#4CAF50,#2E7D4F)}
-.level-badge.l2{background:linear-gradient(135deg,#2196F3,#1565C0)}
-.level-badge.l3{background:linear-gradient(135deg,var(--gold),var(--gold-light))}
-.level-badge.l4{background:linear-gradient(135deg,#FF5722,#BF360C)}
-.level-badge.l5{background:linear-gradient(135deg,#37474F,#1a1a1a)}
-
+.level-badge{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:20px;font-weight:900;color:#fff;flex-shrink:0}
+.l1 .level-badge{background:linear-gradient(135deg,#4CAF50,#2E7D4F)}
+.l2 .level-badge{background:linear-gradient(135deg,#2196F3,#1565C0)}
+.l3 .level-badge{background:linear-gradient(135deg,#B8892A,#D4A84B)}
+.l4 .level-badge{background:linear-gradient(135deg,#FF5722,#BF360C)}
+.l5 .level-badge{background:linear-gradient(135deg,#37474F,#1a1a1a)}
 .level-info{flex:1;min-width:0}
 .level-name{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--ink)}
 .level-role{font-size:11px;color:var(--ink4);font-family:'DM Mono',monospace;margin-top:2px}
 .level-desc{font-size:12px;color:var(--ink3);margin-top:5px;line-height:1.4}
-
 .level-right{text-align:right;flex-shrink:0}
-.difficulty-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--ink4);margin-bottom:4px}
-.difficulty-dots{display:flex;gap:3px;justify-content:flex-end}
+.diff-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--ink4);margin-bottom:4px}
+.diff-dots{display:flex;gap:3px;justify-content:flex-end}
 .diff-dot{width:8px;height:8px;border-radius:50%;background:var(--cream3)}
-.diff-dot.filled.l1{background:#4CAF50}
-.diff-dot.filled.l2{background:#2196F3}
-.diff-dot.filled.l3{background:var(--gold)}
-.diff-dot.filled.l4{background:#FF5722}
-.diff-dot.filled.l5{background:#37474F}
-
+.l1 .diff-dot.on{background:#4CAF50}
+.l2 .diff-dot.on{background:#2196F3}
+.l3 .diff-dot.on{background:#B8892A}
+.l4 .diff-dot.on{background:#FF5722}
+.l5 .diff-dot.on{background:#37474F}
 .best-score{font-family:'DM Mono',monospace;font-size:10px;color:var(--ink4);margin-top:6px}
 .best-score span{color:var(--gold);font-weight:500}
-
-.lock-icon{position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:16px;opacity:0.4}
-
 .back-link{font-family:'DM Mono',monospace;font-size:11px;color:var(--ink4);cursor:pointer;text-align:center;letter-spacing:1px;text-transform:uppercase;padding:8px;transition:color 0.2s}
 .back-link:hover{color:var(--gold)}
 
-/* ── GAME SCREEN ── */
-#game-screen{display:none}
+/* GAME */
 .buyer-card{background:var(--paper);border:0.5px solid var(--cream3);border-radius:20px;padding:1.25rem 1.5rem;margin-bottom:1.25rem;display:flex;gap:14px;align-items:center;box-shadow:0 2px 16px var(--shadow)}
 .buyer-avatar-wrap{position:relative;flex-shrink:0}
 .buyer-avatar{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#fff}
@@ -107,7 +96,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .bubble.player{align-self:flex-end}
 .bubble-inner{padding:13px 16px;border-radius:18px;font-size:14px;line-height:1.8}
 .bubble.buyer .bubble-inner{background:var(--paper);border:0.5px solid var(--cream3);border-bottom-left-radius:5px;color:var(--ink);box-shadow:0 2px 10px var(--shadow)}
-.bubble.player .bubble-inner{background:linear-gradient(135deg,var(--navy),var(--navy-dark));border:none;border-bottom-right-radius:5px;color:#fff;box-shadow:0 2px 12px rgba(44,62,107,0.25)}
+.bubble.player .bubble-inner{background:linear-gradient(135deg,var(--navy),var(--navy-dark));border-bottom-right-radius:5px;color:#fff;box-shadow:0 2px 12px rgba(44,62,107,0.25)}
 .bubble-meta{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;opacity:0.6}
 .bubble.buyer .bubble-meta{color:var(--gold)}
 .bubble.player .bubble-meta{color:rgba(255,255,255,0.6);text-align:right}
@@ -154,9 +143,8 @@ textarea#pitch-input::placeholder{color:var(--ink4)}
 .error-line{font-size:11px;color:var(--red);text-align:center;min-height:14px;font-family:'DM Mono',monospace}
 .cmd-hint{font-family:'DM Mono',monospace;font-size:9px;color:var(--ink4);text-align:center;margin-top:6px;opacity:0.6}
 
-/* ── SCORE SCREEN ── */
-#score-screen{display:none}
-.score-card{background:var(--paper);border:0.5px solid var(--cream3);border-radius:24px;padding:2rem 2rem 1.75rem;box-shadow:0 4px 30px var(--shadow2);overflow:hidden;position:relative}
+/* SCORE */
+.score-card{background:var(--paper);border:0.5px solid var(--cream3);border-radius:24px;padding:2rem;box-shadow:0 4px 30px var(--shadow2);overflow:hidden;position:relative}
 .score-card::before{content:'';position:absolute;top:-80px;right:-80px;width:260px;height:260px;background:radial-gradient(circle,var(--gold-dim),transparent 70%);pointer-events:none}
 .score-hero{text-align:center;padding-bottom:1.75rem;border-bottom:0.5px solid var(--cream3);margin-bottom:1.75rem}
 .score-number{font-family:'Playfair Display',serif;font-size:110px;font-weight:900;line-height:0.85;letter-spacing:-5px}
@@ -166,9 +154,6 @@ textarea#pitch-input::placeholder{color:var(--ink4)}
 .score-number.poor{color:var(--red)}
 .score-denom{font-family:'DM Mono',monospace;font-size:10px;color:var(--ink4);letter-spacing:3px;margin-top:10px}
 .score-verdict{font-family:'Playfair Display',serif;font-style:italic;font-size:18px;color:var(--ink2);margin-top:14px;line-height:1.5;max-width:480px;margin-left:auto;margin-right:auto}
-.level-cleared{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:6px 16px;border-radius:20px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase}
-.level-cleared.win{background:rgba(76,175,80,0.12);color:#2E7D4F;border:0.5px solid rgba(76,175,80,0.3)}
-.level-cleared.try{background:var(--gold-dim);color:var(--gold);border:0.5px solid var(--gold-border)}
 .score-bars{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem}
 .sbi{background:var(--cream2);border:0.5px solid var(--cream3);border-radius:14px;padding:14px}
 .sbi-label{font-size:9px;color:var(--ink4);font-family:'DM Mono',monospace;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
@@ -180,18 +165,18 @@ textarea#pitch-input::placeholder{color:var(--ink4)}
 .verdict-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:10px}
 .verdict-text{font-size:14px;color:var(--ink2);line-height:1.9}
 .score-btns{display:flex;flex-direction:column;gap:10px}
-.btn-next-level{width:100%;background:linear-gradient(135deg,#2E7D4F,#1B5E20);color:#fff;border:none;border-radius:14px;padding:15px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;cursor:pointer;transition:all 0.2s;display:none}
-.btn-next-level:hover{filter:brightness(1.15);transform:translateY(-1px)}
-.btn-again{width:100%;background:linear-gradient(135deg,var(--navy),var(--navy-dark));color:#fff;border:none;border-radius:14px;padding:15px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;cursor:pointer;transition:all 0.2s}
-.btn-again:hover{filter:brightness(1.15);transform:translateY(-1px)}
-.btn-levels{width:100%;background:transparent;color:var(--ink3);border:0.5px solid var(--cream3);border-radius:14px;padding:12px;font-family:'DM Sans',sans-serif;font-size:14px;cursor:pointer;transition:all 0.2s}
-.btn-levels:hover{border-color:var(--gold-border);color:var(--gold)}
+.btn-next{width:100%;background:linear-gradient(135deg,#2E7D4F,#1B5E20);color:#fff;border:none;border-radius:14px;padding:15px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;cursor:pointer;transition:all 0.2s}
+.btn-next:hover{filter:brightness(1.15);transform:translateY(-1px)}
+.btn-primary{width:100%;background:linear-gradient(135deg,var(--navy),var(--navy-dark));color:#fff;border:none;border-radius:14px;padding:15px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;cursor:pointer;transition:all 0.2s;letter-spacing:0.3px}
+.btn-primary:hover{filter:brightness(1.15);transform:translateY(-1px)}
+.btn-secondary{width:100%;background:transparent;color:var(--ink3);border:0.5px solid var(--cream3);border-radius:14px;padding:12px;font-family:'DM Sans',sans-serif;font-size:14px;cursor:pointer;transition:all 0.2s}
+.btn-secondary:hover{border-color:var(--gold-border);color:var(--gold)}
 </style>
 </head>
 <body>
 <div id="app">
 
-  <!-- ── INTRO ── -->
+  <!-- INTRO -->
   <div id="intro-screen">
     <div class="site-header">
       <div class="header-eyebrow">Wall Street</div>
@@ -210,12 +195,12 @@ textarea#pitch-input::placeholder{color:var(--ink4)}
         </svg>
       </div>
       <div class="intro-title">How it works</div>
-      <div class="intro-desc">Face off against 5 Wall Street executives, each tougher than the last. 3 rounds each. Pitch, handle objections, and close the deal.</div>
+      <div class="intro-desc">Face off against 5 Wall Street executives, each tougher than the last. 3 rounds each — pitch, handle objections, and close the deal.</div>
       <div class="steps">
-        <div class="step"><div class="step-num">1</div><div class="step-body"><div class="step-title">Choose your level</div><div class="step-desc">Start easy and work your way up to the boardroom's toughest buyers.</div></div></div>
-        <div class="step"><div class="step-num">2</div><div class="step-body"><div class="step-title">Speak or type your pitch</div><div class="step-desc">Hit Record and speak naturally, or type. You can edit before sending.</div></div></div>
-        <div class="step"><div class="step-num">3</div><div class="step-body"><div class="step-title">Handle the pushback</div><div class="step-desc">The buyer reacts — stay confident, handle objections, and close.</div></div></div>
-        <div class="step"><div class="step-num">4</div><div class="step-body"><div class="step-title">Score as high as you can on each level</div><div class="step-desc">Hit 70 or above to unlock the next level and face a tougher buyer.</div></div></div>
+        <div class="step"><div class="step-num">1</div><div><div class="step-title">Choose your level</div><div class="step-desc">From friendly beginner to ruthless CEO — pick your challenge.</div></div></div>
+        <div class="step"><div class="step-num">2</div><div><div class="step-title">Speak or type your pitch</div><div class="step-desc">Hit Record and speak, or type. You can edit before sending.</div></div></div>
+        <div class="step"><div class="step-num">3</div><div><div class="step-title">Handle the pushback</div><div class="step-desc">3 rounds of back-and-forth. Stay confident and handle objections.</div></div></div>
+        <div class="step"><div class="step-num">4</div><div><div class="step-title">Get your score</div><div class="step-desc">Scored on Hook, Persuasion, Objection Handling and Close.</div></div></div>
       </div>
       <div class="intro-divider"></div>
       <div class="tips-row">
@@ -226,23 +211,23 @@ textarea#pitch-input::placeholder{color:var(--ink4)}
     </div>
   </div>
 
-  <!-- ── LEVEL SELECT ── -->
+  <!-- LEVEL SELECT -->
   <div id="level-screen">
     <div class="site-header">
       <div class="header-eyebrow">Choose Level</div>
-      <h1>Your <span>Opponent</span></h1>
-      <div class="header-sub">Pick any level and start pitching</div>
+      <h1>Pick Your <span>Opponent</span></h1>
+      <div class="header-sub">Pick any level — beat your best score</div>
     </div>
     <div class="level-grid" id="level-grid"></div>
     <div class="back-link" onclick="showIntro()">&larr; Back to instructions</div>
   </div>
 
-  <!-- ── GAME ── -->
+  <!-- GAME -->
   <div id="game-screen">
     <div class="site-header">
-      <div class="header-eyebrow">Wall Street</div>
+      <div class="header-eyebrow" id="level-eyebrow">Level 1</div>
       <h1>Sell Me This <span>Pen</span></h1>
-      <div class="header-sub" id="level-label">Level 1 &mdash; Warm Up</div>
+      <div class="header-sub" id="level-label">Warm Up</div>
     </div>
     <div class="buyer-card">
       <div class="buyer-avatar-wrap">
@@ -251,8 +236,8 @@ textarea#pitch-input::placeholder{color:var(--ink4)}
       </div>
       <div class="buyer-info">
         <div class="buyer-name" id="b-name">James Butler</div>
-        <div class="buyer-role" id="b-title">Sales Manager · Butler & Co</div>
-        <div class="buyer-mood-tag" id="b-mood">Friendly but unconvinced</div>
+        <div class="buyer-role" id="b-title">Sales Manager</div>
+        <div class="buyer-mood-tag" id="b-mood">Friendly</div>
       </div>
       <div class="round-pill" id="round-pill">Round 1 of 3</div>
     </div>
@@ -279,7 +264,7 @@ textarea#pitch-input::placeholder{color:var(--ink4)}
     <div class="error-line" id="error-line"></div>
   </div>
 
-  <!-- ── SCORE ── -->
+  <!-- SCORE -->
   <div id="score-screen">
     <div class="site-header" style="margin-bottom:1.5rem">
       <div class="header-eyebrow">Final Result</div>
@@ -290,7 +275,6 @@ textarea#pitch-input::placeholder{color:var(--ink4)}
         <div class="score-number" id="score-number">72</div>
         <div class="score-denom">out of 100</div>
         <div class="score-verdict" id="score-verdict"></div>
-        <div class="level-cleared" id="level-cleared"></div>
       </div>
       <div class="score-bars">
         <div class="sbi"><div class="sbi-label">Hook</div><div class="sbi-track"><div class="sbi-fill" id="sf-hook"></div></div><div class="sbi-val" id="sv-hook">—</div></div>
@@ -303,388 +287,356 @@ textarea#pitch-input::placeholder{color:var(--ink4)}
         <div class="verdict-text" id="verdict-text"></div>
       </div>
       <div class="score-btns">
-        <button class="btn-next-level" id="btn-next-level" onclick="goNextLevel()">Next Level &rarr;</button>
-        <button class="btn-again" onclick="replayLevel()">Try Again</button>
-        <button class="btn-levels" onclick="showLevels()">Choose a Different Level</button>
+        <button class="btn-next" id="btn-next" onclick="goNextLevel()" style="display:none">Next Level &rarr;</button>
+        <button class="btn-primary" onclick="replayLevel()">Try Again</button>
+        <button class="btn-secondary" onclick="showLevels()">Choose a Different Level</button>
       </div>
     </div>
   </div>
 
 </div>
 <script>
-const LEVELS=[
+const LEVELS = [
   {
     id:1, name:'James Butler', initials:'JB', title:'Sales Manager · Butler & Co',
-    mood:'Friendly but unconvinced', moodColor:'#2196F3', moodBg:'rgba(33,150,243,0.1)',
+    mood:'Friendly & Open-Minded', moodColor:'#2E7D4F', moodBg:'rgba(46,125,80,0.1)',
     avatarBg:'linear-gradient(135deg,#4CAF50,#2E7D4F)',
-    label:'Level 1 — Warm Up', diffLabel:'Beginner', diff:1,
-    desc:'Friendly and open-minded. A good first pitch and he\'ll come around.',
+    eyebrow:'Level 1', label:'Warm Up', diffLabel:'Beginner', diff:1,
+    desc:"Friendly and open-minded. A clear pitch and he'll come around.",
     voice:{pitch:1.0,rate:0.95},
-    unlocked:true,
-    personality:'You are James Butler, a friendly 38-year-old Sales Manager. You are genuinely open to hearing a good pitch. You ask reasonable questions and you are encouraging if someone makes a good point. You are the easiest person to sell to — you just need a clear reason to buy. You are not a pushover but you are receptive and warm.',
-    opener:"Hey, good to meet you. Look — I\'m always happy to hear a pitch. Tell me about this pen. What makes it worth my time?"
+    personality:"You are James Butler, a friendly 38-year-old Sales Manager. You are genuinely open to hearing a good pitch. You ask reasonable questions and are encouraging if someone makes a good point. You just need a clear reason to buy. You are receptive and warm but you do need to be convinced.",
+    opener:"Hey, good to meet you. I'm always happy to hear a pitch. Tell me about this pen — what makes it special?"
   },
   {
     id:2, name:'Sandra Webb', initials:'SW', title:'Regional Director · Webb Consulting',
     mood:'Busy & Mildly Skeptical', moodColor:'#1565C0', moodBg:'rgba(21,101,192,0.1)',
     avatarBg:'linear-gradient(135deg,#2196F3,#1565C0)',
-    label:'Level 2 — Getting Serious', diffLabel:'Easy', diff:2,
-    desc:'Busy professional. She\'ll listen but needs a clear value proposition.',
+    eyebrow:'Level 2', label:'Getting Serious', diffLabel:'Easy', diff:2,
+    desc:"Busy professional. She'll listen but needs a clear value proposition.",
     voice:{pitch:1.05,rate:0.95},
-    unlocked:false,
-    personality:'You are Sandra Webb, a busy 44-year-old Regional Director. You have a lot on your plate and limited patience for vague pitches. You ask practical questions — what does this do for me, how much, why now? You are fair and will acknowledge a good point but you push back on anything that sounds like fluff. You are moderately tough.',
-    opener:"I\'ve got about five minutes between calls. You want to sell me a pen — fine, but get to the point. What\'s the value here?"
+    personality:"You are Sandra Webb, a busy 44-year-old Regional Director. You have a lot on your plate and limited patience for vague pitches. You ask practical questions — what does this do for me, why now? You are fair and will acknowledge a good point but push back on fluff. You are moderately tough.",
+    opener:"I've got five minutes between calls. You want to sell me a pen — fine, but get to the point. What's the value here?"
   },
   {
     id:3, name:'Marcus Levin', initials:'ML', title:'Hedge Fund Manager · Apex Capital',
-    mood:'Impatient & Testing You', moodColor:'#B8892A', moodBg:'rgba(184,137,42,0.1)',
+    mood:'Impatient & Testing You', moodColor:'#8B6914', moodBg:'rgba(139,105,20,0.1)',
     avatarBg:'linear-gradient(135deg,#B8892A,#D4A84B)',
-    label:'Level 3 — Wall Street', diffLabel:'Medium', diff:3,
-    desc:'Fast-thinking and impatient. Impress him quickly or lose him.',
+    eyebrow:'Level 3', label:'Wall Street', diffLabel:'Medium', diff:3,
+    desc:"Fast-thinking and impatient. Impress him quickly or lose him completely.",
     voice:{pitch:0.9,rate:1.05},
-    unlocked:false,
-    personality:'You are Marcus Levin, a sharp 38-year-old hedge fund manager. You think fast and talk fast. You are impatient with vagueness and you challenge claims immediately. You are tough but you do respect someone who can keep up with you. If they say something sharp you might give a quick "okay, fair" before pushing further. You are genuinely hard to impress.',
+    personality:"You are Marcus Levin, a sharp 38-year-old hedge fund manager. You think fast and talk fast. You are impatient with vagueness and challenge claims immediately. You are tough but respect someone who can keep up with you. If they say something sharp you might give a quick acknowledgement before pushing further.",
     opener:"My time costs more than your car. One shot. Sell me the pen. Go."
   },
   {
     id:4, name:'Gordon Blake', initials:'GB', title:'Managing Director · Stratton Capital',
-    mood:'Skeptical & Unimpressed', moodColor:'#FF5722', moodBg:'rgba(255,87,34,0.1)',
+    mood:'Skeptical & Unimpressed', moodColor:'#BF360C', moodBg:'rgba(191,54,12,0.1)',
     avatarBg:'linear-gradient(135deg,#FF5722,#BF360C)',
-    label:'Level 4 — The Boardroom', diffLabel:'Hard', diff:4,
-    desc:'Wall Street veteran. He\'s heard every pitch. You\'ll need to be exceptional.',
+    eyebrow:'Level 4', label:'The Boardroom', diffLabel:'Hard', diff:4,
+    desc:"Wall Street veteran. He's heard every pitch. You'll need to be exceptional.",
     voice:{pitch:0.85,rate:0.92},
-    unlocked:false,
-    personality:'You are Gordon Blake, a 52-year-old Managing Director with 25 years on Wall Street. You have heard every sales pitch imaginable. You are tough, direct, and hard to impress. You call out clichés immediately. You give nothing away easily. You might give the tiniest acknowledgement if someone says something genuinely original — but you immediately push harder. You are not cruel but you are formidable.',
-    opener:"I\'ve got a meeting in two minutes. You want to sell me a pen? Fine. Go ahead — and make it good. I\'ve heard them all."
+    personality:"You are Gordon Blake, a 52-year-old Managing Director with 25 years on Wall Street. You have heard every sales pitch imaginable. You are tough, direct, and hard to impress. You call out clichés immediately. You give nothing away easily. You are not cruel but you are formidable.",
+    opener:"I've got a meeting in two minutes. You want to sell me a pen? Fine. Go ahead — and make it good. I've heard them all."
   },
   {
     id:5, name:'Victoria Cross', initials:'VC', title:'CEO · Cross Capital Group',
     mood:'Ruthless & Demanding', moodColor:'#37474F', moodBg:'rgba(55,71,79,0.1)',
-    avatarBg:'linear-gradient(135deg,#37474F,#1a1a1a)',
-    label:'Level 5 — The Final Boss', diffLabel:'Expert', diff:5,
-    desc:'The CEO. Ruthless, brilliant, and nearly impossible to close. The ultimate challenge.',
+    avatarBg:'linear-gradient(135deg,#546E7A,#1a1a1a)',
+    eyebrow:'Level 5', label:'The Final Boss', diffLabel:'Expert', diff:5,
+    desc:"The CEO. Ruthless, brilliant, and nearly impossible to close. The ultimate test.",
     voice:{pitch:1.1,rate:0.88},
-    unlocked:false,
-    personality:'You are Victoria Cross, CEO of Cross Capital Group. You are brilliant, ruthless, and have zero patience for anything less than exceptional. You have built a billion-dollar company from nothing and you can smell a weak pitch instantly. You immediately dissect every claim, challenge every assumption, and probe every weakness. You are not impressed by enthusiasm — only by substance. You will only concede a point if the argument is airtight. You are the hardest buyer there is.',
-    opener:"I run a billion-dollar firm. I don\'t use pens — I have assistants for that. So you have thirty seconds to give me one compelling reason why I should care. Start now."
+    personality:"You are Victoria Cross, CEO of Cross Capital Group. You are brilliant and ruthless with zero patience for anything less than exceptional. You immediately dissect every claim, challenge every assumption, and probe every weakness. You are not impressed by enthusiasm — only by substance. You are the hardest buyer there is.",
+    opener:"I run a billion-dollar firm. I don't use pens — I have assistants for that. Give me one compelling reason to care. You have thirty seconds. Start now."
   }
 ];
 
-const MAX_ROUNDS=3;
-let currentLevel=null,history=[],round=0,waiting=false;
-let isRecording=false,recognition=null,speechSupported=false;
-let ttsEnabled=true,ttsAvailable=false;
-let bestScores=JSON.parse(localStorage.getItem('bestScores')||'{}');
+const MAX_ROUNDS = 3;
+let currentLevel = null;
+let history = [], round = 0, waiting = false;
+let isRecording = false, recognition = null, speechSupported = false;
+let ttsEnabled = true, ttsAvailable = false;
+let bestScores = JSON.parse(localStorage.getItem('smtpBestScores') || '{}');
 
-function saveProgress(){
-  localStorage.setItem('bestScores',JSON.stringify(bestScores));
+function saveScores() {
+  localStorage.setItem('smtpBestScores', JSON.stringify(bestScores));
 }
 
-function isUnlocked(id){ return true; }
-
-function showIntro(){
-  hideAll();
-  document.getElementById('intro-screen').style.display='flex';
-  window.scrollTo(0,0);
+/* ── NAVIGATION ── */
+function showScreen(id) {
+  ['intro-screen','level-screen','game-screen','score-screen'].forEach(s => {
+    const el = document.getElementById(s);
+    if (s === id) {
+      el.style.display = (s === 'intro-screen' || s === 'level-screen') ? 'flex' : 'block';
+    } else {
+      el.style.display = 'none';
+    }
+  });
+  window.scrollTo(0, 0);
 }
 
-function showLevels(){
-  hideAll();
-  document.getElementById('level-screen').style.display='flex';
-  renderLevels();
-  window.scrollTo(0,0);
-}
+function showIntro() { stopSpeaking(); showScreen('intro-screen'); }
+function showLevels() { stopSpeaking(); renderLevels(); showScreen('level-screen'); }
 
-function renderLevels(){
-  const grid=document.getElementById('level-grid');
-  grid.innerHTML='';
-  LEVELS.forEach(l=>{
-    const unlocked=isUnlocked(l.id);
-    const best=bestScores[l.id];
-    const dots=Array.from({length:5},(_,i)=>`<div class="diff-dot${i<l.diff?' filled l'+l.id:''}"></div>`).join('');
-    const card=document.createElement('div');
-    card.className='level-card';
-    card.innerHTML=`
-      <div class="level-badge l${l.id}">${l.id}</div>
+function renderLevels() {
+  const grid = document.getElementById('level-grid');
+  grid.innerHTML = '';
+  LEVELS.forEach(l => {
+    const best = bestScores[l.id];
+    const dots = Array.from({length:5}, (_,i) =>
+      `<div class="diff-dot${i < l.diff ? ' on' : ''}"></div>`
+    ).join('');
+    const card = document.createElement('div');
+    card.className = `level-card l${l.id}`;
+    card.innerHTML = `
+      <div class="level-badge">${l.id}</div>
       <div class="level-info">
         <div class="level-name">${l.name}</div>
         <div class="level-role">${l.title}</div>
         <div class="level-desc">${l.desc}</div>
       </div>
       <div class="level-right">
-        <div class="difficulty-label">${l.diffLabel}</div>
-        <div class="difficulty-dots">${dots}</div>
-        ${best?`<div class="best-score">Best: <span>${best}</span></div>`:''}
+        <div class="diff-label">${l.diffLabel}</div>
+        <div class="diff-dots">${dots}</div>
+        ${best ? `<div class="best-score">Best: <span>${best}</span></div>` : ''}
       </div>`;
-    card.onclick=()=>startLevel(l.id);
+    card.onclick = () => startLevel(l.id);
     grid.appendChild(card);
   });
 }
 
-function startLevel(id){
-  currentLevel=LEVELS.find(l=>l.id===id);
-  hideAll();
-  document.getElementById('game-screen').style.display='block';
-  document.getElementById('level-label').textContent=currentLevel.label;
-  document.getElementById('b-avatar').textContent=currentLevel.initials;
-  document.getElementById('b-avatar').style.background=currentLevel.avatarBg;
-  document.getElementById('b-name').textContent=currentLevel.name;
-  document.getElementById('b-title').textContent=currentLevel.title;
-  document.getElementById('b-mood').textContent=currentLevel.mood;
-  document.getElementById('b-mood').style.background=currentLevel.moodBg;
-  document.getElementById('b-mood').style.color=currentLevel.moodColor;
-  document.getElementById('b-mood').style.border='0.5px solid '+currentLevel.moodColor+'44';
-  history=[];round=0;waiting=false;
+/* ── GAME ── */
+function startLevel(id) {
+  currentLevel = LEVELS.find(l => l.id === id);
+  history = []; round = 0; waiting = false;
+  document.getElementById('level-eyebrow').textContent = currentLevel.eyebrow;
+  document.getElementById('level-label').textContent = currentLevel.label;
+  document.getElementById('b-avatar').textContent = currentLevel.initials;
+  document.getElementById('b-avatar').style.background = currentLevel.avatarBg;
+  document.getElementById('b-name').textContent = currentLevel.name;
+  document.getElementById('b-title').textContent = currentLevel.title;
+  document.getElementById('b-mood').textContent = currentLevel.mood;
+  document.getElementById('b-mood').style.background = currentLevel.moodBg;
+  document.getElementById('b-mood').style.color = currentLevel.moodColor;
+  document.getElementById('b-mood').style.border = '0.5px solid ' + currentLevel.moodColor + '44';
+  document.getElementById('chat-window').innerHTML = '';
+  document.getElementById('error-line').textContent = '';
+  document.getElementById('status-line').textContent = '';
   clearInput();
-  document.getElementById('error-line').textContent='';
-  document.getElementById('status-line').textContent='';
   updateRound();
-  checkTTS();initSpeech();
-  window.scrollTo(0,0);
-  setTimeout(()=>addBuyerBubble(currentLevel.opener,true),500);
+  checkTTS(); initSpeech();
+  showScreen('game-screen');
+  setTimeout(() => addBuyerBubble(currentLevel.opener, true), 500);
 }
 
-function replayLevel(){ startLevel(currentLevel.id); }
-
-function goNextLevel(){
-  const nextId=currentLevel.id+1;
-  if(nextId<=5) startLevel(nextId);
+function replayLevel() { startLevel(currentLevel.id); }
+function goNextLevel() {
+  const nextId = currentLevel.id + 1;
+  if (nextId <= 5) startLevel(nextId);
   else showLevels();
 }
 
-function hideAll(){
-  ['intro-screen','level-screen','game-screen','score-screen'].forEach(id=>{
-    document.getElementById(id).style.display='none';
-  });
-}
-
-function clearInput(){
-  document.getElementById('pitch-input').value='';
+function clearInput() {
+  document.getElementById('pitch-input').value = '';
   document.getElementById('edit-tag').classList.remove('show');
-  document.getElementById('send-btn').disabled=true;
+  document.getElementById('send-btn').disabled = true;
 }
 
-function updateRound(){document.getElementById('round-pill').textContent='Round '+(round+1)+' of '+MAX_ROUNDS;}
+function updateRound() {
+  document.getElementById('round-pill').textContent = 'Round ' + (round + 1) + ' of ' + MAX_ROUNDS;
+}
 
-function checkTTS(){
-  ttsAvailable='speechSynthesis' in window;
-  if(!ttsAvailable){ttsEnabled=false;const t=document.getElementById('tts-toggle');t.classList.remove('on');t.style.opacity='0.3';t.style.pointerEvents='none';}
+/* ── TTS ── */
+function checkTTS() {
+  ttsAvailable = 'speechSynthesis' in window;
+  if (!ttsAvailable) {
+    ttsEnabled = false;
+    const t = document.getElementById('tts-toggle');
+    t.classList.remove('on'); t.style.opacity = '0.3'; t.style.pointerEvents = 'none';
+  }
 }
-function toggleTTS(){
-  if(!ttsAvailable)return;
-  ttsEnabled=!ttsEnabled;
-  document.getElementById('tts-toggle').classList.toggle('on',ttsEnabled);
-  if(!ttsEnabled)stopSpeaking();
+function toggleTTS() {
+  if (!ttsAvailable) return;
+  ttsEnabled = !ttsEnabled;
+  document.getElementById('tts-toggle').classList.toggle('on', ttsEnabled);
+  if (!ttsEnabled) stopSpeaking();
 }
-function speak(text,onEnd){
-  if(!ttsAvailable||!ttsEnabled)return;
+function speak(text, onEnd) {
+  if (!ttsAvailable || !ttsEnabled) { if (onEnd) onEnd(); return; }
   stopSpeaking();
-  const utt=new SpeechSynthesisUtterance(text);
-  utt.pitch=currentLevel.voice.pitch;utt.rate=currentLevel.voice.rate;utt.volume=1;
-  const voices=window.speechSynthesis.getVoices();
-  const preferred=['Daniel','Google UK English Male','Microsoft David','Alex','Karen','Moira'];
-  let chosen=null;
-  for(const n of preferred){chosen=voices.find(v=>v.name.includes(n.split(' ')[0]));if(chosen)break;}
-  if(!chosen)chosen=voices.find(v=>v.lang.startsWith('en'));
-  if(chosen)utt.voice=chosen;
+  const utt = new SpeechSynthesisUtterance(text);
+  utt.pitch = currentLevel.voice.pitch;
+  utt.rate = currentLevel.voice.rate;
+  utt.volume = 1;
+  const voices = window.speechSynthesis.getVoices();
+  const preferred = ['Daniel','Google UK English Male','Microsoft David','Alex','Karen','Moira'];
+  let chosen = null;
+  for (const n of preferred) { chosen = voices.find(v => v.name.includes(n.split(' ')[0])); if (chosen) break; }
+  if (!chosen) chosen = voices.find(v => v.lang.startsWith('en'));
+  if (chosen) utt.voice = chosen;
   document.getElementById('speaking-ring').classList.add('active');
-  utt.onend=()=>{document.getElementById('speaking-ring').classList.remove('active');if(onEnd)onEnd();};
-  utt.onerror=()=>{document.getElementById('speaking-ring').classList.remove('active');};
+  utt.onend = () => { document.getElementById('speaking-ring').classList.remove('active'); if (onEnd) onEnd(); };
+  utt.onerror = () => { document.getElementById('speaking-ring').classList.remove('active'); if (onEnd) onEnd(); };
   window.speechSynthesis.speak(utt);
 }
-function stopSpeaking(){
-  if(window.speechSynthesis)window.speechSynthesis.cancel();
+function stopSpeaking() {
+  if (window.speechSynthesis) window.speechSynthesis.cancel();
   document.getElementById('speaking-ring').classList.remove('active');
-  document.querySelectorAll('.replay-btn').forEach(b=>{b.classList.remove('speaking');b.innerHTML='<span class="replay-dot"></span>Replay';});
+  document.querySelectorAll('.replay-btn').forEach(b => { b.classList.remove('speaking'); b.innerHTML = '<span class="replay-dot"></span>Replay'; });
 }
 
-function addBuyerBubble(text,autoSpeak){
-  const w=document.getElementById('chat-window');
-  const b=document.createElement('div');b.className='bubble buyer';
-  const fn=currentLevel.name.split(' ')[0];
-  b.innerHTML=`<div class="bubble-inner"><div class="bubble-meta">${fn}</div><div>${text}</div><button class="replay-btn" onclick="replayLine(this,'${esc(text)}')"><span class="replay-dot"></span>Replay</button></div>`;
-  w.appendChild(b);w.scrollTop=w.scrollHeight;
-  if(autoSpeak&&ttsEnabled)speak(text);
+/* ── BUBBLES ── */
+function addBuyerBubble(text, autoSpeak) {
+  const w = document.getElementById('chat-window');
+  const b = document.createElement('div'); b.className = 'bubble buyer';
+  const fn = currentLevel.name.split(' ')[0];
+  b.innerHTML = `<div class="bubble-inner"><div class="bubble-meta">${fn}</div><div>${text}</div><button class="replay-btn" onclick="replayLine(this,'${esc(text)}')"><span class="replay-dot"></span>Replay</button></div>`;
+  w.appendChild(b); w.scrollTop = w.scrollHeight;
+  if (autoSpeak && ttsEnabled) speak(text);
 }
-function addPlayerBubble(text){
-  const w=document.getElementById('chat-window');
-  const b=document.createElement('div');b.className='bubble player';
-  b.innerHTML=`<div class="bubble-inner"><div class="bubble-meta">You</div><div>${text}</div></div>`;
-  w.appendChild(b);w.scrollTop=w.scrollHeight;
+function addPlayerBubble(text) {
+  const w = document.getElementById('chat-window');
+  const b = document.createElement('div'); b.className = 'bubble player';
+  b.innerHTML = `<div class="bubble-inner"><div class="bubble-meta">You</div><div>${text}</div></div>`;
+  w.appendChild(b); w.scrollTop = w.scrollHeight;
 }
-function showThinking(){const w=document.getElementById('chat-window');const b=document.createElement('div');b.className='bubble thinking';b.id='thinking';b.innerHTML='<div class="bubble-inner"><div class="dots"><span></span><span></span><span></span></div></div>';w.appendChild(b);w.scrollTop=w.scrollHeight;}
-function removeThinking(){const t=document.getElementById('thinking');if(t)t.remove();}
-function esc(s){return s.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;');}
-function replayLine(btn,text){
-  document.querySelectorAll('.replay-btn').forEach(b=>{b.classList.remove('speaking');b.innerHTML='<span class="replay-dot"></span>Replay';});
-  btn.classList.add('speaking');btn.innerHTML='<span class="replay-dot"></span>Speaking...';
-  speak(text,()=>{btn.classList.remove('speaking');btn.innerHTML='<span class="replay-dot"></span>Replay';});
+function showThinking() {
+  const w = document.getElementById('chat-window');
+  const b = document.createElement('div'); b.className = 'bubble thinking'; b.id = 'thinking';
+  b.innerHTML = '<div class="bubble-inner"><div class="dots"><span></span><span></span><span></span></div></div>';
+  w.appendChild(b); w.scrollTop = w.scrollHeight;
+}
+function removeThinking() { const t = document.getElementById('thinking'); if (t) t.remove(); }
+function esc(s) { return s.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;'); }
+function replayLine(btn, text) {
+  document.querySelectorAll('.replay-btn').forEach(b => { b.classList.remove('speaking'); b.innerHTML = '<span class="replay-dot"></span>Replay'; });
+  btn.classList.add('speaking'); btn.innerHTML = '<span class="replay-dot"></span>Speaking...';
+  speak(text, () => { btn.classList.remove('speaking'); btn.innerHTML = '<span class="replay-dot"></span>Replay'; });
 }
 
-function onInput(){
-  const val=document.getElementById('pitch-input').value.trim();
-  document.getElementById('send-btn').disabled=val.length<3||waiting;
-  document.getElementById('edit-tag').classList.toggle('show',val.length>0);
+/* ── INPUT ── */
+function onInput() {
+  const val = document.getElementById('pitch-input').value.trim();
+  document.getElementById('send-btn').disabled = val.length < 3 || waiting;
+  document.getElementById('edit-tag').classList.toggle('show', val.length > 0);
 }
 
-async function sendMessage(){
-  const text=document.getElementById('pitch-input').value.trim();
-  if(!text||waiting)return;
-  waiting=true;
-  document.getElementById('send-btn').disabled=true;
-  document.getElementById('error-line').textContent='';
-  stopSpeaking();if(isRecording)stopRecording();
+async function sendMessage() {
+  const text = document.getElementById('pitch-input').value.trim();
+  if (!text || waiting) return;
+  waiting = true;
+  document.getElementById('send-btn').disabled = true;
+  document.getElementById('error-line').textContent = '';
+  stopSpeaking(); if (isRecording) stopRecording();
   addPlayerBubble(text);
-  history.push({role:'user',text});
+  history.push({role:'user', text});
   clearInput();
   round++;
-  if(round>=MAX_ROUNDS){
+
+  if (round >= MAX_ROUNDS) {
     showThinking();
     await getFinalScore();
-    // waiting stays true — game is over, score screen will show
+    // game over — waiting stays true, score screen takes over
   } else {
     updateRound();
     showThinking();
     await getReply();
-    waiting=false;
+    waiting = false; // allow next input
   }
 }
 
-async function getReply(){
-  const convo=history.map(h=>(h.role==='user'?'Salesperson: ':'Buyer: ')+h.text).join('\n');
-  const prompt=`${currentLevel.personality}
-
-This is round ${round} of ${MAX_ROUNDS} of a pen sales conversation.
-
-Conversation so far:
-${convo}
-
-React naturally to exactly what they just said. Stay true to your personality and difficulty level. Ask ONE follow-up question or raise ONE objection. 2-3 sentences max.`;
-  try{
-    const res=await fetch('/api/score',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt,mode:'convo'})});
-    const data=await res.json();
-    if(!res.ok)throw new Error(data.error||'Error');
+async function getReply() {
+  const convo = history.map(h => (h.role==='user' ? 'Salesperson: ' : 'Buyer: ') + h.text).join('\n');
+  const prompt = `${currentLevel.personality}\n\nThis is round ${round} of ${MAX_ROUNDS} of a pen sales conversation.\n\nConversation so far:\n${convo}\n\nReact naturally to exactly what they just said. Stay true to your personality and difficulty level. Ask ONE follow-up question or raise ONE objection. 2-3 sentences max.`;
+  try {
+    const res = await fetch('/api/score', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({prompt, mode:'convo'})});
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Error');
     removeThinking();
-    addBuyerBubble(data.reply,ttsEnabled);
-    history.push({role:'buyer',text:data.reply});
-  }catch(e){removeThinking();document.getElementById('error-line').textContent=e.message||'Something went wrong.';}
+    addBuyerBubble(data.reply, ttsEnabled);
+    history.push({role:'buyer', text:data.reply});
+  } catch(e) {
+    removeThinking();
+    waiting = false;
+    document.getElementById('error-line').textContent = e.message || 'Something went wrong.';
+  }
 }
 
-async function getFinalScore(){
-  const convo=history.map(h=>(h.role==='user'?'Salesperson: ':'Buyer: ')+h.text).join('\n');
-  const prompt=`${currentLevel.personality}
-
-Review this full pen sales conversation and score the salesperson.
-
-Conversation:
-${convo}
-
-Score 0-100 each: hook, persuasion, objection, close. overall = average.
-verdict: One in-character sentence — did they earn the sale?
-feedback: 3-4 sentences of honest coaching referencing specific things they said or missed.
-finalreply: Your 2-sentence closing reaction ending the meeting.
-
-Respond ONLY valid JSON, no backticks:
-{"hook":N,"persuasion":N,"objection":N,"close":N,"overall":N,"verdict":"...","feedback":"...","finalreply":"..."}`;
-  try{
-    const res=await fetch('/api/score',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt,mode:'score'})});
-    const data=await res.json();
-    if(!res.ok)throw new Error(data.error||'Error');
+async function getFinalScore() {
+  const convo = history.map(h => (h.role==='user' ? 'Salesperson: ' : 'Buyer: ') + h.text).join('\n');
+  const prompt = `${currentLevel.personality}\n\nReview this full pen sales conversation and score the salesperson.\n\nConversation:\n${convo}\n\nScore 0-100 each: hook, persuasion, objection, close. overall = average.\nverdict: One in-character sentence — did they earn the sale?\nfeedback: 3-4 sentences of honest coaching referencing specific things they said or missed.\nfinalreply: Your 2-sentence closing reaction ending the meeting.\n\nRespond ONLY valid JSON, no backticks:\n{"hook":N,"persuasion":N,"objection":N,"close":N,"overall":N,"verdict":"...","feedback":"...","finalreply":"..."}`;
+  try {
+    const res = await fetch('/api/score', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({prompt, mode:'score'})});
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Error');
     removeThinking();
-    if(data.finalreply){
-      addBuyerBubble(data.finalreply,false);
-      if(ttsEnabled){speak(data.finalreply,()=>setTimeout(()=>showScore(data),800));return;}
+    if (data.finalreply) {
+      addBuyerBubble(data.finalreply, false);
+      speak(data.finalreply, () => setTimeout(() => showScore(data), 800));
+    } else {
+      setTimeout(() => showScore(data), 1600);
     }
-    setTimeout(()=>showScore(data),1600);
-  }catch(e){
+  } catch(e) {
     removeThinking();
-    waiting=false;
-    document.getElementById('error-line').textContent=e.message||'Something went wrong.';
+    waiting = false;
+    document.getElementById('error-line').textContent = e.message || 'Something went wrong.';
   }
 }
 
-function showScore(r){
+/* ── SCORE ── */
+function showScore(r) {
   stopSpeaking();
-  const o=Math.round(r.overall);
-
-  // Save best score
-  if(!bestScores[currentLevel.id]||o>bestScores[currentLevel.id]){
-    bestScores[currentLevel.id]=o;
+  const o = Math.round(r.overall);
+  if (!bestScores[currentLevel.id] || o > bestScores[currentLevel.id]) {
+    bestScores[currentLevel.id] = o;
+    saveScores();
   }
-
-
-  const passed=o>=70;
-  const nextId=currentLevel.id+1;
-
-
-  }
-  saveProgress();
-
-  hideAll();
-  document.getElementById('score-screen').style.display='block';
-  window.scrollTo(0,0);
-
-  const el=document.getElementById('score-number');
-  el.textContent=o;
-  el.className='score-number '+(o>=80?'great':o>=65?'good':o>=45?'ok':'poor');
-  document.getElementById('score-verdict').textContent=r.verdict;
-  document.getElementById('verdict-label').textContent=currentLevel.name.split(' ')[0]+"'s Verdict";
-  document.getElementById('verdict-text').textContent=r.feedback;
-
-  // Level cleared badge
-  const badge=document.getElementById('level-cleared');
-  if(passed&&nextId<=5){
-    badge.className='level-cleared win';
-    badge.textContent='Level cleared — Level '+nextId+' unlocked!';
-    badge.style.display='inline-flex';
-  } else if(passed&&currentLevel.id===5){
-    badge.className='level-cleared win';
-    badge.textContent='You conquered all 5 levels!';
-    badge.style.display='inline-flex';
-  } else {
-    badge.className='level-cleared try';
-    badge.textContent='Pick any level and start pitching';
-    badge.style.display='inline-flex';
-  }
-
-  // Next level button
-  const nextBtn=document.getElementById('btn-next-level');
-  if(passed&&nextId<=5){ nextBtn.style.display='block'; nextBtn.textContent='Play Level '+nextId+' →'; }
-  else nextBtn.style.display='none';
-
-  ['hook','persuasion','objection','close'].forEach(k=>{
-    const v=Math.round(r[k]);
-    document.getElementById('sv-'+k).textContent=v;
-    setTimeout(()=>{document.getElementById('sf-'+k).style.width=v+'%';},300);
+  showScreen('score-screen');
+  const el = document.getElementById('score-number');
+  el.textContent = o;
+  el.className = 'score-number ' + (o>=80?'great':o>=65?'good':o>=45?'ok':'poor');
+  document.getElementById('score-verdict').textContent = r.verdict;
+  document.getElementById('verdict-label').textContent = currentLevel.name.split(' ')[0] + "'s Verdict";
+  document.getElementById('verdict-text').textContent = r.feedback;
+  ['hook','persuasion','objection','close'].forEach(k => {
+    const v = Math.round(r[k]);
+    document.getElementById('sv-'+k).textContent = v;
+    setTimeout(() => { document.getElementById('sf-'+k).style.width = v + '%'; }, 300);
   });
+  const nextBtn = document.getElementById('btn-next');
+  const nextId = currentLevel.id + 1;
+  if (nextId <= 5) { nextBtn.style.display = 'block'; nextBtn.textContent = 'Next Level (' + LEVELS[nextId-1].name + ') →'; }
+  else nextBtn.style.display = 'none';
 }
 
-function initSpeech(){
-  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR){speechSupported=false;document.getElementById('record-btn').classList.add('unavailable');return;}
-  speechSupported=true;
-  if(recognition){try{recognition.abort();}catch(e){}}
-  recognition=new SR();recognition.continuous=true;recognition.interimResults=true;recognition.lang='en-US';
-  recognition.onstart=()=>{document.getElementById('status-line').textContent='Listening...';};
-  recognition.onresult=(e)=>{
-    let final='',interim='';
-    for(let i=0;i<e.results.length;i++){if(e.results[i].isFinal)final+=e.results[i][0].transcript+' ';else interim+=e.results[i][0].transcript;}
-    const val=(final+interim).trim();
-    document.getElementById('pitch-input').value=val;
-    document.getElementById('send-btn').disabled=val.length<3||waiting;
-    document.getElementById('edit-tag').classList.toggle('show',val.length>0);
+/* ── SPEECH RECOGNITION ── */
+function initSpeech() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) { speechSupported = false; document.getElementById('record-btn').classList.add('unavailable'); return; }
+  speechSupported = true;
+  if (recognition) { try { recognition.abort(); } catch(e) {} }
+  recognition = new SR(); recognition.continuous = true; recognition.interimResults = true; recognition.lang = 'en-US';
+  recognition.onstart = () => { document.getElementById('status-line').textContent = 'Listening...'; };
+  recognition.onresult = (e) => {
+    let final = '', interim = '';
+    for (let i = 0; i < e.results.length; i++) {
+      if (e.results[i].isFinal) final += e.results[i][0].transcript + ' ';
+      else interim += e.results[i][0].transcript;
+    }
+    const val = (final + interim).trim();
+    document.getElementById('pitch-input').value = val;
+    document.getElementById('send-btn').disabled = val.length < 3 || waiting;
+    document.getElementById('edit-tag').classList.toggle('show', val.length > 0);
   };
-  recognition.onerror=(e)=>{if(e.error==='not-allowed')document.getElementById('status-line').textContent='Mic access denied.';stopRecording();};
-  recognition.onend=()=>{if(isRecording){try{recognition.start();}catch(err){}}};
+  recognition.onerror = (e) => { if (e.error === 'not-allowed') document.getElementById('status-line').textContent = 'Mic access denied.'; stopRecording(); };
+  recognition.onend = () => { if (isRecording) { try { recognition.start(); } catch(err) {} } };
 }
-function toggleRecording(){if(!speechSupported)return;if(!isRecording)startRecording();else stopRecording();}
-function startRecording(){isRecording=true;try{recognition.start();}catch(e){}document.getElementById('record-btn').classList.add('recording');document.getElementById('rec-label').textContent='Stop';}
-function stopRecording(){isRecording=false;try{recognition.stop();}catch(e){}document.getElementById('record-btn').classList.remove('recording');document.getElementById('rec-label').textContent='Record';document.getElementById('status-line').textContent=document.getElementById('pitch-input').value.trim()?'Done — edit if needed, then send.':'';}
+function toggleRecording() { if (!speechSupported) return; if (!isRecording) startRecording(); else stopRecording(); }
+function startRecording() { isRecording = true; try { recognition.start(); } catch(e) {} document.getElementById('record-btn').classList.add('recording'); document.getElementById('rec-label').textContent = 'Stop'; }
+function stopRecording() { isRecording = false; try { recognition.stop(); } catch(e) {} document.getElementById('record-btn').classList.remove('recording'); document.getElementById('rec-label').textContent = 'Record'; document.getElementById('status-line').textContent = document.getElementById('pitch-input').value.trim() ? 'Done — edit if needed, then send.' : ''; }
 
-document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key==='Enter'){e.preventDefault();if(!document.getElementById('send-btn').disabled)sendMessage();}});
-if('speechSynthesis' in window){window.speechSynthesis.onvoiceschanged=()=>{};window.speechSynthesis.getVoices();}
+document.addEventListener('keydown', e => { if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') { e.preventDefault(); if (!document.getElementById('send-btn').disabled) sendMessage(); } });
+if ('speechSynthesis' in window) { window.speechSynthesis.onvoiceschanged = () => {}; window.speechSynthesis.getVoices(); }
 
-// Start on intro
+// Start the app
 showIntro();
 </script>
 </body>
