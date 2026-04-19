@@ -9,24 +9,17 @@
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
   --gold:#B8892A;--gold-light:#D4A84B;--gold-dim:rgba(184,137,42,0.1);--gold-border:rgba(184,137,42,0.25);
-  --cream:#FDFAF5;--cream2:#F7F2E8;--cream3:#EFE8D8;--cream4:#E5DBС8;
+  --cream:#FDFAF5;--cream2:#F7F2E8;--cream3:#EFE8D8;
   --ink:#1A1612;--ink2:#3D3530;--ink3:#6B5F55;--ink4:#9A8E84;
   --paper:#FFFFFF;
-  --red:#C0392B;--green:#2E7D4F;
+  --red:#C0392B;
   --shadow:rgba(90,60,30,0.08);--shadow2:rgba(90,60,30,0.15);
 }
-
 html,body{height:100%;-webkit-font-smoothing:antialiased}
 body{background:var(--cream);color:var(--ink);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden}
-
-body::before{content:'';position:fixed;inset:0;background:
-  radial-gradient(ellipse 100% 50% at 50% 0%,rgba(184,137,42,0.06) 0%,transparent 60%),
-  radial-gradient(ellipse 60% 40% at 100% 100%,rgba(184,137,42,0.04) 0%,transparent 60%);
-pointer-events:none;z-index:0}
-
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 100% 50% at 50% 0%,rgba(184,137,42,0.06) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 100% 100%,rgba(184,137,42,0.04) 0%,transparent 60%);pointer-events:none;z-index:0}
 #app{position:relative;z-index:1;max-width:680px;margin:0 auto;padding:2rem 1.25rem 5rem;display:flex;flex-direction:column;min-height:100vh}
 
-/* ── HEADER ── */
 .site-header{text-align:center;margin-bottom:2rem}
 .header-eyebrow{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:5px;color:var(--gold);text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;justify-content:center;gap:10px}
 .header-eyebrow::before,.header-eyebrow::after{content:'';width:30px;height:0.5px;background:var(--gold);opacity:0.5}
@@ -34,7 +27,6 @@ pointer-events:none;z-index:0}
 .site-header h1 span{color:var(--gold)}
 .header-sub{font-size:14px;color:var(--ink3);margin-top:8px;font-weight:300;letter-spacing:0.3px}
 
-/* ── BUYER CARD ── */
 .buyer-card{background:var(--paper);border:0.5px solid var(--cream3);border-radius:20px;padding:1.25rem 1.5rem;margin-bottom:1.25rem;display:flex;gap:14px;align-items:center;box-shadow:0 2px 16px var(--shadow),0 0 0 0.5px var(--cream3)}
 .buyer-avatar-wrap{position:relative;flex-shrink:0}
 .buyer-avatar{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--cream2),var(--cream3));border:1.5px solid var(--gold-border);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--gold)}
@@ -44,34 +36,26 @@ pointer-events:none;z-index:0}
 .buyer-info{flex:1;min-width:0}
 .buyer-name{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--ink)}
 .buyer-role{font-size:11px;color:var(--ink4);font-family:'DM Mono',monospace;margin-top:2px;letter-spacing:0.2px}
-.mood-row{display:flex;align-items:center;gap:6px;margin-top:7px}
-.mood-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);flex-shrink:0;transition:background 0.5s}
-.mood-label{font-size:11px;color:var(--ink3);font-family:'DM Mono',monospace;letter-spacing:0.5px;transition:color 0.5s}
+.buyer-mood-tag{display:inline-block;font-size:10px;font-family:'DM Mono',monospace;letter-spacing:1px;color:var(--gold);background:var(--gold-dim);border:0.5px solid var(--gold-border);padding:3px 10px;border-radius:20px;margin-top:7px;text-transform:uppercase}
 .round-pill{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--gold);background:var(--gold-dim);border:0.5px solid var(--gold-border);padding:5px 12px;border-radius:20px;white-space:nowrap;flex-shrink:0}
 
-/* ── CHAT ── */
 .chat-window{flex:1;display:flex;flex-direction:column;gap:14px;margin-bottom:1.25rem}
-
 .bubble{max-width:84%;animation:riseIn 0.4s cubic-bezier(0.22,1,0.36,1)}
 @keyframes riseIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 .bubble.buyer{align-self:flex-start}
 .bubble.player{align-self:flex-end}
-
 .bubble-inner{padding:13px 16px;border-radius:18px;font-size:14px;line-height:1.8;position:relative}
 .bubble.buyer .bubble-inner{background:var(--paper);border:0.5px solid var(--cream3);border-bottom-left-radius:5px;color:var(--ink);box-shadow:0 2px 10px var(--shadow)}
 .bubble.player .bubble-inner{background:linear-gradient(135deg,#2C3E6B,#1a2847);border:none;border-bottom-right-radius:5px;color:#fff;box-shadow:0 2px 12px rgba(44,62,107,0.25)}
-
 .bubble-meta{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px;opacity:0.6}
 .bubble.buyer .bubble-meta{color:var(--gold)}
 .bubble.player .bubble-meta{color:rgba(255,255,255,0.6);text-align:right}
-
 .replay-btn{display:inline-flex;align-items:center;gap:5px;margin-top:8px;background:none;border:0.5px solid var(--cream3);border-radius:20px;padding:3px 10px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--ink4);cursor:pointer;transition:all 0.2s;text-transform:uppercase}
 .replay-btn:hover{border-color:var(--gold);color:var(--gold)}
 .replay-btn.speaking{border-color:var(--gold);color:var(--gold);background:var(--gold-dim)}
 .replay-dot{width:5px;height:5px;border-radius:50%;background:currentColor}
 .replay-btn.speaking .replay-dot{animation:blink 0.8s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.15}}
-
 .bubble.thinking{align-self:flex-start}
 .bubble.thinking .bubble-inner{background:var(--paper);border:0.5px solid var(--cream3);border-bottom-left-radius:5px;padding:15px 18px;box-shadow:0 2px 10px var(--shadow)}
 .dots{display:flex;gap:5px}
@@ -80,7 +64,6 @@ pointer-events:none;z-index:0}
 .dots span:nth-child(3){animation-delay:0.4s}
 @keyframes dotP{0%,80%,100%{opacity:0.2;transform:scale(0.75)}40%{opacity:0.8;transform:scale(1)}}
 
-/* ── INPUT ── */
 .input-wrap{background:var(--paper);border:0.5px solid var(--cream3);border-radius:18px;padding:1rem 1.25rem;box-shadow:0 2px 16px var(--shadow)}
 .input-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
 .input-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2.5px;color:var(--ink4);text-transform:uppercase}
@@ -92,11 +75,9 @@ pointer-events:none;z-index:0}
 .toggle-thumb{position:absolute;top:2px;left:2px;width:8px;height:8px;border-radius:50%;background:var(--ink4);transition:all 0.2s}
 .tts-toggle.on .toggle-track{background:var(--gold-dim);border-color:var(--gold-border)}
 .tts-toggle.on .toggle-thumb{left:14px;background:var(--gold)}
-
 textarea#pitch-input{width:100%;background:var(--cream);border:0.5px solid var(--cream3);border-radius:12px;padding:11px 13px;color:var(--ink);font-family:'DM Sans',sans-serif;font-size:14px;resize:none;min-height:72px;line-height:1.7;outline:none;transition:border-color 0.25s,box-shadow 0.25s}
 textarea#pitch-input:focus{border-color:var(--gold-border);box-shadow:0 0 0 3px var(--gold-dim)}
 textarea#pitch-input::placeholder{color:var(--ink4)}
-
 .controls-row{display:flex;gap:10px;margin-top:10px;align-items:center}
 .btn-record{display:flex;align-items:center;gap:7px;background:var(--cream2);color:var(--ink3);border:0.5px solid var(--cream3);border-radius:50px;padding:9px 16px;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all 0.2s;flex-shrink:0}
 .btn-record:hover:not(.unavailable){border-color:var(--gold-border);color:var(--gold)}
@@ -105,21 +86,17 @@ textarea#pitch-input::placeholder{color:var(--ink4)}
 .btn-record.unavailable{opacity:0.3;cursor:not-allowed}
 .rec-dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex-shrink:0}
 .btn-record.recording .rec-dot{animation:blink 0.8s infinite}
-
 .btn-send{flex:1;background:linear-gradient(135deg,#2C3E6B,#1a2847);color:#fff;border:none;border-radius:50px;padding:10px 22px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.2s;letter-spacing:0.3px}
 .btn-send:hover:not(:disabled){filter:brightness(1.15);transform:translateY(-1px)}
 .btn-send:active:not(:disabled){transform:translateY(0)}
 .btn-send:disabled{opacity:0.3;cursor:not-allowed}
-
 .status-line{font-family:'DM Mono',monospace;font-size:10px;color:var(--ink4);text-align:center;min-height:14px;margin:6px 0 2px}
 .error-line{font-size:11px;color:var(--red);text-align:center;min-height:14px;font-family:'DM Mono',monospace}
 .cmd-hint{font-family:'DM Mono',monospace;font-size:9px;color:var(--ink4);text-align:center;margin-top:6px;letter-spacing:0.5px;opacity:0.6}
 
-/* ── SCORE SCREEN ── */
 #score-screen{display:none}
 .score-card{background:var(--paper);border:0.5px solid var(--cream3);border-radius:24px;padding:2rem 2rem 1.75rem;box-shadow:0 4px 30px var(--shadow2);overflow:hidden;position:relative}
 .score-card::before{content:'';position:absolute;top:-80px;right:-80px;width:260px;height:260px;background:radial-gradient(circle,var(--gold-dim),transparent 70%);pointer-events:none}
-
 .score-hero{text-align:center;padding-bottom:1.75rem;border-bottom:0.5px solid var(--cream3);margin-bottom:1.75rem}
 .score-number{font-family:'Playfair Display',serif;font-size:110px;font-weight:900;line-height:0.85;letter-spacing:-5px}
 .score-number.great{color:var(--gold)}
@@ -128,19 +105,16 @@ textarea#pitch-input::placeholder{color:var(--ink4)}
 .score-number.poor{color:var(--red)}
 .score-denom{font-family:'DM Mono',monospace;font-size:10px;color:var(--ink4);letter-spacing:3px;margin-top:10px}
 .score-verdict{font-family:'Playfair Display',serif;font-style:italic;font-size:18px;color:var(--ink2);margin-top:14px;line-height:1.5;max-width:480px;margin-left:auto;margin-right:auto}
-
 .score-bars{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem}
-.sbi{background:var(--cream);border:0.5px solid var(--cream3);border-radius:14px;padding:14px}
+.sbi{background:var(--cream2);border:0.5px solid var(--cream3);border-radius:14px;padding:14px}
 .sbi-label{font-size:9px;color:var(--ink4);font-family:'DM Mono',monospace;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
 .sbi-track{background:var(--cream3);border-radius:4px;height:4px;margin-bottom:8px;overflow:hidden}
 .sbi-fill{height:4px;border-radius:4px;background:linear-gradient(90deg,var(--gold),var(--gold-light));width:0%;transition:width 1.4s cubic-bezier(0.22,1,0.36,1)}
 .sbi-val{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--ink)}
-
 .verdict-box{background:var(--cream2);border:0.5px solid var(--cream3);border-radius:16px;padding:1.25rem 1.5rem;margin-bottom:1.5rem;position:relative}
 .verdict-box::before{content:'\201C';position:absolute;top:-4px;left:14px;font-family:'Playfair Display',serif;font-size:52px;color:var(--gold);opacity:0.15;line-height:1}
 .verdict-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:10px}
 .verdict-text{font-size:14px;color:var(--ink2);line-height:1.9}
-
 .btn-again{width:100%;background:linear-gradient(135deg,#2C3E6B,#1a2847);color:#fff;border:none;border-radius:14px;padding:15px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;cursor:pointer;transition:all 0.2s;letter-spacing:0.3px}
 .btn-again:hover{filter:brightness(1.15);transform:translateY(-1px)}
 </style>
@@ -148,7 +122,6 @@ textarea#pitch-input::placeholder{color:var(--ink4)}
 <body>
 <div id="app">
 
-  <!-- GAME -->
   <div id="game-screen">
     <div class="site-header">
       <div class="header-eyebrow">Wall Street</div>
@@ -164,10 +137,7 @@ textarea#pitch-input::placeholder{color:var(--ink4)}
       <div class="buyer-info">
         <div class="buyer-name" id="b-name">Gordon Blake</div>
         <div class="buyer-role" id="b-title">Managing Director · Stratton Capital</div>
-        <div class="mood-row">
-          <div class="mood-dot" id="mood-dot"></div>
-          <div class="mood-label" id="mood-label">Guarded</div>
-        </div>
+        <div class="buyer-mood-tag" id="b-mood">Skeptical &amp; Unimpressed</div>
       </div>
       <div class="round-pill" id="round-pill">Round 1 of 3</div>
     </div>
@@ -199,7 +169,6 @@ textarea#pitch-input::placeholder{color:var(--ink4)}
     <div class="error-line" id="error-line"></div>
   </div>
 
-  <!-- SCORE -->
   <div id="score-screen">
     <div class="site-header" style="margin-bottom:1.5rem">
       <div class="header-eyebrow">Final Result</div>
@@ -214,7 +183,7 @@ textarea#pitch-input::placeholder{color:var(--ink4)}
       <div class="score-bars">
         <div class="sbi"><div class="sbi-label">Hook</div><div class="sbi-track"><div class="sbi-fill" id="sf-hook"></div></div><div class="sbi-val" id="sv-hook">—</div></div>
         <div class="sbi"><div class="sbi-label">Persuasion</div><div class="sbi-track"><div class="sbi-fill" id="sf-persuasion"></div></div><div class="sbi-val" id="sv-persuasion">—</div></div>
-        <div class="sbi"><div class="sbi-label">Objection Handling</div><div class="sbi-track"><div class="sbi-fill" id="sf-objection"></div></div><div class="sbi-val" id="sv-objection">—</div></div>
+        <div class="sbi"><div class="sbi-label">Objection Handling</div><div class="sbi-track"><div class="sbi-fill" id="sf-objection"></div></div><div class="sbi-val" id="sv-persuasion">—</div></div>
         <div class="sbi"><div class="sbi-label">Close</div><div class="sbi-track"><div class="sbi-fill" id="sf-close"></div></div><div class="sbi-val" id="sv-close">—</div></div>
       </div>
       <div class="verdict-box">
@@ -228,130 +197,92 @@ textarea#pitch-input::placeholder{color:var(--ink4)}
 </div>
 <script>
 const buyers=[
-  {
-    initials:'GB',name:'Gordon Blake',title:'Managing Director · Stratton Capital',
-    voice:{pitch:0.85,rate:0.9},
-    personality:'You are Gordon Blake, a 52-year-old Managing Director on Wall Street. You are direct and guarded but fundamentally a reasonable person. You started your career selling bonds on the trading floor so you have a soft spot for good salespeople — though you would never admit it easily. You are busy and skeptical but NOT aggressive or cruel. If someone makes a genuinely good point you acknowledge it briefly before pushing further. You ask questions rooted in real business concerns — cost, reliability, image. You occasionally use dry humour. React like a real executive, not a cartoon villain.',
-    opener:"Right, you've got my attention for about sixty seconds. I've heard every sales pitch in the book. What makes this pen worth my time?"
-  },
-  {
-    initials:'VM',name:'Victoria Morse',title:'VP Acquisitions · Meridian Group',
-    voice:{pitch:1.1,rate:0.88},
-    personality:'You are Victoria Morse, a sharp 45-year-old VP who values efficiency above all. You are not rude but you are extremely direct and have zero patience for waffle. You ask precise questions and if an answer is vague you call it out. You are genuinely persuadable if someone speaks your language — ROI, time-saving, practicality. If a salesperson says something clever or specific you give a small concession like "okay, that is a fair point" before moving on. You sound like a real professional woman in a high-pressure job, not a stereotype.',
-    opener:"I have back-to-back meetings until 7pm. You have ninety seconds. Tell me something about this pen I don't already know."
-  },
-  {
-    initials:'ML',name:'Marcus Levin',title:'Hedge Fund Manager · Apex Capital',
-    voice:{pitch:0.88,rate:1.0},
-    personality:'You are Marcus Levin, a 38-year-old hedge fund manager who thinks fast and talks fast. You are confident and a bit brash but you genuinely enjoy a sharp mind — if someone impresses you, you show it with a quick "ha, okay" or "not bad." You challenge numbers and claims instantly. You are impatient with vagueness but you warm up quickly to directness. You sometimes finish people\'s points if they are going somewhere obvious. React like a real person having a real conversation, with natural rhythm.',
-    opener:"Okay, I'm listening. But I should warn you — I hate being sold to. So don't sell me. Just tell me why I'd actually want this."
-  },
-  {
-    initials:'DC',name:'Diana Cole',title:'Partner · BlackStone Advisory',
-    voice:{pitch:1.05,rate:0.9},
-    personality:'You are Diana Cole, a measured and analytical 49-year-old Partner. You are the toughest buyer because you are immune to hype — but you are also the most fair. You reward logic and specifics with genuine engagement. You ask follow-up questions because you are actually curious, not just to be difficult. When someone makes a solid point you say something like "that is interesting, I had not thought of it that way" before probing deeper. You feel like a mentor who is testing someone, not an enemy.',
-    opener:"I appreciate you coming in. I have to be honest with you — I already have a pen I love. So convince me there is a reason to consider yours."
-  },
-];
-
-const moodStages=[
-  {label:'Guarded',color:'#C27B00'},
-  {label:'Listening',color:'#2980B9'},
-  {label:'Intrigued',color:'#2E7D4F'},
+  {initials:'GB',name:'Gordon Blake',title:'Managing Director · Stratton Capital',mood:'Skeptical & Unimpressed',voice:{pitch:0.85,rate:0.92},opener:"I've got a meeting in two minutes. You want to sell me a pen? Fine. Go ahead — impress me. And make it quick."},
+  {initials:'VM',name:'Victoria Morse',title:'VP Acquisitions · Meridian Group',mood:'Cold & Dismissive',voice:{pitch:1.1,rate:0.88},opener:"I have seventeen pens on my desk and a calendar full of meetings. Tell me why I should care about yours."},
+  {initials:'ML',name:'Marcus Levin',title:'Hedge Fund Manager · Apex Capital',mood:'Impatient & Testing You',voice:{pitch:0.9,rate:1.05},opener:"My time costs more than your car. You've got one shot at this. Sell me the pen."},
+  {initials:'DC',name:'Diana Cole',title:'Partner · BlackStone Advisory',mood:'Analytical & Suspicious',voice:{pitch:1.05,rate:0.9},opener:"I don't buy things on impulse. If you want my money, you better have facts, not fluff. What've you got?"},
+  {initials:'RH',name:'Richard Holt',title:'CEO · Pinnacle Ventures',mood:'Arrogant & Combative',voice:{pitch:0.8,rate:0.95},opener:"I've sat through a thousand pitches. Most of them were terrible. Convince me yours won't be. Go."},
 ];
 
 const MAX_ROUNDS=3;
-let buyer,history=[],round=0,waiting=false,moodLevel=0;
+let buyer,history=[],round=0,waiting=false;
 let isRecording=false,recognition=null,speechSupported=false;
 let ttsEnabled=true,ttsAvailable=false;
 
 function init(){
   buyer=buyers[Math.floor(Math.random()*buyers.length)];
-  history=[]; round=0; waiting=false; moodLevel=0;
+  history=[];round=0;waiting=false;
   document.getElementById('b-initials').textContent=buyer.initials;
   document.getElementById('b-name').textContent=buyer.name;
   document.getElementById('b-title').textContent=buyer.title;
+  document.getElementById('b-mood').textContent=buyer.mood;
   document.getElementById('chat-window').innerHTML='';
   document.getElementById('pitch-input').value='';
   document.getElementById('error-line').textContent='';
   document.getElementById('status-line').textContent='';
   document.getElementById('send-btn').disabled=true;
   document.getElementById('edit-tag').classList.remove('show');
-  updateRound(); updateMood(0);
-  checkTTS(); initSpeech();
+  updateRound();checkTTS();initSpeech();
   setTimeout(()=>addBuyerBubble(buyer.opener,true),500);
 }
 
-function updateRound(){ document.getElementById('round-pill').textContent='Round '+(round+1)+' of '+MAX_ROUNDS; }
+function updateRound(){document.getElementById('round-pill').textContent='Round '+(round+1)+' of '+MAX_ROUNDS;}
 
-function updateMood(level){
-  moodLevel=Math.min(level,moodStages.length-1);
-  const m=moodStages[moodLevel];
-  const dot=document.getElementById('mood-dot');
-  const lbl=document.getElementById('mood-label');
-  dot.style.background=m.color;
-  lbl.textContent=m.label;
-  lbl.style.color=m.color;
-}
-
-/* ── TTS ── */
 function checkTTS(){
   ttsAvailable='speechSynthesis' in window;
-  if(!ttsAvailable){ ttsEnabled=false; const t=document.getElementById('tts-toggle'); t.classList.remove('on'); t.style.opacity='0.3'; t.style.pointerEvents='none'; }
+  if(!ttsAvailable){ttsEnabled=false;const t=document.getElementById('tts-toggle');t.classList.remove('on');t.style.opacity='0.3';t.style.pointerEvents='none';}
 }
 function toggleTTS(){
-  if(!ttsAvailable) return;
+  if(!ttsAvailable)return;
   ttsEnabled=!ttsEnabled;
   document.getElementById('tts-toggle').classList.toggle('on',ttsEnabled);
-  if(!ttsEnabled) stopSpeaking();
+  if(!ttsEnabled)stopSpeaking();
 }
 function speak(text,onEnd){
-  if(!ttsAvailable||!ttsEnabled) return;
+  if(!ttsAvailable||!ttsEnabled)return;
   stopSpeaking();
   const utt=new SpeechSynthesisUtterance(text);
-  utt.pitch=buyer.voice.pitch; utt.rate=buyer.voice.rate; utt.volume=1;
+  utt.pitch=buyer.voice.pitch;utt.rate=buyer.voice.rate;utt.volume=1;
   const voices=window.speechSynthesis.getVoices();
   const preferred=['Daniel','Google UK English Male','Microsoft David','Alex','Karen','Moira'];
   let chosen=null;
-  for(const n of preferred){ chosen=voices.find(v=>v.name.includes(n.split(' ')[0])); if(chosen) break; }
-  if(!chosen) chosen=voices.find(v=>v.lang.startsWith('en'));
-  if(chosen) utt.voice=chosen;
+  for(const n of preferred){chosen=voices.find(v=>v.name.includes(n.split(' ')[0]));if(chosen)break;}
+  if(!chosen)chosen=voices.find(v=>v.lang.startsWith('en'));
+  if(chosen)utt.voice=chosen;
   document.getElementById('speaking-ring').classList.add('active');
-  utt.onend=()=>{ document.getElementById('speaking-ring').classList.remove('active'); if(onEnd) onEnd(); };
-  utt.onerror=()=>{ document.getElementById('speaking-ring').classList.remove('active'); };
+  utt.onend=()=>{document.getElementById('speaking-ring').classList.remove('active');if(onEnd)onEnd();};
+  utt.onerror=()=>{document.getElementById('speaking-ring').classList.remove('active');};
   window.speechSynthesis.speak(utt);
 }
 function stopSpeaking(){
-  if(window.speechSynthesis) window.speechSynthesis.cancel();
+  if(window.speechSynthesis)window.speechSynthesis.cancel();
   document.getElementById('speaking-ring').classList.remove('active');
-  document.querySelectorAll('.replay-btn').forEach(b=>{ b.classList.remove('speaking'); b.innerHTML='<span class="replay-dot"></span>Replay'; });
+  document.querySelectorAll('.replay-btn').forEach(b=>{b.classList.remove('speaking');b.innerHTML='<span class="replay-dot"></span>Replay';});
 }
 
-/* ── BUBBLES ── */
 function addBuyerBubble(text,autoSpeak){
   const w=document.getElementById('chat-window');
-  const b=document.createElement('div'); b.className='bubble buyer';
+  const b=document.createElement('div');b.className='bubble buyer';
   const fn=buyer.name.split(' ')[0];
   b.innerHTML=`<div class="bubble-inner"><div class="bubble-meta">${fn}</div><div>${text}</div><button class="replay-btn" onclick="replayLine(this,'${esc(text)}')"><span class="replay-dot"></span>Replay</button></div>`;
-  w.appendChild(b); w.scrollTop=w.scrollHeight;
-  if(autoSpeak&&ttsEnabled) speak(text);
+  w.appendChild(b);w.scrollTop=w.scrollHeight;
+  if(autoSpeak&&ttsEnabled)speak(text);
 }
 function addPlayerBubble(text){
   const w=document.getElementById('chat-window');
-  const b=document.createElement('div'); b.className='bubble player';
+  const b=document.createElement('div');b.className='bubble player';
   b.innerHTML=`<div class="bubble-inner"><div class="bubble-meta">You</div><div>${text}</div></div>`;
-  w.appendChild(b); w.scrollTop=w.scrollHeight;
+  w.appendChild(b);w.scrollTop=w.scrollHeight;
 }
-function showThinking(){ const w=document.getElementById('chat-window'); const b=document.createElement('div'); b.className='bubble thinking'; b.id='thinking'; b.innerHTML='<div class="bubble-inner"><div class="dots"><span></span><span></span><span></span></div></div>'; w.appendChild(b); w.scrollTop=w.scrollHeight; }
-function removeThinking(){ const t=document.getElementById('thinking'); if(t)t.remove(); }
-function esc(s){ return s.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;'); }
+function showThinking(){const w=document.getElementById('chat-window');const b=document.createElement('div');b.className='bubble thinking';b.id='thinking';b.innerHTML='<div class="bubble-inner"><div class="dots"><span></span><span></span><span></span></div></div>';w.appendChild(b);w.scrollTop=w.scrollHeight;}
+function removeThinking(){const t=document.getElementById('thinking');if(t)t.remove();}
+function esc(s){return s.replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/"/g,'&quot;');}
 function replayLine(btn,text){
-  document.querySelectorAll('.replay-btn').forEach(b=>{ b.classList.remove('speaking'); b.innerHTML='<span class="replay-dot"></span>Replay'; });
-  btn.classList.add('speaking'); btn.innerHTML='<span class="replay-dot"></span>Speaking...';
-  speak(text,()=>{ btn.classList.remove('speaking'); btn.innerHTML='<span class="replay-dot"></span>Replay'; });
+  document.querySelectorAll('.replay-btn').forEach(b=>{b.classList.remove('speaking');b.innerHTML='<span class="replay-dot"></span>Replay';});
+  btn.classList.add('speaking');btn.innerHTML='<span class="replay-dot"></span>Speaking...';
+  speak(text,()=>{btn.classList.remove('speaking');btn.innerHTML='<span class="replay-dot"></span>Replay';});
 }
 
-/* ── INPUT ── */
 function onInput(){
   const val=document.getElementById('pitch-input').value.trim();
   document.getElementById('send-btn').disabled=val.length<3||waiting;
@@ -360,68 +291,58 @@ function onInput(){
 
 async function sendMessage(){
   const text=document.getElementById('pitch-input').value.trim();
-  if(!text||waiting) return;
+  if(!text||waiting)return;
   waiting=true;
   document.getElementById('send-btn').disabled=true;
   document.getElementById('error-line').textContent='';
   document.getElementById('edit-tag').classList.remove('show');
-  stopSpeaking(); if(isRecording) stopRecording();
+  stopSpeaking();if(isRecording)stopRecording();
   addPlayerBubble(text);
   history.push({role:'user',text});
   document.getElementById('pitch-input').value='';
   round++;
-  if(round>=MAX_ROUNDS){ showThinking(); await getFinalScore(); }
-  else { updateRound(); showThinking(); await getReply(); }
+  if(round>=MAX_ROUNDS){showThinking();await getFinalScore();}
+  else{updateRound();showThinking();await getReply();}
   waiting=false;
 }
 
 async function getReply(){
-  const convo=history.map(h=>(h.role==='user'?'Salesperson: ':'You: ')+h.text).join('\n');
-  const prompt=`${buyer.personality}
-
-This is round ${round} of ${MAX_ROUNDS} of a sales conversation about a pen.
+  const convo=history.map(h=>(h.role==='user'?'Salesperson: ':'Buyer: ')+h.text).join('\n');
+  const prompt=`You are ${buyer.name}, a ${buyer.mood.toLowerCase()} Wall Street executive being pitched a pen.
 
 Conversation so far:
 ${convo}
 
-Respond naturally as ${buyer.name.split(' ')[0]}. React specifically to what they just said. If they made a genuinely good point, briefly acknowledge it before pushing further — real people do this. If they were vague or used clichés, call it out naturally. Ask one follow-up question or raise one objection. Keep it to 2-4 sentences. Sound human and conversational, not like a test. Vary your tone — you can be curious, slightly amused, skeptical, or briefly impressed depending on what they said.
-
-IMPORTANT: Do not be gratuitously harsh. Be a real professional having a real conversation.`;
+Stay in character. You are tough, impatient, and hard to impress. React to exactly what they just said — if they were vague or used clichés, call it out. If they said something genuinely interesting, you might give the tiniest acknowledgement before pushing harder. Ask ONE sharp follow-up question or raise ONE specific objection. Keep it to 2-3 sentences. You are a real busy executive — not a cartoon villain but definitely not easy. Vary your reactions — sometimes skeptical, sometimes probing, occasionally briefly intrigued if they earned it.`;
 
   try{
     const res=await fetch('/api/score',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt,mode:'convo'})});
     const data=await res.json();
-    if(!res.ok) throw new Error(data.error||'Error');
+    if(!res.ok)throw new Error(data.error||'Error');
     removeThinking();
-    // Update mood based on round
-    if(round===1) updateMood(1);
-    if(round===2) updateMood(Math.random()>0.4?2:1);
     addBuyerBubble(data.reply,ttsEnabled);
     history.push({role:'buyer',text:data.reply});
-  }catch(e){ removeThinking(); document.getElementById('error-line').textContent=e.message||'Something went wrong.'; }
+  }catch(e){removeThinking();document.getElementById('error-line').textContent=e.message||'Something went wrong.';}
 }
 
 async function getFinalScore(){
   const convo=history.map(h=>(h.role==='user'?'Salesperson: ':'Buyer: ')+h.text).join('\n');
-  const prompt=`${buyer.personality}
-
-Review this full pen sales conversation and give a fair, honest assessment.
+  const prompt=`You are ${buyer.name}, a ${buyer.mood.toLowerCase()} Wall Street executive. Review this full pen sales conversation.
 
 Conversation:
 ${convo}
 
-Score the salesperson (0-100 each):
-- hook: Did they grab attention and create curiosity early?
-- persuasion: Were their benefits specific and compelling?
-- objection: Did they handle pushback naturally and confidently?
-- close: Did they create urgency and ask for the sale?
+Score the salesperson honestly (0-100 each):
+- hook: Did they grab your attention and create genuine curiosity early?
+- persuasion: Were their benefits specific and compelling for a busy executive?
+- objection: Did they handle your pushback confidently and naturally?
+- close: Did they create urgency and actually go for the sale?
 
 overall = average of 4.
 
-Also:
-- verdict: One honest in-character sentence — did they earn the sale? Be fair, not brutal.
-- feedback: 3-4 sentences of genuine, specific coaching. What worked, what didn't. Reference actual things they said. Sound like a mentor, not a judge.
-- finalreply: Your 2-sentence closing reaction ending the meeting. Can be warm if they did well, measured if they were okay, or politely firm if they missed the mark.
+verdict: One punchy in-character sentence — did they earn the sale or not?
+feedback: 3-4 sentences of direct honest coaching. Reference specific things they said or missed. Be tough but fair — like a mentor who tells the truth.
+finalreply: Your closing 2-sentence reaction ending the meeting. Match the tone to how they did — earned respect if great, politely firm if not.
 
 Respond ONLY with valid JSON, no backticks:
 {"hook":N,"persuasion":N,"objection":N,"close":N,"overall":N,"verdict":"...","feedback":"...","finalreply":"..."}`;
@@ -429,17 +350,16 @@ Respond ONLY with valid JSON, no backticks:
   try{
     const res=await fetch('/api/score',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt,mode:'score'})});
     const data=await res.json();
-    if(!res.ok) throw new Error(data.error||'Error');
+    if(!res.ok)throw new Error(data.error||'Error');
     removeThinking();
     if(data.finalreply){
       addBuyerBubble(data.finalreply,false);
-      if(ttsEnabled){ speak(data.finalreply,()=>setTimeout(()=>showScore(data),800)); return; }
+      if(ttsEnabled){speak(data.finalreply,()=>setTimeout(()=>showScore(data),800));return;}
     }
     setTimeout(()=>showScore(data),1600);
-  }catch(e){ removeThinking(); document.getElementById('error-line').textContent=e.message||'Something went wrong.'; }
+  }catch(e){removeThinking();document.getElementById('error-line').textContent=e.message||'Something went wrong.';}
 }
 
-/* ── SCORE ── */
 function showScore(r){
   stopSpeaking();
   document.getElementById('game-screen').style.display='none';
@@ -455,7 +375,7 @@ function showScore(r){
   ['hook','persuasion','objection','close'].forEach(k=>{
     const v=Math.round(r[k]);
     document.getElementById('sv-'+k).textContent=v;
-    setTimeout(()=>{ document.getElementById('sf-'+k).style.width=v+'%'; },300);
+    setTimeout(()=>{document.getElementById('sf-'+k).style.width=v+'%';},300);
   });
 }
 
@@ -463,35 +383,34 @@ function resetGame(){
   stopSpeaking();
   document.getElementById('score-screen').style.display='none';
   document.getElementById('game-screen').style.display='block';
-  ['hook','persuasion','objection','close'].forEach(k=>{ document.getElementById('sf-'+k).style.width='0%'; document.getElementById('sv-'+k).textContent='—'; });
+  ['hook','persuasion','objection','close'].forEach(k=>{document.getElementById('sf-'+k).style.width='0%';document.getElementById('sv-'+k).textContent='—';});
   init();
 }
 
-/* ── SPEECH RECOGNITION ── */
 function initSpeech(){
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR){ speechSupported=false; document.getElementById('record-btn').classList.add('unavailable'); return; }
+  if(!SR){speechSupported=false;document.getElementById('record-btn').classList.add('unavailable');return;}
   speechSupported=true;
-  if(recognition){ try{recognition.abort();}catch(e){} }
-  recognition=new SR(); recognition.continuous=true; recognition.interimResults=true; recognition.lang='en-US';
-  recognition.onstart=()=>{ document.getElementById('status-line').textContent='Listening...'; };
+  if(recognition){try{recognition.abort();}catch(e){}}
+  recognition=new SR();recognition.continuous=true;recognition.interimResults=true;recognition.lang='en-US';
+  recognition.onstart=()=>{document.getElementById('status-line').textContent='Listening...';};
   recognition.onresult=(e)=>{
     let final='',interim='';
-    for(let i=0;i<e.results.length;i++){ if(e.results[i].isFinal) final+=e.results[i][0].transcript+' '; else interim+=e.results[i][0].transcript; }
+    for(let i=0;i<e.results.length;i++){if(e.results[i].isFinal)final+=e.results[i][0].transcript+' ';else interim+=e.results[i][0].transcript;}
     const val=(final+interim).trim();
     document.getElementById('pitch-input').value=val;
     document.getElementById('send-btn').disabled=val.length<3||waiting;
     document.getElementById('edit-tag').classList.toggle('show',val.length>0);
   };
-  recognition.onerror=(e)=>{ if(e.error==='not-allowed') document.getElementById('status-line').textContent='Mic access denied.'; stopRecording(); };
-  recognition.onend=()=>{ if(isRecording){ try{recognition.start();}catch(err){} } };
+  recognition.onerror=(e)=>{if(e.error==='not-allowed')document.getElementById('status-line').textContent='Mic access denied.';stopRecording();};
+  recognition.onend=()=>{if(isRecording){try{recognition.start();}catch(err){}}};
 }
-function toggleRecording(){ if(!speechSupported) return; if(!isRecording) startRecording(); else stopRecording(); }
-function startRecording(){ isRecording=true; try{recognition.start();}catch(e){} document.getElementById('record-btn').classList.add('recording'); document.getElementById('rec-label').textContent='Stop'; }
-function stopRecording(){ isRecording=false; try{recognition.stop();}catch(e){} document.getElementById('record-btn').classList.remove('recording'); document.getElementById('rec-label').textContent='Record'; document.getElementById('status-line').textContent=document.getElementById('pitch-input').value.trim()?'Done — edit if needed, then send.':''; }
+function toggleRecording(){if(!speechSupported)return;if(!isRecording)startRecording();else stopRecording();}
+function startRecording(){isRecording=true;try{recognition.start();}catch(e){}document.getElementById('record-btn').classList.add('recording');document.getElementById('rec-label').textContent='Stop';}
+function stopRecording(){isRecording=false;try{recognition.stop();}catch(e){}document.getElementById('record-btn').classList.remove('recording');document.getElementById('rec-label').textContent='Record';document.getElementById('status-line').textContent=document.getElementById('pitch-input').value.trim()?'Done — edit if needed, then send.':'';}
 
-document.addEventListener('keydown',e=>{ if((e.metaKey||e.ctrlKey)&&e.key==='Enter'){ e.preventDefault(); if(!document.getElementById('send-btn').disabled) sendMessage(); } });
-if('speechSynthesis' in window){ window.speechSynthesis.onvoiceschanged=()=>{}; window.speechSynthesis.getVoices(); }
+document.addEventListener('keydown',e=>{if((e.metaKey||e.ctrlKey)&&e.key==='Enter'){e.preventDefault();if(!document.getElementById('send-btn').disabled)sendMessage();}});
+if('speechSynthesis' in window){window.speechSynthesis.onvoiceschanged=()=>{};window.speechSynthesis.getVoices();}
 
 init();
 </script>
