@@ -10,273 +10,327 @@
 :root{
   --gold:#C9A84C;--gold-light:#E8C96A;--gold-dark:#8B6914;
   --dark:#0A0A0A;--dark2:#111111;--dark3:#1A1A1A;--dark4:#222;
-  --text:#F0EAD6;--text2:#B0A888;--text3:#666;
-  --red:#E24B4A;--border:rgba(201,168,76,0.25);
+  --text:#F0EAD6;--text2:#B0A888;--text3:#555;
+  --red:#E24B4A;--border:rgba(201,168,76,0.2);
 }
-body{background:var(--dark);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:2rem 1rem}
-#app{width:100%;max-width:680px}
+body{background:var(--dark);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:1.5rem 1rem 4rem}
+#app{width:100%;max-width:660px}
 
-.logo{text-align:center;margin-bottom:2rem}
-.logo h1{font-family:'Playfair Display',serif;font-size:clamp(28px,5vw,44px);font-weight:900;color:var(--gold);letter-spacing:-1px}
-.logo p{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:4px;color:var(--text3);text-transform:uppercase;margin-top:6px}
-.divider{width:80px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:10px auto}
+.header{text-align:center;margin-bottom:1.5rem;padding-top:0.5rem}
+.header h1{font-family:'Playfair Display',serif;font-size:clamp(26px,5vw,38px);font-weight:900;color:var(--gold);letter-spacing:-0.5px}
+.header p{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:4px;color:var(--text3);text-transform:uppercase;margin-top:5px}
+.gold-line{width:60px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:8px auto}
 
-.buyer-card{background:var(--dark3);border:0.5px solid var(--border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;display:flex;gap:1rem;align-items:flex-start}
-.buyer-avatar{width:52px;height:52px;border-radius:50%;background:var(--dark4);border:1.5px solid var(--gold-dark);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--gold)}
-.buyer-info{flex:1}
-.buyer-name{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:var(--text)}
-.buyer-title{font-size:12px;color:var(--text2);margin-top:2px;font-family:'DM Mono',monospace;letter-spacing:0.5px}
-.buyer-mood{display:inline-flex;align-items:center;font-size:11px;margin-top:8px;padding:3px 12px;border-radius:20px;background:rgba(201,168,76,0.1);border:0.5px solid rgba(201,168,76,0.3);color:var(--gold);font-family:'DM Mono',monospace;letter-spacing:0.5px}
+.buyer-bar{display:flex;align-items:center;gap:12px;background:var(--dark3);border:0.5px solid var(--border);border-radius:14px;padding:12px 16px;margin-bottom:1.25rem}
+.avatar{width:44px;height:44px;border-radius:50%;background:var(--dark4);border:1.5px solid var(--gold-dark);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--gold);flex-shrink:0}
+.buyer-details{flex:1}
+.buyer-name{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--text)}
+.buyer-sub{font-size:11px;color:var(--text2);font-family:'DM Mono',monospace;margin-top:1px}
+.round-badge{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--gold);background:rgba(201,168,76,0.1);border:0.5px solid rgba(201,168,76,0.3);padding:4px 10px;border-radius:20px;white-space:nowrap}
 
-.pen-stage{text-align:center;margin:1.5rem 0}
-.pen-icon{width:64px;height:64px;margin:0 auto 8px;display:flex;align-items:center;justify-content:center}
-.pen-icon svg{width:48px;height:48px;filter:drop-shadow(0 0 16px rgba(201,168,76,0.4))}
-.pen-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--text3);text-transform:uppercase}
+.pen-svg{display:flex;justify-content:center;margin:0 0 1rem}
 
-.challenge-box{background:var(--dark3);border-left:3px solid var(--gold);border-radius:0 12px 12px 0;padding:1.25rem 1.5rem;margin-bottom:2rem;border-top:0.5px solid var(--border);border-right:0.5px solid var(--border);border-bottom:0.5px solid var(--border)}
-.challenge-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:6px}
-.challenge-text{font-size:15px;color:var(--text);line-height:1.6;font-style:italic}
+.chat-window{display:flex;flex-direction:column;gap:12px;margin-bottom:1.25rem;min-height:80px}
 
-.record-section{text-align:center;margin-bottom:1rem}
-.record-btn{background:var(--gold);color:var(--dark);border:none;border-radius:50px;padding:14px 36px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;cursor:pointer;letter-spacing:0.3px;transition:all 0.2s;display:inline-flex;align-items:center;gap:10px}
-.record-btn:hover{background:var(--gold-light);transform:scale(1.02)}
-.record-btn.recording{background:#E24B4A;animation:pulse 1.5s infinite}
-.record-btn.unavailable{background:var(--dark4);color:var(--text3);cursor:not-allowed;border:0.5px solid var(--border)}
-@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(226,75,74,0.4)}50%{box-shadow:0 0 0 12px rgba(226,75,74,0)}}
-.mic-dot{width:10px;height:10px;border-radius:50%;background:var(--dark);flex-shrink:0}
-.record-btn.recording .mic-dot{background:#fff;animation:blink 1s infinite}
+.bubble{max-width:88%;padding:12px 16px;border-radius:16px;font-size:14px;line-height:1.7;animation:fadeUp 0.3s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.bubble.buyer{align-self:flex-start;background:var(--dark3);border:0.5px solid var(--border);border-bottom-left-radius:4px;color:var(--text)}
+.bubble.buyer .bname{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;color:var(--gold);text-transform:uppercase;margin-bottom:6px}
+.bubble.player{align-self:flex-end;background:rgba(201,168,76,0.1);border:0.5px solid rgba(201,168,76,0.25);border-bottom-right-radius:4px;color:var(--text)}
+.bubble.player .bname{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;color:var(--text2);text-transform:uppercase;margin-bottom:6px;text-align:right}
+.bubble.thinking{align-self:flex-start;background:var(--dark3);border:0.5px solid var(--border);border-bottom-left-radius:4px;padding:14px 20px}
+.dots{display:flex;gap:5px;align-items:center}
+.dots span{width:7px;height:7px;border-radius:50%;background:var(--gold);opacity:0.4;animation:dot 1.2s infinite}
+.dots span:nth-child(2){animation-delay:0.2s}
+.dots span:nth-child(3){animation-delay:0.4s}
+@keyframes dot{0%,80%,100%{opacity:0.2;transform:scale(0.8)}40%{opacity:1;transform:scale(1)}}
+
+.input-area{background:var(--dark3);border:0.5px solid var(--border);border-radius:14px;padding:14px;margin-bottom:0.75rem}
+.input-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.input-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--text3);text-transform:uppercase}
+.edit-hint{font-size:11px;color:var(--gold);opacity:0;transition:opacity 0.3s;font-family:'DM Mono',monospace;letter-spacing:0.5px}
+.edit-hint.visible{opacity:0.8}
+.pitch-textarea{width:100%;background:var(--dark4);border:0.5px solid rgba(201,168,76,0.12);border-radius:10px;padding:10px 12px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;resize:none;min-height:72px;line-height:1.7;outline:none;transition:border-color 0.2s}
+.pitch-textarea:focus{border-color:rgba(201,168,76,0.35);box-shadow:0 0 0 3px rgba(201,168,76,0.06)}
+.pitch-textarea::placeholder{color:var(--text3)}
+.controls{display:flex;gap:10px;margin-top:10px;align-items:center}
+.btn-record{display:flex;align-items:center;gap:7px;background:var(--dark4);color:var(--text2);border:0.5px solid var(--border);border-radius:50px;padding:9px 16px;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all 0.2s;flex-shrink:0}
+.btn-record:hover:not(.unavailable){border-color:var(--gold);color:var(--gold)}
+.btn-record.recording{background:#E24B4A;color:#fff;border-color:#E24B4A;animation:pulse 1.5s infinite}
+.btn-record.unavailable{opacity:0.35;cursor:not-allowed}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(226,75,74,0.4)}50%{box-shadow:0 0 0 10px rgba(226,75,74,0)}}
+.mic-dot{width:8px;height:8px;border-radius:50%;background:currentColor}
+.btn-record.recording .mic-dot{animation:blink 1s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
-.no-speech-note{font-size:12px;color:var(--text3);text-align:center;margin-top:6px;display:none}
+.btn-send{flex:1;background:var(--gold);color:var(--dark);border:none;border-radius:50px;padding:10px 20px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.2s}
+.btn-send:hover{background:var(--gold-light)}
+.btn-send:disabled{opacity:0.3;cursor:not-allowed}
+.hint-text{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);text-align:center;margin-bottom:4px}
+.status-bar{font-family:'DM Mono',monospace;font-size:11px;color:var(--text3);text-align:center;min-height:14px;margin-bottom:4px}
+.error-msg{font-size:12px;color:var(--red);text-align:center;min-height:14px;font-family:'DM Mono',monospace}
 
-.status-bar{font-family:'DM Mono',monospace;font-size:11px;color:var(--text3);text-align:center;margin:8px 0;min-height:16px}
-
-.transcript-box{background:var(--dark3);border:0.5px solid var(--border);border-radius:12px;padding:1.25rem;margin-bottom:1rem;min-height:80px}
-.transcript-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--text3);text-transform:uppercase;margin-bottom:8px}
-.transcript-text{font-size:14px;color:var(--text);line-height:1.7}
-.transcript-placeholder{font-size:14px;color:var(--text3);font-style:italic}
-
-.or-divider{display:flex;align-items:center;gap:12px;margin:1rem 0;color:var(--text3);font-size:12px;font-family:'DM Mono',monospace;letter-spacing:1px}
-.or-divider::before,.or-divider::after{content:'';flex:1;height:0.5px;background:var(--border)}
-
-.type-area{width:100%;background:var(--dark3);border:0.5px solid var(--border);border-radius:12px;padding:1rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;resize:vertical;min-height:100px;line-height:1.7;outline:none}
-.type-area:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,168,76,0.1)}
-
-.error-msg{font-size:12px;color:var(--red);text-align:center;margin-top:8px;min-height:16px;font-family:'DM Mono',monospace}
-.submit-btn{width:100%;background:transparent;color:var(--gold);border:1px solid var(--gold);border-radius:12px;padding:14px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;cursor:pointer;transition:all 0.2s;margin-top:1rem;letter-spacing:0.3px}
-.submit-btn:hover:not(:disabled){background:rgba(201,168,76,0.1)}
-.submit-btn:disabled{opacity:0.3;cursor:not-allowed}
-
-#score-card{display:none;background:var(--dark3);border:0.5px solid var(--border);border-radius:16px;padding:2rem}
-.score-headline{text-align:center;margin-bottom:2rem;padding-bottom:2rem;border-bottom:0.5px solid var(--border)}
-.score-num{font-family:'Playfair Display',serif;font-size:80px;font-weight:900;line-height:1}
-.score-num.great{color:var(--gold)}
-.score-num.good{color:#97C459}
-.score-num.ok{color:#EF9F27}
-.score-num.poor{color:var(--red)}
-.score-out{font-family:'DM Mono',monospace;font-size:12px;color:var(--text3);letter-spacing:2px;margin-top:4px}
-.verdict{font-family:'Playfair Display',serif;font-size:18px;margin-top:10px;color:var(--text);font-style:italic;line-height:1.4}
-
-.score-cats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:1.5rem}
-.score-cat{background:var(--dark4);border-radius:10px;padding:1rem}
-.cat-label{font-size:10px;color:var(--text3);font-family:'DM Mono',monospace;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px}
-.cat-bar-bg{background:var(--dark2);border-radius:4px;height:5px;margin-bottom:6px;overflow:hidden}
-.cat-bar{height:5px;border-radius:4px;background:var(--gold);width:0%;transition:width 1.2s cubic-bezier(0.22,1,0.36,1)}
-.cat-score{font-size:16px;font-weight:500;color:var(--text)}
-
-.feedback-section{background:var(--dark4);border-radius:12px;padding:1.25rem;margin-top:1.5rem}
-.feedback-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:10px}
-.feedback-text{font-size:14px;color:var(--text2);line-height:1.85}
-
-.play-again{width:100%;background:var(--gold);color:var(--dark);border:none;border-radius:12px;padding:14px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;cursor:pointer;margin-top:1.5rem;transition:all 0.2s;letter-spacing:0.3px}
-.play-again:hover{background:var(--gold-light)}
-
-.powered{text-align:center;margin-top:2rem;font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);letter-spacing:1px}
+/* SCORE */
+#score-screen{display:none}
+.score-wrap{background:var(--dark3);border:0.5px solid var(--border);border-radius:16px;padding:2rem;margin-top:1rem}
+.score-top{text-align:center;padding-bottom:1.5rem;border-bottom:0.5px solid var(--border);margin-bottom:1.5rem}
+.score-big{font-family:'Playfair Display',serif;font-size:86px;font-weight:900;line-height:1}
+.score-big.great{color:var(--gold)}
+.score-big.good{color:#97C459}
+.score-big.ok{color:#EF9F27}
+.score-big.poor{color:var(--red)}
+.score-of{font-family:'DM Mono',monospace;font-size:11px;color:var(--text3);letter-spacing:2px;margin-top:4px}
+.score-verdict{font-family:'Playfair Display',serif;font-size:17px;margin-top:10px;color:var(--text);font-style:italic;line-height:1.5}
+.bars{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem}
+.bar-item{background:var(--dark4);border-radius:10px;padding:12px}
+.bar-label{font-size:10px;color:var(--text3);font-family:'DM Mono',monospace;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px}
+.bar-bg{background:var(--dark2);border-radius:4px;height:4px;margin-bottom:5px;overflow:hidden}
+.bar-fill{height:4px;border-radius:4px;background:var(--gold);width:0%;transition:width 1.3s cubic-bezier(0.22,1,0.36,1)}
+.bar-val{font-size:15px;font-weight:500;color:var(--text)}
+.feedback-box{background:var(--dark4);border-radius:12px;padding:1.25rem;margin-bottom:1.5rem}
+.feedback-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:10px}
+.feedback-body{font-size:14px;color:var(--text2);line-height:1.85}
+.btn-again{width:100%;background:var(--gold);color:var(--dark);border:none;border-radius:12px;padding:14px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;cursor:pointer;transition:all 0.2s}
+.btn-again:hover{background:var(--gold-light)}
 </style>
 </head>
 <body>
 <div id="app">
 
   <div id="game-screen">
-    <div class="logo" style="margin-top:1rem">
+    <div class="header">
       <h1>Sell Me This Pen</h1>
-      <div class="divider"></div>
-      <p>The Wall Street Sales Challenge</p>
+      <div class="gold-line"></div>
+      <p>Wall Street Sales Challenge</p>
     </div>
 
-    <div class="buyer-card">
-      <div class="buyer-avatar" id="buyer-initials">GB</div>
-      <div class="buyer-info">
-        <div class="buyer-name" id="buyer-name">Gordon Blake</div>
-        <div class="buyer-title" id="buyer-title">Managing Director &middot; Stratton Capital</div>
-        <div class="buyer-mood" id="buyer-mood">Skeptical &amp; Unimpressed</div>
+    <div class="buyer-bar">
+      <div class="avatar" id="b-initials">GB</div>
+      <div class="buyer-details">
+        <div class="buyer-name" id="b-name">Gordon Blake</div>
+        <div class="buyer-sub" id="b-title">Managing Director · Stratton Capital</div>
       </div>
+      <div class="round-badge" id="round-badge">Round 1 of 3</div>
     </div>
 
-    <div class="pen-stage">
-      <div class="pen-icon">
-        <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="20" y="4" width="8" height="30" rx="4" fill="#C9A84C" opacity="0.9"/>
-          <rect x="21" y="6" width="2" height="26" rx="1" fill="#E8C96A" opacity="0.5"/>
-          <polygon points="20,34 28,34 24,44" fill="#8B6914"/>
-          <line x1="24" y1="43" x2="24" y2="47" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
-          <rect x="20" y="4" width="8" height="5" rx="3" fill="#8B6914"/>
-        </svg>
-      </div>
-      <div class="pen-label">Your Product</div>
+    <div class="pen-svg">
+      <svg viewBox="0 0 140 28" width="140" height="28" fill="none">
+        <rect x="2" y="6" width="100" height="16" rx="8" fill="#C9A84C" opacity="0.85"/>
+        <rect x="4" y="8" width="7" height="12" rx="3" fill="#8B6914"/>
+        <rect x="6" y="9" width="2" height="10" rx="1" fill="#E8C96A" opacity="0.4"/>
+        <polygon points="102,6 120,14 102,22" fill="#8B6914"/>
+        <line x1="120" y1="14" x2="130" y2="14" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
     </div>
 
-    <div class="challenge-box">
-      <div class="challenge-label">The Challenge</div>
-      <div class="challenge-text" id="challenge-text"></div>
-    </div>
-
-    <div class="record-section">
-      <button class="record-btn" id="record-btn" onclick="toggleRecording()">
-        <span class="mic-dot"></span>
-        <span id="record-label">Record My Pitch</span>
-      </button>
-      <div class="no-speech-note" id="no-speech-note">Voice not supported in this browser — type your pitch below.</div>
-    </div>
-
+    <div class="chat-window" id="chat-window"></div>
     <div class="status-bar" id="status-bar"></div>
 
-    <div class="transcript-box">
-      <div class="transcript-label">Your Pitch</div>
-      <div id="transcript-display"><div class="transcript-placeholder">Your words will appear here as you speak...</div></div>
+    <div class="input-area">
+      <div class="input-top">
+        <span class="input-label">Your Response</span>
+        <span class="edit-hint" id="edit-hint">Tap to edit before sending</span>
+      </div>
+      <textarea class="pitch-textarea" id="pitch-input" placeholder="Speak or type your pitch..." oninput="onInput()" rows="3"></textarea>
+      <div class="controls">
+        <button class="btn-record" id="record-btn" onclick="toggleRecording()">
+          <span class="mic-dot"></span>
+          <span id="record-label">Record</span>
+        </button>
+        <button class="btn-send" id="send-btn" onclick="sendMessage()" disabled>Send &rarr;</button>
+      </div>
     </div>
-
-    <div class="or-divider">or type it</div>
-    <textarea class="type-area" id="type-area" placeholder="Type your pitch here instead..." oninput="onTypeInput()"></textarea>
-
+    <div class="hint-text">Cmd+Enter to send</div>
     <div class="error-msg" id="error-msg"></div>
-    <button class="submit-btn" id="submit-btn" onclick="submitPitch()" disabled>Judge My Pitch &rarr;</button>
   </div>
 
-  <div id="score-card">
-    <div class="score-headline">
-      <div class="score-num" id="score-num">87</div>
-      <div class="score-out">out of 100</div>
-      <div class="verdict" id="verdict-text"></div>
+  <div id="score-screen">
+    <div class="header">
+      <h1>Sell Me This Pen</h1>
+      <div class="gold-line"></div>
+      <p>Final Verdict</p>
     </div>
-    <div class="score-cats">
-      <div class="score-cat"><div class="cat-label">Hook</div><div class="cat-bar-bg"><div class="cat-bar" id="bar-hook"></div></div><div class="cat-score" id="score-hook">—</div></div>
-      <div class="score-cat"><div class="cat-label">Persuasion</div><div class="cat-bar-bg"><div class="cat-bar" id="bar-persuasion"></div></div><div class="cat-score" id="score-persuasion">—</div></div>
-      <div class="score-cat"><div class="cat-label">Objection Handling</div><div class="cat-bar-bg"><div class="cat-bar" id="bar-objection"></div></div><div class="cat-score" id="score-objection">—</div></div>
-      <div class="score-cat"><div class="cat-label">Close</div><div class="cat-bar-bg"><div class="cat-bar" id="bar-close"></div></div><div class="cat-score" id="score-close">—</div></div>
+    <div class="score-wrap">
+      <div class="score-top">
+        <div class="score-big" id="score-big">72</div>
+        <div class="score-of">out of 100</div>
+        <div class="score-verdict" id="score-verdict"></div>
+      </div>
+      <div class="bars">
+        <div class="bar-item"><div class="bar-label">Hook</div><div class="bar-bg"><div class="bar-fill" id="bf-hook"></div></div><div class="bar-val" id="bv-hook">—</div></div>
+        <div class="bar-item"><div class="bar-label">Persuasion</div><div class="bar-bg"><div class="bar-fill" id="bf-persuasion"></div></div><div class="bar-val" id="bv-persuasion">—</div></div>
+        <div class="bar-item"><div class="bar-label">Objection Handling</div><div class="bar-bg"><div class="bar-fill" id="bf-objection"></div></div><div class="bar-val" id="bv-objection">—</div></div>
+        <div class="bar-item"><div class="bar-label">Close</div><div class="bar-bg"><div class="bar-fill" id="bf-close"></div></div><div class="bar-val" id="bv-close">—</div></div>
+      </div>
+      <div class="feedback-box">
+        <div class="feedback-title" id="feedback-title">Verdict</div>
+        <div class="feedback-body" id="feedback-body"></div>
+      </div>
+      <button class="btn-again" onclick="resetGame()">Try Again &rarr;</button>
     </div>
-    <div class="feedback-section">
-      <div class="feedback-label" id="feedback-label">Gordon's Verdict</div>
-      <div class="feedback-text" id="feedback-text"></div>
-    </div>
-    <button class="play-again" onclick="resetGame()">New Challenge &rarr;</button>
   </div>
 
-  <div class="powered">Powered by AI &mdash; Wall Street Edition</div>
 </div>
-
 <script>
-const buyers = [
-  {initials:'GB',name:'Gordon Blake',title:'Managing Director · Stratton Capital',mood:'Skeptical & Unimpressed',challenge:"I've got a meeting in two minutes. Convince me I need this pen. You've got 60 seconds — go."},
-  {initials:'VM',name:'Victoria Morse',title:'VP Acquisitions · Meridian Group',mood:'Cold & Dismissive',challenge:"I have seventeen pens on my desk. Tell me why I'd ever need yours."},
-  {initials:'ML',name:'Marcus Levin',title:'Hedge Fund Manager · Apex Capital',mood:'Busy & Distracted',challenge:"Make it quick. My time is literally worth $800 a minute. Sell me the damn pen."},
-  {initials:'DC',name:'Diana Cole',title:'Partner · BlackStone Advisory',mood:'Analytical & Suspicious',challenge:"I don't buy things I don't need. Prove I need this. Numbers, facts, fast."},
-  {initials:'RH',name:'Richard Holt',title:'CEO · Pinnacle Ventures',mood:'Arrogant & Testing You',challenge:"I've seen a thousand salespeople walk through that door. You've got one shot. Don't waste my time."},
+const buyers=[
+  {initials:'GB',name:'Gordon Blake',title:'Managing Director · Stratton Capital',mood:'skeptical and unimpressed',opener:"I've got a meeting in two minutes. You want to sell me a pen? Fine. Go ahead — impress me."},
+  {initials:'VM',name:'Victoria Morse',title:'VP Acquisitions · Meridian Group',mood:'cold and dismissive',opener:"I have seventeen pens on this desk. Tell me why I should care about yours."},
+  {initials:'ML',name:'Marcus Levin',title:'Hedge Fund Manager · Apex Capital',mood:'impatient and testing you',opener:"My time costs more than your car. One shot. Sell me the pen."},
+  {initials:'DC',name:'Diana Cole',title:'Partner · BlackStone Advisory',mood:'analytical and suspicious',opener:"I don't buy on impulse. Facts, not fluff. What've you got?"},
+  {initials:'RH',name:'Richard Holt',title:'CEO · Pinnacle Ventures',mood:'arrogant and combative',opener:"I've sat through a thousand pitches. Most were terrible. Convince me yours won't be."},
 ];
 
-let currentBuyer=buyers[0], pitchText='', recognition=null, isRecording=false, speechSupported=false;
+const MAX_ROUNDS=3;
+let buyer,history=[],round=0,isRecording=false,recognition=null,speechSupported=false,waiting=false;
 
-function initBuyer(){
-  currentBuyer = buyers[Math.floor(Math.random()*buyers.length)];
-  document.getElementById('buyer-initials').textContent = currentBuyer.initials;
-  document.getElementById('buyer-name').textContent = currentBuyer.name;
-  document.getElementById('buyer-title').textContent = currentBuyer.title;
-  document.getElementById('buyer-mood').textContent = currentBuyer.mood;
-  document.getElementById('challenge-text').textContent = currentBuyer.challenge;
-  document.getElementById('feedback-label').textContent = currentBuyer.name.split(' ')[0]+"'s Verdict";
-}
-
-function initSpeech(){
-  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if(!SR){ speechSupported=false; document.getElementById('no-speech-note').style.display='block'; document.getElementById('record-btn').classList.add('unavailable'); return; }
-  speechSupported=true;
-  recognition=new SR(); recognition.continuous=true; recognition.interimResults=true; recognition.lang='en-US';
-  recognition.onstart=()=>{ document.getElementById('status-bar').textContent='Recording... speak your pitch now'; };
-  recognition.onresult=(e)=>{
-    let final='',interim='';
-    for(let i=0;i<e.results.length;i++){ if(e.results[i].isFinal) final+=e.results[i][0].transcript+' '; else interim+=e.results[i][0].transcript; }
-    pitchText=(final+interim).trim();
-    document.getElementById('transcript-display').innerHTML=pitchText?'<div class="transcript-text">'+pitchText+'</div>':'<div class="transcript-placeholder">Keep going...</div>';
-    document.getElementById('submit-btn').disabled=pitchText.length<10;
-  };
-  recognition.onerror=(e)=>{ document.getElementById('status-bar').textContent=e.error==='not-allowed'?'Microphone access denied.':'Error: '+e.error; stopRecording(); };
-  recognition.onend=()=>{ if(isRecording){ try{recognition.start();}catch(err){} } };
-}
-
-function toggleRecording(){ if(!speechSupported) return; if(!isRecording) startRecording(); else stopRecording(); }
-function startRecording(){ isRecording=true; try{recognition.start();}catch(e){} document.getElementById('record-btn').classList.add('recording'); document.getElementById('record-label').textContent='Stop Recording'; }
-function stopRecording(){ isRecording=false; try{recognition.stop();}catch(e){} document.getElementById('record-btn').classList.remove('recording'); document.getElementById('record-label').textContent='Record My Pitch'; document.getElementById('status-bar').textContent=pitchText?'Pitch captured. Ready to judge.':''; }
-
-function onTypeInput(){
-  pitchText=document.getElementById('type-area').value.trim();
-  document.getElementById('submit-btn').disabled=pitchText.length<10;
-  document.getElementById('transcript-display').innerHTML=pitchText?'<div class="transcript-text">'+pitchText+'</div>':'<div class="transcript-placeholder">Your words will appear here as you speak...</div>';
-}
-
-async function submitPitch(){
-  const pitch=pitchText.trim()||document.getElementById('type-area').value.trim();
-  if(pitch.length<10) return;
-  const btn=document.getElementById('submit-btn');
-  btn.disabled=true; btn.textContent='Judging your pitch...';
+function init(){
+  buyer=buyers[Math.floor(Math.random()*buyers.length)];
+  history=[]; round=0; waiting=false;
+  document.getElementById('b-initials').textContent=buyer.initials;
+  document.getElementById('b-name').textContent=buyer.name;
+  document.getElementById('b-title').textContent=buyer.title;
+  document.getElementById('chat-window').innerHTML='';
+  document.getElementById('pitch-input').value='';
   document.getElementById('error-msg').textContent='';
+  document.getElementById('status-bar').textContent='';
+  document.getElementById('send-btn').disabled=true;
+  document.getElementById('edit-hint').classList.remove('visible');
+  updateBadge();
+  initSpeech();
+  setTimeout(()=>addBubble('buyer',buyer.opener),400);
+}
 
-  try {
-    const res = await fetch('/api/score', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ pitch, buyerName: currentBuyer.name, buyerChallenge: currentBuyer.challenge })
-    });
-    const result = await res.json();
-    if(!res.ok) throw new Error(result.error||'Something went wrong.');
-    showScore(result);
-  } catch(e){
-    btn.disabled=false; btn.textContent='Judge My Pitch \u2192';
-    document.getElementById('error-msg').textContent=e.message||'Something went wrong. Try again.';
+function updateBadge(){
+  document.getElementById('round-badge').textContent='Round '+(round+1)+' of '+MAX_ROUNDS;
+}
+
+function addBubble(who,text){
+  const w=document.getElementById('chat-window');
+  const d=document.createElement('div');
+  d.className='bubble '+who;
+  const nameLabel=who==='buyer'?buyer.name.split(' ')[0]:'You';
+  d.innerHTML='<div class="bname">'+nameLabel+'</div><div>'+text+'</div>';
+  w.appendChild(d); w.scrollTop=w.scrollHeight;
+}
+
+function showThinking(){
+  const w=document.getElementById('chat-window');
+  const d=document.createElement('div');
+  d.className='bubble thinking'; d.id='thinking';
+  d.innerHTML='<div class="dots"><span></span><span></span><span></span></div>';
+  w.appendChild(d); w.scrollTop=w.scrollHeight;
+}
+
+function removeThinking(){ const t=document.getElementById('thinking'); if(t)t.remove(); }
+
+function onInput(){
+  const val=document.getElementById('pitch-input').value.trim();
+  document.getElementById('send-btn').disabled=val.length<3||waiting;
+  const hint=document.getElementById('edit-hint');
+  if(val.length>0) hint.classList.add('visible'); else hint.classList.remove('visible');
+}
+
+async function sendMessage(){
+  const text=document.getElementById('pitch-input').value.trim();
+  if(!text||waiting) return;
+  waiting=true;
+  document.getElementById('send-btn').disabled=true;
+  document.getElementById('error-msg').textContent='';
+  document.getElementById('edit-hint').classList.remove('visible');
+  if(isRecording) stopRecording();
+  addBubble('player',text);
+  history.push({role:'user',text});
+  document.getElementById('pitch-input').value='';
+  round++;
+
+  if(round>=MAX_ROUNDS){
+    showThinking();
+    await getFinalScore();
+  } else {
+    updateBadge();
+    showThinking();
+    await getReply();
   }
+  waiting=false;
+  document.getElementById('send-btn').disabled=document.getElementById('pitch-input').value.trim().length<3;
+}
+
+async function getReply(){
+  const convo=history.map(h=>(h.role==='user'?'Salesperson: ':'Buyer: ')+h.text).join('\n');
+  const prompt=`You are ${buyer.name}, a ${buyer.mood} Wall Street executive being pitched a pen.\n\nConversation:\n${convo}\n\nStay in character. React to what they just said. Push back or probe with ONE sharp follow-up question or objection. 2-3 sentences max. Be tough but realistic. Do NOT score or break character.`;
+  try{
+    const res=await fetch('/api/score',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt,mode:'convo'})});
+    const data=await res.json();
+    if(!res.ok) throw new Error(data.error||'Error');
+    removeThinking();
+    addBubble('buyer',data.reply);
+    history.push({role:'buyer',text:data.reply});
+  }catch(e){ removeThinking(); document.getElementById('error-msg').textContent=e.message||'Something went wrong.'; }
+}
+
+async function getFinalScore(){
+  const convo=history.map(h=>(h.role==='user'?'Salesperson: ':'Buyer: ')+h.text).join('\n');
+  const prompt=`You are ${buyer.name}, a ${buyer.mood} Wall Street executive. Review this full pen sales conversation and score the salesperson.\n\nConversation:\n${convo}\n\nScore 0-100 each: hook, persuasion, objection, close. overall = average.\nAlso: verdict (one punchy in-character sentence), feedback (3-4 sentences of honest coaching referencing specifics), finalreply (your 2-sentence spoken reaction ending the meeting).\n\nRespond ONLY with valid JSON, no backticks:\n{"hook":N,"persuasion":N,"objection":N,"close":N,"overall":N,"verdict":"...","feedback":"...","finalreply":"..."}`;
+  try{
+    const res=await fetch('/api/score',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt,mode:'score'})});
+    const data=await res.json();
+    if(!res.ok) throw new Error(data.error||'Error');
+    removeThinking();
+    if(data.finalreply) addBubble('buyer',data.finalreply);
+    setTimeout(()=>showScore(data),1800);
+  }catch(e){ removeThinking(); document.getElementById('error-msg').textContent=e.message||'Something went wrong.'; }
 }
 
 function showScore(r){
   document.getElementById('game-screen').style.display='none';
-  document.getElementById('score-card').style.display='block';
-  const overall=Math.round(r.overall);
-  const el=document.getElementById('score-num');
-  el.textContent=overall;
-  el.className='score-num '+(overall>=80?'great':overall>=65?'good':overall>=45?'ok':'poor');
-  document.getElementById('verdict-text').textContent=r.verdict;
-  document.getElementById('feedback-text').textContent=r.feedback;
+  document.getElementById('score-screen').style.display='block';
+  window.scrollTo(0,0);
+  const o=Math.round(r.overall);
+  const el=document.getElementById('score-big');
+  el.textContent=o;
+  el.className='score-big '+(o>=80?'great':o>=65?'good':o>=45?'ok':'poor');
+  document.getElementById('score-verdict').textContent=r.verdict;
+  document.getElementById('feedback-title').textContent=buyer.name.split(' ')[0]+"'s Verdict";
+  document.getElementById('feedback-body').textContent=r.feedback;
   ['hook','persuasion','objection','close'].forEach(k=>{
     const v=Math.round(r[k]);
-    document.getElementById('score-'+k).textContent=v+' / 100';
-    setTimeout(()=>{ document.getElementById('bar-'+k).style.width=v+'%'; },400);
+    document.getElementById('bv-'+k).textContent=v+' / 100';
+    setTimeout(()=>{ document.getElementById('bf-'+k).style.width=v+'%'; },400);
   });
 }
 
 function resetGame(){
-  pitchText='';
-  document.getElementById('type-area').value='';
-  document.getElementById('transcript-display').innerHTML='<div class="transcript-placeholder">Your words will appear here as you speak...</div>';
-  document.getElementById('submit-btn').disabled=true;
-  document.getElementById('submit-btn').textContent='Judge My Pitch \u2192';
-  document.getElementById('status-bar').textContent='';
-  document.getElementById('error-msg').textContent='';
-  document.getElementById('score-card').style.display='none';
+  document.getElementById('score-screen').style.display='none';
   document.getElementById('game-screen').style.display='block';
-  ['hook','persuasion','objection','close'].forEach(k=>{ document.getElementById('bar-'+k).style.width='0%'; document.getElementById('score-'+k).textContent='—'; });
-  if(isRecording) stopRecording();
-  initBuyer();
+  ['hook','persuasion','objection','close'].forEach(k=>{ document.getElementById('bf-'+k).style.width='0%'; document.getElementById('bv-'+k).textContent='—'; });
+  init();
 }
 
-initBuyer();
-initSpeech();
+function initSpeech(){
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){ speechSupported=false; document.getElementById('record-btn').classList.add('unavailable'); return; }
+  speechSupported=true;
+  if(recognition){ try{recognition.abort();}catch(e){} }
+  recognition=new SR(); recognition.continuous=true; recognition.interimResults=true; recognition.lang='en-US';
+  recognition.onstart=()=>{ document.getElementById('status-bar').textContent='Listening...'; };
+  recognition.onresult=(e)=>{
+    let final='',interim='';
+    for(let i=0;i<e.results.length;i++){ if(e.results[i].isFinal) final+=e.results[i][0].transcript+' '; else interim+=e.results[i][0].transcript; }
+    const val=(final+interim).trim();
+    document.getElementById('pitch-input').value=val;
+    document.getElementById('send-btn').disabled=val.length<3||waiting;
+    if(val) document.getElementById('edit-hint').classList.add('visible');
+  };
+  recognition.onerror=(e)=>{ if(e.error==='not-allowed') document.getElementById('status-bar').textContent='Mic access denied.'; stopRecording(); };
+  recognition.onend=()=>{ if(isRecording){ try{recognition.start();}catch(err){} } };
+}
+
+function toggleRecording(){ if(!speechSupported) return; if(!isRecording) startRecording(); else stopRecording(); }
+function startRecording(){ isRecording=true; try{recognition.start();}catch(e){} document.getElementById('record-btn').classList.add('recording'); document.getElementById('record-label').textContent='Stop'; }
+function stopRecording(){ isRecording=false; try{recognition.stop();}catch(e){} document.getElementById('record-btn').classList.remove('recording'); document.getElementById('record-label').textContent='Record'; document.getElementById('status-bar').textContent=document.getElementById('pitch-input').value.trim()?'Done — edit if needed, then send.':''; }
+
+document.addEventListener('keydown',e=>{ if((e.metaKey||e.ctrlKey)&&e.key==='Enter'){ e.preventDefault(); if(!document.getElementById('send-btn').disabled) sendMessage(); } });
+
+init();
 </script>
 </body>
 </html>
