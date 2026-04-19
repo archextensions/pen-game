@@ -28,7 +28,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .header-sub{font-size:14px;color:var(--ink3);margin-top:8px;font-weight:300;letter-spacing:0.3px}
 
 /* ── INTRO ── */
-#intro-screen{display:flex;flex-direction:column;align-items:center}
+#intro-screen{display:none;flex-direction:column;align-items:center}
 .intro-card{background:var(--paper);border:0.5px solid var(--cream3);border-radius:24px;padding:2rem;box-shadow:0 4px 30px var(--shadow2);width:100%}
 .pen-illustration{text-align:center;margin-bottom:1.75rem}
 .intro-title{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--ink);margin-bottom:6px;text-align:center}
@@ -538,9 +538,16 @@ async function sendMessage(){
   history.push({role:'user',text});
   clearInput();
   round++;
-  if(round>=MAX_ROUNDS){showThinking();await getFinalScore();}
-  else{updateRound();showThinking();await getReply();}
-  waiting=false;
+  if(round>=MAX_ROUNDS){
+    showThinking();
+    await getFinalScore();
+    // waiting stays true — game is over, score screen will show
+  } else {
+    updateRound();
+    showThinking();
+    await getReply();
+    waiting=false;
+  }
 }
 
 async function getReply(){
@@ -589,7 +596,11 @@ Respond ONLY valid JSON, no backticks:
       if(ttsEnabled){speak(data.finalreply,()=>setTimeout(()=>showScore(data),800));return;}
     }
     setTimeout(()=>showScore(data),1600);
-  }catch(e){removeThinking();document.getElementById('error-line').textContent=e.message||'Something went wrong.';}
+  }catch(e){
+    removeThinking();
+    waiting=false;
+    document.getElementById('error-line').textContent=e.message||'Something went wrong.';
+  }
 }
 
 function showScore(r){
@@ -646,7 +657,7 @@ function showScore(r){
     document.getElementById('sv-'+k).textContent=v;
     setTimeout(()=>{document.getElementById('sf-'+k).style.width=v+'%';},300);
   });
-
+}
 
 function initSpeech(){
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
