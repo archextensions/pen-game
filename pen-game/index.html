@@ -4,229 +4,355 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sell Me This Pen — Wall Street Sales Challenge</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --gold:#C9A84C;--gold-light:#E8C96A;--gold-dark:#8B6914;
-  --dark:#0A0A0A;--dark2:#111111;--dark3:#1A1A1A;--dark4:#222;
-  --text:#F0EAD6;--text2:#B0A888;--text3:#555;
-  --red:#E24B4A;--border:rgba(201,168,76,0.2);
+  --gold:#C9A84C;--gold-light:#E8C96A;--gold-dark:#8B6914;--gold-dim:rgba(201,168,76,0.15);
+  --dark:#080808;--dark2:#0e0e0e;--dark3:#151515;--dark4:#1c1c1c;--dark5:#242424;
+  --text:#F0EAD6;--text2:#A09880;--text3:#484840;
+  --red:#D94F4E;--border:rgba(201,168,76,0.18);--border2:rgba(201,168,76,0.08);
 }
-body{background:var(--dark);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:1.5rem 1rem 4rem}
-#app{width:100%;max-width:660px}
 
-.header{text-align:center;margin-bottom:1.5rem;padding-top:0.5rem}
-.header h1{font-family:'Playfair Display',serif;font-size:clamp(26px,5vw,38px);font-weight:900;color:var(--gold);letter-spacing:-0.5px}
-.header p{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:4px;color:var(--text3);text-transform:uppercase;margin-top:5px}
-.gold-line{width:60px;height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:8px auto}
+html,body{height:100%}
+body{background:var(--dark);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden}
 
-.buyer-bar{display:flex;align-items:center;gap:12px;background:var(--dark3);border:0.5px solid var(--border);border-radius:14px;padding:12px 16px;margin-bottom:1.25rem}
-.avatar{width:44px;height:44px;border-radius:50%;background:var(--dark4);border:1.5px solid var(--gold-dark);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--gold);flex-shrink:0}
-.buyer-details{flex:1}
-.buyer-name{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;color:var(--text)}
-.buyer-sub{font-size:11px;color:var(--text2);font-family:'DM Mono',monospace;margin-top:1px}
-.round-badge{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1px;color:var(--gold);background:rgba(201,168,76,0.1);border:0.5px solid rgba(201,168,76,0.3);padding:4px 10px;border-radius:20px;white-space:nowrap}
+/* Background texture */
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(201,168,76,0.04) 0%,transparent 70%);pointer-events:none;z-index:0}
 
-.pen-svg{display:flex;justify-content:center;margin:0 0 1rem}
+#app{position:relative;z-index:1;max-width:680px;margin:0 auto;padding:2rem 1.25rem 5rem;display:flex;flex-direction:column;min-height:100vh}
 
-.chat-window{display:flex;flex-direction:column;gap:12px;margin-bottom:1.25rem;min-height:80px}
+/* ── HEADER ── */
+.site-header{text-align:center;margin-bottom:2rem}
+.site-header h1{font-family:'Playfair Display',serif;font-size:clamp(30px,6vw,46px);font-weight:900;color:var(--gold);letter-spacing:-1px;line-height:1}
+.tagline{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:5px;color:var(--text3);text-transform:uppercase;margin-top:8px}
+.header-rule{display:flex;align-items:center;gap:12px;margin:12px auto 0;width:180px}
+.header-rule::before,.header-rule::after{content:'';flex:1;height:0.5px;background:var(--gold);opacity:0.3}
+.header-rule-diamond{width:5px;height:5px;background:var(--gold);transform:rotate(45deg);flex-shrink:0;opacity:0.6}
 
-.bubble{max-width:88%;padding:12px 16px;border-radius:16px;font-size:14px;line-height:1.7;animation:fadeUp 0.3s ease}
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.bubble.buyer{align-self:flex-start;background:var(--dark3);border:0.5px solid var(--border);border-bottom-left-radius:4px;color:var(--text)}
-.bubble.buyer .bname{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;color:var(--gold);text-transform:uppercase;margin-bottom:6px}
-.bubble.player{align-self:flex-end;background:rgba(201,168,76,0.1);border:0.5px solid rgba(201,168,76,0.25);border-bottom-right-radius:4px;color:var(--text)}
-.bubble.player .bname{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;color:var(--text2);text-transform:uppercase;margin-bottom:6px;text-align:right}
-.bubble.thinking{align-self:flex-start;background:var(--dark3);border:0.5px solid var(--border);border-bottom-left-radius:4px;padding:14px 20px}
-.dots{display:flex;gap:5px;align-items:center}
-.dots span{width:7px;height:7px;border-radius:50%;background:var(--gold);opacity:0.4;animation:dot 1.2s infinite}
+/* ── BUYER CARD ── */
+.buyer-card{position:relative;background:linear-gradient(135deg,var(--dark3) 0%,var(--dark2) 100%);border:0.5px solid var(--border);border-radius:20px;padding:1.25rem 1.5rem;margin-bottom:1.5rem;display:flex;gap:14px;align-items:center;overflow:hidden}
+.buyer-card::before{content:'';position:absolute;top:0;right:0;width:200px;height:200px;background:radial-gradient(circle,rgba(201,168,76,0.06) 0%,transparent 70%);pointer-events:none}
+.buyer-avatar-wrap{position:relative;flex-shrink:0}
+.buyer-avatar{width:54px;height:54px;border-radius:50%;background:var(--dark4);border:1.5px solid var(--gold-dark);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--gold)}
+.speaking-ring{position:absolute;inset:-4px;border-radius:50%;border:2px solid var(--gold);opacity:0;transition:opacity 0.3s;animation:none}
+.speaking-ring.active{opacity:1;animation:speakPulse 1.2s ease-in-out infinite}
+@keyframes speakPulse{0%,100%{transform:scale(1);opacity:0.8}50%{transform:scale(1.08);opacity:0.3}}
+.buyer-info{flex:1;min-width:0}
+.buyer-name{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.buyer-role{font-size:11px;color:var(--text2);font-family:'DM Mono',monospace;margin-top:2px;letter-spacing:0.3px}
+.buyer-mood-tag{display:inline-block;font-size:10px;font-family:'DM Mono',monospace;letter-spacing:1px;color:var(--gold);background:var(--gold-dim);border:0.5px solid rgba(201,168,76,0.25);padding:3px 10px;border-radius:20px;margin-top:7px;text-transform:uppercase}
+.round-info{text-align:right;flex-shrink:0}
+.round-num{font-family:'Playfair Display',serif;font-size:26px;font-weight:900;color:var(--gold);line-height:1}
+.round-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--text3);text-transform:uppercase;margin-top:2px}
+
+/* ── CHAT ── */
+.chat-window{flex:1;display:flex;flex-direction:column;gap:14px;margin-bottom:1.5rem;padding:0 2px}
+
+.bubble{max-width:85%;animation:riseIn 0.35s cubic-bezier(0.22,1,0.36,1)}
+@keyframes riseIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+.bubble.buyer{align-self:flex-start}
+.bubble.player{align-self:flex-end}
+
+.bubble-inner{padding:13px 16px;border-radius:18px;font-size:14px;line-height:1.75;position:relative}
+.bubble.buyer .bubble-inner{background:var(--dark3);border:0.5px solid var(--border);border-bottom-left-radius:5px;color:var(--text)}
+.bubble.player .bubble-inner{background:linear-gradient(135deg,rgba(201,168,76,0.16),rgba(201,168,76,0.08));border:0.5px solid rgba(201,168,76,0.3);border-bottom-right-radius:5px;color:var(--text)}
+
+.bubble-meta{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px}
+.bubble.buyer .bubble-meta{color:var(--gold)}
+.bubble.player .bubble-meta{color:var(--text3);text-align:right}
+
+.speak-btn{display:inline-flex;align-items:center;gap:5px;margin-top:8px;background:none;border:0.5px solid rgba(201,168,76,0.2);border-radius:20px;padding:3px 10px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--text3);cursor:pointer;transition:all 0.2s;text-transform:uppercase}
+.speak-btn:hover{border-color:var(--gold);color:var(--gold)}
+.speak-btn.speaking{border-color:var(--gold);color:var(--gold);background:var(--gold-dim)}
+.speak-icon{width:6px;height:6px;border-radius:50%;background:currentColor}
+.speak-btn.speaking .speak-icon{animation:blink 0.8s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
+
+.bubble.thinking{align-self:flex-start}
+.bubble.thinking .bubble-inner{background:var(--dark3);border:0.5px solid var(--border);border-bottom-left-radius:5px;padding:15px 18px}
+.dots{display:flex;gap:5px}
+.dots span{width:7px;height:7px;border-radius:50%;background:var(--gold);opacity:0.3;animation:dotPulse 1.4s ease-in-out infinite}
 .dots span:nth-child(2){animation-delay:0.2s}
 .dots span:nth-child(3){animation-delay:0.4s}
-@keyframes dot{0%,80%,100%{opacity:0.2;transform:scale(0.8)}40%{opacity:1;transform:scale(1)}}
+@keyframes dotPulse{0%,80%,100%{opacity:0.2;transform:scale(0.75)}40%{opacity:0.9;transform:scale(1)}}
 
-.input-area{background:var(--dark3);border:0.5px solid var(--border);border-radius:14px;padding:14px;margin-bottom:0.75rem}
-.input-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.input-label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--text3);text-transform:uppercase}
-.edit-hint{font-size:11px;color:var(--gold);opacity:0;transition:opacity 0.3s;font-family:'DM Mono',monospace;letter-spacing:0.5px}
-.edit-hint.visible{opacity:0.8}
-.pitch-textarea{width:100%;background:var(--dark4);border:0.5px solid rgba(201,168,76,0.12);border-radius:10px;padding:10px 12px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;resize:none;min-height:72px;line-height:1.7;outline:none;transition:border-color 0.2s}
-.pitch-textarea:focus{border-color:rgba(201,168,76,0.35);box-shadow:0 0 0 3px rgba(201,168,76,0.06)}
-.pitch-textarea::placeholder{color:var(--text3)}
-.controls{display:flex;gap:10px;margin-top:10px;align-items:center}
-.btn-record{display:flex;align-items:center;gap:7px;background:var(--dark4);color:var(--text2);border:0.5px solid var(--border);border-radius:50px;padding:9px 16px;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all 0.2s;flex-shrink:0}
+/* ── INPUT ── */
+.input-wrap{background:var(--dark3);border:0.5px solid var(--border);border-radius:18px;padding:1rem 1.25rem;position:relative}
+.input-wrap::before{content:'';position:absolute;inset:0;border-radius:18px;background:linear-gradient(135deg,rgba(201,168,76,0.03),transparent);pointer-events:none}
+.input-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.input-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:2.5px;color:var(--text3);text-transform:uppercase}
+.edit-tag{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1px;color:var(--gold);background:var(--gold-dim);border:0.5px solid rgba(201,168,76,0.2);padding:2px 8px;border-radius:10px;opacity:0;transition:opacity 0.3s;text-transform:uppercase}
+.edit-tag.show{opacity:1}
+
+textarea#pitch-input{width:100%;background:var(--dark4);border:0.5px solid rgba(201,168,76,0.1);border-radius:12px;padding:11px 13px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:14px;resize:none;min-height:70px;line-height:1.7;outline:none;transition:border-color 0.25s,box-shadow 0.25s}
+textarea#pitch-input:focus{border-color:rgba(201,168,76,0.4);box-shadow:0 0 0 3px rgba(201,168,76,0.06)}
+textarea#pitch-input::placeholder{color:var(--text3)}
+
+.controls-row{display:flex;gap:10px;margin-top:10px;align-items:center}
+
+.btn-record{display:flex;align-items:center;gap:7px;background:var(--dark4);color:var(--text2);border:0.5px solid var(--border);border-radius:50px;padding:9px 16px;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all 0.2s;flex-shrink:0;white-space:nowrap}
 .btn-record:hover:not(.unavailable){border-color:var(--gold);color:var(--gold)}
-.btn-record.recording{background:#E24B4A;color:#fff;border-color:#E24B4A;animation:pulse 1.5s infinite}
-.btn-record.unavailable{opacity:0.35;cursor:not-allowed}
-@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(226,75,74,0.4)}50%{box-shadow:0 0 0 10px rgba(226,75,74,0)}}
-.mic-dot{width:8px;height:8px;border-radius:50%;background:currentColor}
-.btn-record.recording .mic-dot{animation:blink 1s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
-.btn-send{flex:1;background:var(--gold);color:var(--dark);border:none;border-radius:50px;padding:10px 20px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.2s}
-.btn-send:hover{background:var(--gold-light)}
-.btn-send:disabled{opacity:0.3;cursor:not-allowed}
-.hint-text{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);text-align:center;margin-bottom:4px}
-.status-bar{font-family:'DM Mono',monospace;font-size:11px;color:var(--text3);text-align:center;min-height:14px;margin-bottom:4px}
-.error-msg{font-size:12px;color:var(--red);text-align:center;min-height:14px;font-family:'DM Mono',monospace}
+.btn-record.recording{background:var(--red);color:#fff;border-color:var(--red);animation:recPulse 1.5s infinite}
+@keyframes recPulse{0%,100%{box-shadow:0 0 0 0 rgba(217,79,78,0.5)}50%{box-shadow:0 0 0 10px rgba(217,79,78,0)}}
+.btn-record.unavailable{opacity:0.3;cursor:not-allowed}
+.rec-dot{width:8px;height:8px;border-radius:50%;background:currentColor;flex-shrink:0}
+.btn-record.recording .rec-dot{animation:blink 0.8s infinite}
 
-/* SCORE */
+.btn-send{flex:1;background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:#080808;border:none;border-radius:50px;padding:10px 22px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all 0.2s;letter-spacing:0.3px;position:relative;overflow:hidden}
+.btn-send::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.15),transparent);pointer-events:none}
+.btn-send:hover:not(:disabled){filter:brightness(1.1);transform:translateY(-1px)}
+.btn-send:active:not(:disabled){transform:translateY(0)}
+.btn-send:disabled{opacity:0.3;cursor:not-allowed;filter:none;transform:none}
+
+.status-line{font-family:'DM Mono',monospace;font-size:10px;color:var(--text3);text-align:center;min-height:14px;margin:6px 0 2px}
+.error-line{font-size:11px;color:var(--red);text-align:center;min-height:14px;font-family:'DM Mono',monospace}
+.cmd-hint{font-family:'DM Mono',monospace;font-size:9px;color:var(--text3);text-align:center;margin-top:4px;letter-spacing:0.5px}
+
+/* ── SCORE SCREEN ── */
 #score-screen{display:none}
-.score-wrap{background:var(--dark3);border:0.5px solid var(--border);border-radius:16px;padding:2rem;margin-top:1rem}
-.score-top{text-align:center;padding-bottom:1.5rem;border-bottom:0.5px solid var(--border);margin-bottom:1.5rem}
-.score-big{font-family:'Playfair Display',serif;font-size:86px;font-weight:900;line-height:1}
-.score-big.great{color:var(--gold)}
-.score-big.good{color:#97C459}
-.score-big.ok{color:#EF9F27}
-.score-big.poor{color:var(--red)}
-.score-of{font-family:'DM Mono',monospace;font-size:11px;color:var(--text3);letter-spacing:2px;margin-top:4px}
-.score-verdict{font-family:'Playfair Display',serif;font-size:17px;margin-top:10px;color:var(--text);font-style:italic;line-height:1.5}
-.bars{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem}
-.bar-item{background:var(--dark4);border-radius:10px;padding:12px}
-.bar-label{font-size:10px;color:var(--text3);font-family:'DM Mono',monospace;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:7px}
-.bar-bg{background:var(--dark2);border-radius:4px;height:4px;margin-bottom:5px;overflow:hidden}
-.bar-fill{height:4px;border-radius:4px;background:var(--gold);width:0%;transition:width 1.3s cubic-bezier(0.22,1,0.36,1)}
-.bar-val{font-size:15px;font-weight:500;color:var(--text)}
-.feedback-box{background:var(--dark4);border-radius:12px;padding:1.25rem;margin-bottom:1.5rem}
-.feedback-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:10px}
-.feedback-body{font-size:14px;color:var(--text2);line-height:1.85}
-.btn-again{width:100%;background:var(--gold);color:var(--dark);border:none;border-radius:12px;padding:14px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;cursor:pointer;transition:all 0.2s}
-.btn-again:hover{background:var(--gold-light)}
+
+.score-header{text-align:center;margin-bottom:1.5rem}
+.score-header h2{font-family:'Playfair Display',serif;font-size:28px;font-weight:900;color:var(--gold)}
+
+.score-card{background:var(--dark3);border:0.5px solid var(--border);border-radius:22px;padding:2rem;overflow:hidden;position:relative}
+.score-card::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;background:radial-gradient(circle,rgba(201,168,76,0.07),transparent 70%);pointer-events:none}
+
+.score-hero{text-align:center;padding-bottom:1.75rem;border-bottom:0.5px solid var(--border);margin-bottom:1.75rem}
+.score-number{font-family:'Playfair Display',serif;font-size:100px;font-weight:900;line-height:0.9;letter-spacing:-4px}
+.score-number.great{color:var(--gold)}
+.score-number.good{color:#8fc44a}
+.score-number.ok{color:#d4a227}
+.score-number.poor{color:var(--red)}
+.score-denom{font-family:'DM Mono',monospace;font-size:11px;color:var(--text3);letter-spacing:3px;margin-top:8px}
+.score-verdict{font-family:'Playfair Display',serif;font-style:italic;font-size:18px;color:var(--text);margin-top:12px;line-height:1.5;max-width:480px;margin-left:auto;margin-right:auto}
+
+.score-bars{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.5rem}
+.score-bar-item{background:var(--dark4);border:0.5px solid var(--border2);border-radius:14px;padding:14px}
+.sbi-label{font-size:9px;color:var(--text3);font-family:'DM Mono',monospace;letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+.sbi-track{background:var(--dark2);border-radius:4px;height:4px;margin-bottom:8px;overflow:hidden}
+.sbi-fill{height:4px;border-radius:4px;background:linear-gradient(90deg,var(--gold-dark),var(--gold-light));width:0%;transition:width 1.4s cubic-bezier(0.22,1,0.36,1)}
+.sbi-val{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--text)}
+
+.verdict-box{background:var(--dark4);border:0.5px solid var(--border);border-radius:16px;padding:1.25rem 1.5rem;margin-bottom:1.5rem;position:relative}
+.verdict-box::before{content:'"';position:absolute;top:-8px;left:16px;font-family:'Playfair Display',serif;font-size:48px;color:var(--gold);opacity:0.2;line-height:1}
+.verdict-label{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:10px}
+.verdict-text{font-size:14px;color:var(--text2);line-height:1.9}
+
+.btn-again{width:100%;background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:#080808;border:none;border-radius:14px;padding:15px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;cursor:pointer;transition:all 0.2s;letter-spacing:0.3px;position:relative;overflow:hidden}
+.btn-again::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,0.15),transparent);pointer-events:none}
+.btn-again:hover{filter:brightness(1.1);transform:translateY(-1px)}
+
+/* Auto-speak toggle */
+.tts-toggle{display:flex;align-items:center;gap:8px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;cursor:pointer;user-select:none}
+.toggle-track{width:28px;height:16px;background:var(--dark5);border:0.5px solid var(--border);border-radius:8px;position:relative;transition:background 0.2s;flex-shrink:0}
+.toggle-thumb{position:absolute;top:2px;left:2px;width:10px;height:10px;border-radius:50%;background:var(--text3);transition:all 0.2s}
+.tts-toggle.on .toggle-track{background:var(--gold-dim);border-color:var(--gold)}
+.tts-toggle.on .toggle-thumb{left:14px;background:var(--gold)}
 </style>
 </head>
 <body>
 <div id="app">
 
   <div id="game-screen">
-    <div class="header">
+    <div class="site-header">
       <h1>Sell Me This Pen</h1>
-      <div class="gold-line"></div>
-      <p>Wall Street Sales Challenge</p>
+      <div class="header-rule"><div class="header-rule-diamond"></div></div>
+      <div class="tagline">Wall Street Sales Challenge</div>
     </div>
 
-    <div class="buyer-bar">
-      <div class="avatar" id="b-initials">GB</div>
-      <div class="buyer-details">
-        <div class="buyer-name" id="b-name">Gordon Blake</div>
-        <div class="buyer-sub" id="b-title">Managing Director · Stratton Capital</div>
+    <div class="buyer-card">
+      <div class="buyer-avatar-wrap">
+        <div class="buyer-avatar" id="b-initials">GB</div>
+        <div class="speaking-ring" id="speaking-ring"></div>
       </div>
-      <div class="round-badge" id="round-badge">Round 1 of 3</div>
-    </div>
-
-    <div class="pen-svg">
-      <svg viewBox="0 0 140 28" width="140" height="28" fill="none">
-        <rect x="2" y="6" width="100" height="16" rx="8" fill="#C9A84C" opacity="0.85"/>
-        <rect x="4" y="8" width="7" height="12" rx="3" fill="#8B6914"/>
-        <rect x="6" y="9" width="2" height="10" rx="1" fill="#E8C96A" opacity="0.4"/>
-        <polygon points="102,6 120,14 102,22" fill="#8B6914"/>
-        <line x1="120" y1="14" x2="130" y2="14" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round"/>
-      </svg>
+      <div class="buyer-info">
+        <div class="buyer-name" id="b-name">Gordon Blake</div>
+        <div class="buyer-role" id="b-title">Managing Director · Stratton Capital</div>
+        <div class="buyer-mood-tag" id="b-mood">Skeptical</div>
+      </div>
+      <div class="round-info">
+        <div class="round-num" id="round-num">1</div>
+        <div class="round-label">of 3</div>
+      </div>
     </div>
 
     <div class="chat-window" id="chat-window"></div>
-    <div class="status-bar" id="status-bar"></div>
 
-    <div class="input-area">
-      <div class="input-top">
-        <span class="input-label">Your Response</span>
-        <span class="edit-hint" id="edit-hint">Tap to edit before sending</span>
+    <div class="status-line" id="status-line"></div>
+
+    <div class="input-wrap">
+      <div class="input-header">
+        <span class="input-label">Your Pitch</span>
+        <div style="display:flex;align-items:center;gap:12px">
+          <label class="tts-toggle" id="tts-toggle" onclick="toggleTTS()">
+            <div class="toggle-track"><div class="toggle-thumb"></div></div>
+            Auto-speak
+          </label>
+          <span class="edit-tag" id="edit-tag">Editable</span>
+        </div>
       </div>
-      <textarea class="pitch-textarea" id="pitch-input" placeholder="Speak or type your pitch..." oninput="onInput()" rows="3"></textarea>
-      <div class="controls">
+      <textarea id="pitch-input" placeholder="Speak or type your pitch..." oninput="onInput()" rows="3"></textarea>
+      <div class="controls-row">
         <button class="btn-record" id="record-btn" onclick="toggleRecording()">
-          <span class="mic-dot"></span>
-          <span id="record-label">Record</span>
+          <span class="rec-dot"></span>
+          <span id="rec-label">Record</span>
         </button>
         <button class="btn-send" id="send-btn" onclick="sendMessage()" disabled>Send &rarr;</button>
       </div>
     </div>
-    <div class="hint-text">Cmd+Enter to send</div>
-    <div class="error-msg" id="error-msg"></div>
+    <div class="cmd-hint">Cmd + Enter to send</div>
+    <div class="error-line" id="error-line"></div>
   </div>
 
   <div id="score-screen">
-    <div class="header">
-      <h1>Sell Me This Pen</h1>
-      <div class="gold-line"></div>
-      <p>Final Verdict</p>
+    <div class="score-header">
+      <div class="site-header" style="margin-bottom:1.25rem">
+        <h1>Sell Me This Pen</h1>
+        <div class="header-rule"><div class="header-rule-diamond"></div></div>
+        <div class="tagline">Final Verdict</div>
+      </div>
     </div>
-    <div class="score-wrap">
-      <div class="score-top">
-        <div class="score-big" id="score-big">72</div>
-        <div class="score-of">out of 100</div>
+    <div class="score-card">
+      <div class="score-hero">
+        <div class="score-number" id="score-number">72</div>
+        <div class="score-denom">out of 100</div>
         <div class="score-verdict" id="score-verdict"></div>
       </div>
-      <div class="bars">
-        <div class="bar-item"><div class="bar-label">Hook</div><div class="bar-bg"><div class="bar-fill" id="bf-hook"></div></div><div class="bar-val" id="bv-hook">—</div></div>
-        <div class="bar-item"><div class="bar-label">Persuasion</div><div class="bar-bg"><div class="bar-fill" id="bf-persuasion"></div></div><div class="bar-val" id="bv-persuasion">—</div></div>
-        <div class="bar-item"><div class="bar-label">Objection Handling</div><div class="bar-bg"><div class="bar-fill" id="bf-objection"></div></div><div class="bar-val" id="bv-objection">—</div></div>
-        <div class="bar-item"><div class="bar-label">Close</div><div class="bar-bg"><div class="bar-fill" id="bf-close"></div></div><div class="bar-val" id="bv-close">—</div></div>
+      <div class="score-bars">
+        <div class="score-bar-item"><div class="sbi-label">Hook</div><div class="sbi-track"><div class="sbi-fill" id="sf-hook"></div></div><div class="sbi-val" id="sv-hook">—</div></div>
+        <div class="score-bar-item"><div class="sbi-label">Persuasion</div><div class="sbi-track"><div class="sbi-fill" id="sf-persuasion"></div></div><div class="sbi-val" id="sv-persuasion">—</div></div>
+        <div class="score-bar-item"><div class="sbi-label">Objection Handling</div><div class="sbi-track"><div class="sbi-fill" id="sf-objection"></div></div><div class="sbi-val" id="sv-objection">—</div></div>
+        <div class="score-bar-item"><div class="sbi-label">Close</div><div class="sbi-track"><div class="sbi-fill" id="sf-close"></div></div><div class="sbi-val" id="sv-close">—</div></div>
       </div>
-      <div class="feedback-box">
-        <div class="feedback-title" id="feedback-title">Verdict</div>
-        <div class="feedback-body" id="feedback-body"></div>
+      <div class="verdict-box">
+        <div class="verdict-label" id="verdict-label">Verdict</div>
+        <div class="verdict-text" id="verdict-text"></div>
       </div>
-      <button class="btn-again" onclick="resetGame()">Try Again &rarr;</button>
+      <button class="btn-again" onclick="resetGame()">New Challenge &rarr;</button>
     </div>
   </div>
 
 </div>
 <script>
 const buyers=[
-  {initials:'GB',name:'Gordon Blake',title:'Managing Director · Stratton Capital',mood:'skeptical and unimpressed',opener:"I've got a meeting in two minutes. You want to sell me a pen? Fine. Go ahead — impress me."},
-  {initials:'VM',name:'Victoria Morse',title:'VP Acquisitions · Meridian Group',mood:'cold and dismissive',opener:"I have seventeen pens on this desk. Tell me why I should care about yours."},
-  {initials:'ML',name:'Marcus Levin',title:'Hedge Fund Manager · Apex Capital',mood:'impatient and testing you',opener:"My time costs more than your car. One shot. Sell me the pen."},
-  {initials:'DC',name:'Diana Cole',title:'Partner · BlackStone Advisory',mood:'analytical and suspicious',opener:"I don't buy on impulse. Facts, not fluff. What've you got?"},
-  {initials:'RH',name:'Richard Holt',title:'CEO · Pinnacle Ventures',mood:'arrogant and combative',opener:"I've sat through a thousand pitches. Most were terrible. Convince me yours won't be."},
+  {initials:'GB',name:'Gordon Blake',title:'Managing Director · Stratton Capital',mood:'Skeptical',voice:{pitch:0.85,rate:0.92},opener:"I've got a meeting in two minutes. You want to sell me a pen? Fine — impress me. And make it quick."},
+  {initials:'VM',name:'Victoria Morse',title:'VP Acquisitions · Meridian Group',mood:'Dismissive',voice:{pitch:1.1,rate:0.88},opener:"I have seventeen pens on this desk. Tell me one reason I'd ever need yours."},
+  {initials:'ML',name:'Marcus Levin',title:'Hedge Fund Manager · Apex Capital',mood:'Impatient',voice:{pitch:0.9,rate:1.05},opener:"My time costs more than your car. One shot. Sell me the pen. Go."},
+  {initials:'DC',name:'Diana Cole',title:'Partner · BlackStone Advisory',mood:'Analytical',voice:{pitch:1.05,rate:0.9},opener:"I don't buy on impulse. If you want my money, you better come with facts — not fluff."},
+  {initials:'RH',name:'Richard Holt',title:'CEO · Pinnacle Ventures',mood:'Combative',voice:{pitch:0.8,rate:0.95},opener:"I've sat through a thousand pitches. Most were a waste of my time. Convince me yours won't be."},
 ];
 
 const MAX_ROUNDS=3;
-let buyer,history=[],round=0,isRecording=false,recognition=null,speechSupported=false,waiting=false;
+let buyer,history=[],round=0,waiting=false;
+let isRecording=false,recognition=null,speechSupported=false;
+let ttsEnabled=true,currentUtterance=null,ttsAvailable=false;
 
+/* ── INIT ── */
 function init(){
   buyer=buyers[Math.floor(Math.random()*buyers.length)];
   history=[]; round=0; waiting=false;
   document.getElementById('b-initials').textContent=buyer.initials;
   document.getElementById('b-name').textContent=buyer.name;
   document.getElementById('b-title').textContent=buyer.title;
+  document.getElementById('b-mood').textContent=buyer.mood;
   document.getElementById('chat-window').innerHTML='';
   document.getElementById('pitch-input').value='';
-  document.getElementById('error-msg').textContent='';
-  document.getElementById('status-bar').textContent='';
+  document.getElementById('error-line').textContent='';
+  document.getElementById('status-line').textContent='';
   document.getElementById('send-btn').disabled=true;
-  document.getElementById('edit-hint').classList.remove('visible');
-  updateBadge();
+  document.getElementById('edit-tag').classList.remove('show');
+  updateRound();
+  checkTTS();
   initSpeech();
-  setTimeout(()=>addBubble('buyer',buyer.opener),400);
+  setTimeout(()=>addBuyerBubble(buyer.opener,true),500);
 }
 
-function updateBadge(){
-  document.getElementById('round-badge').textContent='Round '+(round+1)+' of '+MAX_ROUNDS;
+function updateRound(){ document.getElementById('round-num').textContent=round+1; }
+
+/* ── TTS ── */
+function checkTTS(){
+  ttsAvailable='speechSynthesis' in window;
+  if(!ttsAvailable){ ttsEnabled=false; document.getElementById('tts-toggle').style.opacity='0.3'; document.getElementById('tts-toggle').style.pointerEvents='none'; }
+  else{ if(ttsEnabled) document.getElementById('tts-toggle').classList.add('on'); }
 }
 
-function addBubble(who,text){
+function toggleTTS(){
+  if(!ttsAvailable) return;
+  ttsEnabled=!ttsEnabled;
+  document.getElementById('tts-toggle').classList.toggle('on',ttsEnabled);
+  if(!ttsEnabled) stopSpeaking();
+}
+
+function speak(text,onEnd){
+  if(!ttsAvailable) return;
+  stopSpeaking();
+  const utt=new SpeechSynthesisUtterance(text);
+  utt.pitch=buyer.voice.pitch;
+  utt.rate=buyer.voice.rate;
+  utt.volume=1;
+
+  // Pick a good voice
+  const voices=window.speechSynthesis.getVoices();
+  const preferred=['Daniel','Google UK English Male','Microsoft David','Alex','Fred'];
+  let chosen=null;
+  for(const name of preferred){ chosen=voices.find(v=>v.name.includes(name.split(' ')[0])); if(chosen) break; }
+  if(!chosen) chosen=voices.find(v=>v.lang.startsWith('en'));
+  if(chosen) utt.voice=chosen;
+
+  document.getElementById('speaking-ring').classList.add('active');
+  utt.onend=()=>{ document.getElementById('speaking-ring').classList.remove('active'); if(onEnd) onEnd(); };
+  utt.onerror=()=>{ document.getElementById('speaking-ring').classList.remove('active'); };
+  currentUtterance=utt;
+  window.speechSynthesis.speak(utt);
+}
+
+function stopSpeaking(){
+  if(window.speechSynthesis){ window.speechSynthesis.cancel(); }
+  document.getElementById('speaking-ring').classList.remove('active');
+  document.querySelectorAll('.speak-btn').forEach(b=>{ b.classList.remove('speaking'); b.innerHTML='<span class="speak-icon"></span>Replay'; });
+}
+
+/* ── CHAT BUBBLES ── */
+function addBuyerBubble(text, autoSpeak){
   const w=document.getElementById('chat-window');
-  const d=document.createElement('div');
-  d.className='bubble '+who;
-  const nameLabel=who==='buyer'?buyer.name.split(' ')[0]:'You';
-  d.innerHTML='<div class="bname">'+nameLabel+'</div><div>'+text+'</div>';
-  w.appendChild(d); w.scrollTop=w.scrollHeight;
+  const b=document.createElement('div'); b.className='bubble buyer';
+  const firstName=buyer.name.split(' ')[0];
+  b.innerHTML=`<div class="bubble-inner"><div class="bubble-meta">${firstName}</div><div class="bubble-text">${text}</div><button class="speak-btn" onclick="replayBubble(this,'${escQ(text)}')"><span class="speak-icon"></span>Replay</button></div>`;
+  w.appendChild(b); w.scrollTop=w.scrollHeight;
+  if(autoSpeak&&ttsEnabled) speak(text);
+}
+
+function addPlayerBubble(text){
+  const w=document.getElementById('chat-window');
+  const b=document.createElement('div'); b.className='bubble player';
+  b.innerHTML=`<div class="bubble-inner"><div class="bubble-meta">You</div><div>${text}</div></div>`;
+  w.appendChild(b); w.scrollTop=w.scrollHeight;
 }
 
 function showThinking(){
   const w=document.getElementById('chat-window');
-  const d=document.createElement('div');
-  d.className='bubble thinking'; d.id='thinking';
-  d.innerHTML='<div class="dots"><span></span><span></span><span></span></div>';
-  w.appendChild(d); w.scrollTop=w.scrollHeight;
+  const b=document.createElement('div'); b.className='bubble thinking'; b.id='thinking';
+  b.innerHTML='<div class="bubble-inner"><div class="dots"><span></span><span></span><span></span></div></div>';
+  w.appendChild(b); w.scrollTop=w.scrollHeight;
 }
-
 function removeThinking(){ const t=document.getElementById('thinking'); if(t)t.remove(); }
 
+function escQ(s){ return s.replace(/'/g,"\\'").replace(/"/g,'&quot;'); }
+
+function replayBubble(btn,text){
+  document.querySelectorAll('.speak-btn').forEach(b=>{ b.classList.remove('speaking'); b.innerHTML='<span class="speak-icon"></span>Replay'; });
+  btn.classList.add('speaking');
+  btn.innerHTML='<span class="speak-icon"></span>Speaking...';
+  speak(text,()=>{ btn.classList.remove('speaking'); btn.innerHTML='<span class="speak-icon"></span>Replay'; });
+}
+
+/* ── INPUT ── */
 function onInput(){
   const val=document.getElementById('pitch-input').value.trim();
   document.getElementById('send-btn').disabled=val.length<3||waiting;
-  const hint=document.getElementById('edit-hint');
-  if(val.length>0) hint.classList.add('visible'); else hint.classList.remove('visible');
+  document.getElementById('edit-tag').classList.toggle('show',val.length>0);
 }
 
 async function sendMessage(){
@@ -234,101 +360,111 @@ async function sendMessage(){
   if(!text||waiting) return;
   waiting=true;
   document.getElementById('send-btn').disabled=true;
-  document.getElementById('error-msg').textContent='';
-  document.getElementById('edit-hint').classList.remove('visible');
+  document.getElementById('error-line').textContent='';
+  document.getElementById('edit-tag').classList.remove('show');
+  stopSpeaking();
   if(isRecording) stopRecording();
-  addBubble('player',text);
+  addPlayerBubble(text);
   history.push({role:'user',text});
   document.getElementById('pitch-input').value='';
   round++;
-
   if(round>=MAX_ROUNDS){
     showThinking();
     await getFinalScore();
   } else {
-    updateBadge();
+    updateRound();
     showThinking();
     await getReply();
   }
   waiting=false;
-  document.getElementById('send-btn').disabled=document.getElementById('pitch-input').value.trim().length<3;
 }
 
 async function getReply(){
   const convo=history.map(h=>(h.role==='user'?'Salesperson: ':'Buyer: ')+h.text).join('\n');
-  const prompt=`You are ${buyer.name}, a ${buyer.mood} Wall Street executive being pitched a pen.\n\nConversation:\n${convo}\n\nStay in character. React to what they just said. Push back or probe with ONE sharp follow-up question or objection. 2-3 sentences max. Be tough but realistic. Do NOT score or break character.`;
+  const prompt=`You are ${buyer.name}, a ${buyer.mood.toLowerCase()} Wall Street executive being pitched a pen.\n\nConversation:\n${convo}\n\nStay in character. React naturally. Push back or probe with ONE sharp follow-up question or objection. 2-3 sentences max. Tough but realistic.`;
   try{
     const res=await fetch('/api/score',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt,mode:'convo'})});
     const data=await res.json();
     if(!res.ok) throw new Error(data.error||'Error');
     removeThinking();
-    addBubble('buyer',data.reply);
+    addBuyerBubble(data.reply,ttsEnabled);
     history.push({role:'buyer',text:data.reply});
-  }catch(e){ removeThinking(); document.getElementById('error-msg').textContent=e.message||'Something went wrong.'; }
+  }catch(e){ removeThinking(); document.getElementById('error-line').textContent=e.message||'Something went wrong.'; }
 }
 
 async function getFinalScore(){
   const convo=history.map(h=>(h.role==='user'?'Salesperson: ':'Buyer: ')+h.text).join('\n');
-  const prompt=`You are ${buyer.name}, a ${buyer.mood} Wall Street executive. Review this full pen sales conversation and score the salesperson.\n\nConversation:\n${convo}\n\nScore 0-100 each: hook, persuasion, objection, close. overall = average.\nAlso: verdict (one punchy in-character sentence), feedback (3-4 sentences of honest coaching referencing specifics), finalreply (your 2-sentence spoken reaction ending the meeting).\n\nRespond ONLY with valid JSON, no backticks:\n{"hook":N,"persuasion":N,"objection":N,"close":N,"overall":N,"verdict":"...","feedback":"...","finalreply":"..."}`;
+  const prompt=`You are ${buyer.name}, a ${buyer.mood.toLowerCase()} Wall Street executive. Review this pen sales conversation.\n\nConversation:\n${convo}\n\nScore 0-100: hook, persuasion, objection, close. overall = average.\nverdict: one punchy in-character sentence.\nfeedback: 3-4 sentences of honest specific coaching.\nfinalreply: your 2-sentence spoken closing reaction.\n\nRespond ONLY valid JSON, no backticks:\n{"hook":N,"persuasion":N,"objection":N,"close":N,"overall":N,"verdict":"...","feedback":"...","finalreply":"..."}`;
   try{
     const res=await fetch('/api/score',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({prompt,mode:'score'})});
     const data=await res.json();
     if(!res.ok) throw new Error(data.error||'Error');
     removeThinking();
-    if(data.finalreply) addBubble('buyer',data.finalreply);
-    setTimeout(()=>showScore(data),1800);
-  }catch(e){ removeThinking(); document.getElementById('error-msg').textContent=e.message||'Something went wrong.'; }
+    if(data.finalreply){
+      addBuyerBubble(data.finalreply,false);
+      if(ttsEnabled){ speak(data.finalreply,()=>{ setTimeout(()=>showScore(data),800); }); return; }
+    }
+    setTimeout(()=>showScore(data),1600);
+  }catch(e){ removeThinking(); document.getElementById('error-line').textContent=e.message||'Something went wrong.'; }
 }
 
+/* ── SCORE ── */
 function showScore(r){
+  stopSpeaking();
   document.getElementById('game-screen').style.display='none';
   document.getElementById('score-screen').style.display='block';
   window.scrollTo(0,0);
   const o=Math.round(r.overall);
-  const el=document.getElementById('score-big');
+  const el=document.getElementById('score-number');
   el.textContent=o;
-  el.className='score-big '+(o>=80?'great':o>=65?'good':o>=45?'ok':'poor');
+  el.className='score-number '+(o>=80?'great':o>=65?'good':o>=45?'ok':'poor');
   document.getElementById('score-verdict').textContent=r.verdict;
-  document.getElementById('feedback-title').textContent=buyer.name.split(' ')[0]+"'s Verdict";
-  document.getElementById('feedback-body').textContent=r.feedback;
+  document.getElementById('verdict-label').textContent=buyer.name.split(' ')[0]+"'s Verdict";
+  document.getElementById('verdict-text').textContent=r.feedback;
   ['hook','persuasion','objection','close'].forEach(k=>{
     const v=Math.round(r[k]);
-    document.getElementById('bv-'+k).textContent=v+' / 100';
-    setTimeout(()=>{ document.getElementById('bf-'+k).style.width=v+'%'; },400);
+    document.getElementById('sv-'+k).textContent=v;
+    setTimeout(()=>{ document.getElementById('sf-'+k).style.width=v+'%'; },300);
   });
 }
 
 function resetGame(){
+  stopSpeaking();
   document.getElementById('score-screen').style.display='none';
   document.getElementById('game-screen').style.display='block';
-  ['hook','persuasion','objection','close'].forEach(k=>{ document.getElementById('bf-'+k).style.width='0%'; document.getElementById('bv-'+k).textContent='—'; });
+  ['hook','persuasion','objection','close'].forEach(k=>{ document.getElementById('sf-'+k).style.width='0%'; document.getElementById('sv-'+k).textContent='—'; });
   init();
 }
 
+/* ── SPEECH RECOGNITION ── */
 function initSpeech(){
   const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
   if(!SR){ speechSupported=false; document.getElementById('record-btn').classList.add('unavailable'); return; }
   speechSupported=true;
   if(recognition){ try{recognition.abort();}catch(e){} }
   recognition=new SR(); recognition.continuous=true; recognition.interimResults=true; recognition.lang='en-US';
-  recognition.onstart=()=>{ document.getElementById('status-bar').textContent='Listening...'; };
+  recognition.onstart=()=>{ document.getElementById('status-line').textContent='Listening...'; };
   recognition.onresult=(e)=>{
     let final='',interim='';
     for(let i=0;i<e.results.length;i++){ if(e.results[i].isFinal) final+=e.results[i][0].transcript+' '; else interim+=e.results[i][0].transcript; }
     const val=(final+interim).trim();
     document.getElementById('pitch-input').value=val;
     document.getElementById('send-btn').disabled=val.length<3||waiting;
-    if(val) document.getElementById('edit-hint').classList.add('visible');
+    document.getElementById('edit-tag').classList.toggle('show',val.length>0);
   };
-  recognition.onerror=(e)=>{ if(e.error==='not-allowed') document.getElementById('status-bar').textContent='Mic access denied.'; stopRecording(); };
+  recognition.onerror=(e)=>{ if(e.error==='not-allowed') document.getElementById('status-line').textContent='Mic denied.'; stopRecording(); };
   recognition.onend=()=>{ if(isRecording){ try{recognition.start();}catch(err){} } };
 }
 
 function toggleRecording(){ if(!speechSupported) return; if(!isRecording) startRecording(); else stopRecording(); }
-function startRecording(){ isRecording=true; try{recognition.start();}catch(e){} document.getElementById('record-btn').classList.add('recording'); document.getElementById('record-label').textContent='Stop'; }
-function stopRecording(){ isRecording=false; try{recognition.stop();}catch(e){} document.getElementById('record-btn').classList.remove('recording'); document.getElementById('record-label').textContent='Record'; document.getElementById('status-bar').textContent=document.getElementById('pitch-input').value.trim()?'Done — edit if needed, then send.':''; }
+function startRecording(){ isRecording=true; try{recognition.start();}catch(e){} document.getElementById('record-btn').classList.add('recording'); document.getElementById('rec-label').textContent='Stop'; }
+function stopRecording(){ isRecording=false; try{recognition.stop();}catch(e){} document.getElementById('record-btn').classList.remove('recording'); document.getElementById('rec-label').textContent='Record'; const v=document.getElementById('pitch-input').value.trim(); document.getElementById('status-line').textContent=v?'Done — edit above if needed, then send.':''; }
 
+// Cmd+Enter
 document.addEventListener('keydown',e=>{ if((e.metaKey||e.ctrlKey)&&e.key==='Enter'){ e.preventDefault(); if(!document.getElementById('send-btn').disabled) sendMessage(); } });
+
+// Load voices async
+if('speechSynthesis' in window){ window.speechSynthesis.onvoiceschanged=()=>{}; window.speechSynthesis.getVoices(); }
 
 init();
 </script>
